@@ -1,0 +1,16 @@
+enable  : true
+item  :
+  - icon  : tf-ion-ios-copy-outline
+    title : Expertise
+    description : >
+      That's what we are at the most basic level. Edgy, passionate, Experts. We deployed OpenStack clusters before it was easy, we ran workloads on Kubernetes before it was cool and we did Infrastructure as Code before you know it.
+
+  - icon  : tf-ion-ios-alarm-outline
+    title : Consulting
+    description : >
+      Technical expertise can't rely on its own, the big picture needs to be fully understand in order to achieve the best of what Cloud Native technologies have to offer
+
+  - icon  : ti-panel
+    title : Training
+    description : >
+      Training is the keystone of every successful journey into Cloud Native technologies

@@ -1,0 +1,33 @@
+############################### team ############################
+team:
+  enable : true
+  title : Our Team
+  team_Member :
+    - image : images/team/romainguichard.jpg
+      name : Romain Guichard
+      designation : CEO / Co-founder
+      content : |
+        - Certified Kubernetes Administrator
+        - Certified Kubernetes Application Developer
+        - Docker Certified Associate
+        - Certified OpenStack Administrator
+      social_Icon :
+        - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
+          link : "https://twitter.com/herrguichard"
+        - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
+          link : "https://www.linkedin.com/in/romainguichard"
+    - image : images/team/kevinlefevre.jpg
+      name : Kevin Lefevre
+      designation : CTO / Co-founder
+      content : |
+        - Certified OpenStack
+        - Certified AWS Solutions Architect Pro
+        - Certified GCP Professional Architect
+        - Certified Kubernetes Administrator
+        - Certified Kubernetes Application Developer
+      social_Icon :
+        - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
+          link : "https//twitter.com/archifleks"
+        - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
+          link : "https://www.linkedin.com/in/kevinlefevre/"
+

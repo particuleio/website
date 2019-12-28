@@ -1,1 +1,4 @@
 public
+.terraform
+.terraform.d
+.terragrunt-cache

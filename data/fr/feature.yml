@@ -1,0 +1,16 @@
+enable  : true
+item  :
+  - icon  : tf-ion-ios-copy-outline
+    title : Expertise
+    description : >
+      Notre identité. Des experts passionnés et à la pointe de leur travail. Nous déployions des clusters OpenStack avant que ce soit facile, nous faisions tourner des applications sur Kubernetes avant que ce soit cool et nous pratiquions l'Infrastructure as Code avant que vous en entendiez parler.
+
+  - icon  : tf-ion-ios-alarm-outline
+    title : Consulting
+    description : >
+      L'expertise technique ne suffit pas, comprendre un projet et ses implications est nécessaire pour que les technologies Cloud Native s'expriment complètement.
+
+  - icon  : ti-panel
+    title : Formation
+    description : >
+      La formation est la pierre angulaire de votre voyage vers les technologies Cloud Native
