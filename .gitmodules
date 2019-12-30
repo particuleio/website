@@ -1,3 +1,4 @@
 [submodule "themes/navigator-hugo"]
 	path = themes/navigator-hugo
 	url = https://github.com/particuleio/navigator-hugo.git
+	branch = master
