@@ -14,8 +14,8 @@ pygmentsCodeFences = true
 
 # Multilangues setup
 # Renders the default content language in subdir, e.g. /en/. The root directory / will redirect to /en/
-defaultContentLanguageInSubdir = true
-DefaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+DefaultContentLanguage = "fr"
 
 # Hugo 60.0 and after
 # allow raw html into markdown files
@@ -100,19 +100,19 @@ unsafe= true
     [Languages.fr]
     weight = 1
     languageCode = "fr-fr"
-    title = "FRANCAIS Example site multi-language"
+    title = "Particule | Cloud Native Infrastructure"
     dateFormat = "2 January 2006"
 
-    home = "FR Home"
+    home = "Home"
     logo = "images/logo.png"
     logopreload = "images/logofull.png"
     menufixed = false
 
-    footerDescription = "FRANCAIS Integer posuere erat a ante venenati dapibus posuere velit aliquet. Fusce dapibus, tellus cursus commodo, tortor mauris sed posuere."
-    footerServiceTitle = "FRANCAIS Services"
-    footerQuicklinkTitle = "FRANCAIS Quick links"
-    footerAboutTitle = "FRANCAIS About"
-    footerSubscribeTitle = "FRANCAIS Subscribe"
+    footerDescription = "Particule vous accompagne dans vos projets Cloud Native avec une expertise pointue sur Kubernetes, Docker, Amazon Web Services et OpenStack"
+    footerServiceTitle = "Services"
+    footerQuicklinkTitle = "Liens"
+    footerAboutTitle = "A Propos"
+    footerSubscribeTitle = "Subscribe"
 
     # Hero Area Section
     [Languages.fr.params.hero]
@@ -143,7 +143,7 @@ unsafe= true
         enable  = true
         topTitle= "On vous écoute !"
         title   = "Nous contacter"
-        subtitle= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum reiciendis quasi itaque, obcaecati atque sit!"
+        subtitle= ""
         address = "128 rue la Boétie, 75008, Paris"
         phone   = "+33 6 84 39 34 12"
         twitter = "https://twitter.com/particuleio"
@@ -156,15 +156,15 @@ unsafe= true
     [Languages.fr.params.cta]
         enable  = false
         bg      = "images/call-to-action/call-to-action-bg-2.jpg"
-        title   = "FRANCAIS Let's Create Something Together"
-        subtitle= "Proin gravida nibh vel velit auctor aliquet. Aenean sollicudin bibendum auctor, <br> nisi elit consequat ipsum, nesagittis sem nid elit. Duis sed odio sitain elit."
+        title   = ""
+        subtitle= ""
         btnText = "Nous contacter"
 
     ############# 2 - Site en ENGLISH
     [Languages.en]
     weight = 2
     languageCode = "en-us"
-    title = "particule."
+    title = "Particule | Cloud Native Infrastructure"
     dateFormat = "January 2, 2006"
 
     home = "EN Home"
@@ -172,7 +172,7 @@ unsafe= true
     logopreload = "images/logos/logopreload.png"
     menufixed = false
 
-    footerDescription = "Integer posuere erat a ante venenati dapibus posuere velit aliquet. Fusce dapibus, tellus cursus commodo, tortor mauris sed posuere."
+    footerDescription = "We help customers into their Cloud Native journey with a strong expertise on Kubernetes, Docker, Amazon Web Services and OpenStack"
     footerServiceTitle = "Service"
     footerQuicklinkTitle = "Quicklinks"
     footerAboutTitle = "About"
@@ -204,14 +204,14 @@ unsafe= true
         enable  = true
         topTitle= "Our Cloud"
         title   = "Blog."
-        subtitle= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum reiciendis quasi itaque, obcaecati atque sit!"
+        subtitle= ""
 
     # Contact Section
     [Languages.en.params.contact]
         enable  = true
         topTitle= "DROP US A NOTE"
         title   = "Contact Us."
-        subtitle= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum reiciendis quasi itaque, obcaecati atque sit!"
+        subtitle= ""
         address = "128 rue la Boétie, 75008, Paris"
         phone   = "+33 6 84 39 34 12"
         email   = "contact@particule.io"
@@ -237,9 +237,13 @@ unsafe= true
 [menu]
     # Navbar Menus
     [[menu.nav]]
-        name    = "service"
+        name    = "Service"
         url     = "service"
         weight  = 3
+    [[menu.nav]]
+        name    = "Blog"
+        url     = "blog"
+        weight  = 1
     # Footer Service Menu
     [[menu.service]]
         name    = "graphicdesign"
