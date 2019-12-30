@@ -5,8 +5,8 @@ Date: 2016-05-13
 Category: Kubernetes
 Series:  Kubernetes deep dive
 Summary: Premier article de la série sur Kubernetes, on commence avec le déploiement d'un cluster sur AWS "the CoreOS way"
-Authors: Kevin Lefevre
-Thumbnail: images/thumbnails/kubernetes.png
+Author: Kevin Lefevre
+image: images/thumbnails/kubernetes.png
 ---
 
 <center><img src="/images/docker/kubernetes.png" alt="coreos" width="400" align="middle"></center>

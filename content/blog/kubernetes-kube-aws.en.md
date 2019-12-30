@@ -5,8 +5,8 @@ Category: Kubernetes
 Date: 2016-05-13
 Series: Kubernetes deep dive
 Summary: Deploy a Kubernetes cluster on AWS with CoreOS.
-Authors: Kevin Lefevre
-Thumbnail: images/thumbnails/kubernetes.png
+Author: Kevin Lefevre
+image: images/thumbnails/kubernetes.png
 ---
 
 <center><img src="/images/docker/kubernetes.png" alt="coreos" width="400" align="middle"></center>

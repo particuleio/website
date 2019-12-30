@@ -1,11 +1,13 @@
-Title: Kubernetes : Torus, a cloud native distributed file system
+---
+Title: Torus, a cloud native distributed file system
 lang: en
-Date: 2016-07-11 16:00
+Date: 2016-07-11
 Category: Kubernetes
 Series:  Kubernetes deep dive
-Summary: Discover Torus : an etcd backed distributed file system that can be use by Kubernetes FlexVolume.
+Summary: Discover Torus, an etcd backed distributed file system that can be use by Kubernetes FlexVolume.
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
+---
 
 <center><img src="/images/docker/kubernetes.png" alt="coreos" width="400" align="middle"></center>
 
