@@ -146,6 +146,7 @@ unsafe= true
         subtitle= ""
         address = "128 rue la Boétie, 75008, Paris"
         phone   = "+33 6 84 39 34 12"
+        github = "https://github.com/particuleio"
         twitter = "https://twitter.com/particuleio"
         linkedin= "https://www.linkedin.com/company/particuleio/"
         mapLatitude = "48.870955"
@@ -215,10 +216,10 @@ unsafe= true
         address = "128 rue la Boétie, 75008, Paris"
         phone   = "+33 6 84 39 34 12"
         email   = "contact@particule.io"
-        facebook= "https://www.facebook.com/"
+        github = "https://github.com/particuleio"
         twitter = "https://twitter.com/particuleio"
         linkedin= "https://www.linkedin.com/company/particuleio/"
-        instagram= "https://www.instagram.com/"
+#        instagram= "https://www.instagram.com/"
         mapLatitude = "48.870955"
         mapLongitude= "2.305982"
         mapMarker   = "images/marker.png"
@@ -236,10 +237,6 @@ unsafe= true
 # Site Menus
 [menu]
     # Navbar Menus
-    [[menu.nav]]
-        name    = "Service"
-        url     = "service"
-        weight  = 3
     [[menu.nav]]
         name    = "Blog"
         url     = "blog"
