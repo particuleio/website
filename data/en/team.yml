@@ -1,7 +1,7 @@
 ############################### team ############################
 team:
   enable : true
-  title : Our Team
+  title : Our Team.
   team_Member :
     - image : images/team/romainguichard.jpg
       name : Romain Guichard
