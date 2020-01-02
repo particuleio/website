@@ -135,7 +135,7 @@ unsafe= true
     [Languages.fr.params.blog]
         enable  = true
         topTitle= "Notre Cloud"
-        title   = "Blog"
+        title   = "Blog."
         subtitle= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum reiciendis quasi itaque, obcaecati atque sit!"
 
     # Contact Section
@@ -146,6 +146,7 @@ unsafe= true
         subtitle= ""
         address = "128 rue la Boétie, 75008, Paris"
         phone   = "+33 6 84 39 34 12"
+        email   = "contact@particule.io"
         github = "https://github.com/particuleio"
         twitter = "https://twitter.com/particuleio"
         linkedin= "https://www.linkedin.com/company/particuleio/"
@@ -159,7 +160,7 @@ unsafe= true
         bg      = "images/call-to-action/call-to-action-bg-2.jpg"
         title   = ""
         subtitle= ""
-        btnText = "Nous contacter"
+        btnText = "Nous contacter."
 
     ############# 2 - Site en ENGLISH
     [Languages.en]
