@@ -233,20 +233,11 @@ unsafe= true
 
     # Footer Quick links Menu
     [[menu.quicklink]]
-        name    = "partners"
-        url     = "about"
+        name    = "symplegma"
+        url     = "https://github.com/clusterfrak-dynamics/symplegma"
         weight  = 1
     [[menu.quicklink]]
-        name    = "about"
-        url     = "about"
+        name    = "teks"
+        url     = "https://github.com/clusterfrak-dynamics/teks"
         weight  = 2
-    [[menu.quicklink]]
-        name    = "faqs"
-        url     = "about"
-        weight  = 3
-    [[menu.quicklink]]
-        name    = "badges"
-        url     = "about"
-        weight  = 4
-
 
