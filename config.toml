@@ -39,34 +39,9 @@ unsafe= true
 ############################# Plugins ##########################
 # css plugins
     [[Params.plugins.css]]
-    URL = "plugins/bootstrap/bootstrap.min.css"
-    [[Params.plugins.css]]
-    URL = "plugins/themify-icons/themify-icons.css"
-    [[Params.plugins.css]]
-    URL = "plugins/animate-css/animate.css"
-    [[Params.plugins.css]]
-    URL = "plugins/magnific-popup/magnific-popup.css"
-    [[Params.plugins.css]]
-    URL = "plugins/slick/slick.css"
-    [[Params.plugins.css]]
     URL = "plugins/themify-icons/themify-icons.css"
     [[Params.plugins.css]]
     URL = "plugins/fontawesome/all.min.css"
-
-# js plugins
-    [[Params.plugins.js]]
-    URL = "plugins/jquery/jquery.min.js"
-    [[Params.plugins.js]]
-    URL = "plugins/bootstrap/bootstrap.min.js"
-    [[Params.plugins.js]]
-    URL = "plugins/slick/slick.min.js"
-    [[Params.plugins.js]]
-    URL = "plugins/shuffle/shuffle.min.js"
-    [[Params.plugins.js]]
-    URL = "plugins/magnific-popup/jquery.magnific-popup.min.js"
-    [[Params.plugins.js]]
-    URL = "plugins/wow/wow.min.js"
-
 
 ############################# social icons ##########################
     [[Params.social_Icon]]
