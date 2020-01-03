@@ -8,11 +8,17 @@ env:
   - AWS_S3_BUCKET_NAME="particule-frontend-static-site"
   - AWS_CLOUDFRONT_DISTRIBUTION_ID="E2BTLS675M5S4F"
 install:
-  - pip install awscli
+- pip install awscli
 script:
-  - wget -qO- "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" | tar xvz
-  - ls
-  - ./hugo
+- wget -qO- "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz"
+  | tar xvz
+- ls
+- "./hugo"
 after_success:
-  - aws s3 sync public s3://${AWS_S3_BUCKET_NAME} --delete
-  - aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+- aws s3 sync public s3://${AWS_S3_BUCKET_NAME} --delete
+- aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID
+  --paths '/*'
+notifications:
+  slack:
+    notifications:
+      secure: QOExU6l09r8wjBD7gQfBzPCAZ2CRvtZR2iR+0t+HrQgeaJyb0k0cF8RWK+HrV4Vx9nfEZg+nAsJn2IuyQlX13oMigYbE3d4ja3z/+arhQGrPFgS+/xsVQcvwBXKlnAodw2QuD47gj38mXTFom4ZWloyP2jOwEKFqcSrUnDDyblmvQ70fQLMAgyJh1OvoxE2j8vaS+QZTuTy4LeG/gnE++eW30wCExo+PORwiI0f48dAy8wB3c3g71SXDhPimiPz5c9/DbIyOvJvUh18l75XXmbl93c1C0TQiT2PhIJNROuNIKlsw3FPCsSsCOtGb59i/n+XVGv9SYv6CxMYmgmOAMf90N+lBn4K4RHMtOMnT0qyiuqmaJKNcpKfG1dGWuLoqHR+GHRdBbRpWBFO/gG9YKX0XRBnb5Wp6MLsb2wbiVfTFYChSZbLrcDmNz7an4iSSflW2MsNtPZh1FDcCit3wx9dVAtGRaw80xjH4BNoplYeyfQ8FzVWpJb+U1e49GwElDZ3+IFf80bWb2ENRPlynQSD7+B/10eyBE64j0X0PtE8HG1shGD89RWfXr9s4AqoPLW9f82/pbmyHQVBBr23ZFNid68gseDR9j8Twd2qiHKRryW3JPxdRN2fRLIZP19JwvyEHLcvg8zKcOopAQuuoOxH8EwmMjkklsW35KvR/438=
