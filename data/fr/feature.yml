@@ -1,16 +1,16 @@
 enable  : true
 item  :
-  - icon  : tf-ion-ios-copy-outline
+  - icon  : fas fa-terminal
     title : Expertise
     description : >
-      Notre identité. Des experts passionnés et à la pointe de leur travail. Nous déployions des clusters OpenStack avant que ce soit facile, nous faisions tourner des applications sur Kubernetes avant que ce soit cool et nous pratiquions l'Infrastructure as Code avant que vous en entendiez parler.
+      On-premise, cloud privé ou public, nous sommes certifiés, passionnés et nous sauront vous apporter une expertise de pointe sur tous vos projets innovants.
 
-  - icon  : tf-ion-ios-alarm-outline
+  - icon  : fas fa-code-branch
     title : Consulting
     description : >
-      L'expertise technique ne suffit pas, comprendre un projet et ses implications est nécessaire pour que les technologies Cloud Native s'expriment complètement.
+      Nous vous accompagnons sur vos projets Cloud Native, de la phase de développement à la mise en production, sur les aspects d'intégration continue, de sécurité et de respects des bonnes pratiques.
 
-  - icon  : ti-panel
+  - icon  : fas fa-award
     title : Formation
     description : >
-      La formation est la pierre angulaire de votre voyage vers les technologies Cloud Native
+      Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont d'ailleurs totalement [open-sourcés](https://github.com/particuleio/formations).

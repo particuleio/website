@@ -2,18 +2,18 @@ enable  : true
 item    :
   - positionRight : false
     image : images/about/wheel_logo.png
-    title : FRANCAIS Creativity is in our blood
+    title : Peu importe l'infrastructure
     description : >
-      FRANCAIS Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      Nous pensons que l'agnosticité est un composant majeur des infrastructures Cloud. C'est pourquoi nous travaillons sur les plateformes qui correspondent à vos projets que ce soit dans vos datacenters ou sur du cloud public. Un cluster <strong>OpenStack</strong> on-premise, des clusters <strong>Kubernetes</strong> sur <strong>Amazon Web Services</strong> ou bien une infrastructure scalable sur <strong>Google Cloud Plateform</strong>, si des API sont présentes, nous saurons en tirer partie.
 
   - positionRight : true
     image : images/about/codedry.png
-    title : FRANCAIS We think out of the Box
+    title : Pourvu qu'elle soit As Code
     description : >
-      FRANCAIS Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      L'Infrastructure as Code, <strong>source unique de vérité</strong>, permet d'assurer une cohérence entre vos environnements de production et de tests, une capacité à remonter <em>from scratch</em> une infrastructure. Elle apporte de la confiance et de la sérénité dans le cycle de vie de vos projets.
 
   - positionRight : false
     image : images/about/gitflow.png
-    title : FRANCAIS We think out of the Box
+    title : Génération GitOps
     description : >
-      FRANCAIS Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      Cette <strong>source unique de vérité</strong> permet aussi, comme pour vos infrastructures, d'assurer les déploiements de vos applications. <strong>Git</strong> et votre <strong>CI/CD</strong> deviendront les éléments pivots de toute votre stack applicative et de votre infrastructure. Ajouter un LoadBalancer se fera d'un simple commit.
