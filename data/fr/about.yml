@@ -4,13 +4,12 @@ item    :
     image : images/about/wheel_logo.png
     title : Peu importe l'infrastructure
     description : >
-      Nous pensons que l'agnosticité est un composant majeur des infrastructures Cloud. C'est pourquoi nous travaillons sur les plateformes qui correspondent à vos projets que ce soit dans vos datacenters ou sur du cloud public. Un cluster <strong>OpenStack</strong> on-premise, des clusters <strong>Kubernetes</strong> sur <strong>Amazon Web Services</strong> ou bien une infrastructure scalable sur <strong>Google Cloud Plateform</strong>, si des API sont présentes, nous saurons en tirer partie.
-
+      Nous soutenons activement le caractère agnostique des infrastructures Cloud. C'est pourquoi nous travaillons sur les plateformes qui correspondent à vos projets, que ce soit dans vos datacenters ou sur du cloud public. Si des API sont présentes, nous saurons en tirer partie, qu'il s'agisse d'un cluster <strong>OpenStack</strong> on-premise, de clusters <strong>Kubernetes</strong> sur <strong>Amazon Web Services</strong> ou bien d'une infrastructure scalable sur <strong>Google Cloud Plateform</strong>.
   - positionRight : true
     image : images/about/codedry.png
     title : Pourvu qu'elle soit As Code
     description : >
-      L'Infrastructure as Code, <strong>source unique de vérité</strong>, permet d'assurer une cohérence entre vos environnements de production et de tests, une capacité à remonter <em>from scratch</em> une infrastructure. Elle apporte de la confiance et de la sérénité dans le cycle de vie de vos projets.
+      L'Infrastructure as Code, <strong>source unique de vérité</strong>, permet d'assurer une cohérence entre vos environnements de production et de tests et une capacité à remonter <em>from scratch</em> une infrastructure. Elle apporte de la confiance et de la sérénité dans le cycle de vie de vos projets.
 
   - positionRight : false
     image : images/about/gitflow.png

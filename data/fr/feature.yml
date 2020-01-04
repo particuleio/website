@@ -3,14 +3,14 @@ item  :
   - icon  : fas fa-terminal
     title : Expertise
     description : >
-      On-premise, cloud privé ou public, nous sommes certifiés, passionnés et nous sauront vous apporter une expertise de pointe sur tous vos projets innovants.
+      On-premise, cloud privé ou public, nous sommes certifiés, passionnés et nous saurons vous apporter une expertise de pointe sur tous vos projets innovants.
 
   - icon  : fas fa-code-branch
     title : Consulting
     description : >
-      Nous vous accompagnons sur vos projets Cloud Native, de la phase de développement à la mise en production, sur les aspects d'intégration continue, de sécurité et de respects des bonnes pratiques.
+      Nous vous accompagnons sur vos projets Cloud Native, de la phase de développement à la mise en production, sur les aspects d'intégration continue, de sécurité et de respect des bonnes pratiques.
 
   - icon  : fas fa-award
     title : Formation
     description : >
-      Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont d'ailleurs totalement [open-sourcés](https://github.com/particuleio/formations).
+      Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [open-sourcés](https://github.com/particuleio/formations).
