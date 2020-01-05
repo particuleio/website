@@ -26,3 +26,22 @@ other = "FR Badges"
 other = "Symplegma"
 [teks]
 other = "TEKS"
+
+[location]
+other = "Nos bureaux."
+[contactus]
+other = "Nous contacter."
+[wearesocial]
+other = "Sur les réseaux sociaux."
+[phone]
+other = "Téléphone"
+[yourname]
+other = "Votre nom"
+[youremail]
+other = "Votre email"
+[submit]
+other = "Envoyer"
+[subject]
+other = "Sujet"
+[message]
+other = "Message"

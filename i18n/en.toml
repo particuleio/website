@@ -22,3 +22,22 @@ other = "EN Partners"
 other = "EN FAQ's"
 [badges]
 other = "EN Badges"
+
+[location]
+other = "Our Location."
+[contactus]
+other = "Contact Us."
+[wearesocial]
+other = "We are social."
+[phone]
+other = "Phone"
+[yourname]
+other = "Your Name"
+[youremail]
+other = "Your Email"
+[submit]
+other = "Submit"
+[subject]
+other = "Subject"
+[message]
+other = "Message"
