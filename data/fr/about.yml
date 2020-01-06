@@ -5,6 +5,7 @@ item    :
     title : Peu importe l'infrastructure
     description : >
       Nous soutenons activement le caractère agnostique des infrastructures Cloud. C'est pourquoi nous travaillons sur les plateformes qui correspondent à vos projets, que ce soit dans vos datacenters ou sur du cloud public. Si des API sont présentes, nous saurons en tirer partie, qu'il s'agisse d'un cluster <strong>OpenStack</strong> on-premise, de clusters <strong>Kubernetes</strong> sur <strong>Amazon Web Services</strong> ou bien d'une infrastructure scalable sur <strong>Google Cloud Plateform</strong>.
+
   - positionRight : true
     image : images/about/codedry.png
     title : Pourvu qu'elle soit As Code
