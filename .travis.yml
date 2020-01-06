@@ -15,9 +15,8 @@ script:
 - ls
 - "./hugo"
 after_success:
-- aws s3 sync public s3://${AWS_S3_BUCKET_NAME} --delete
-- aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID
-  --paths '/*'
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws s3 sync public s3://${AWS_S3_BUCKET_NAME} --delete; fi
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'; fi
 notifications:
   slack:
     rooms:
