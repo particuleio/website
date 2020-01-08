@@ -51,7 +51,7 @@ services:
       - "$PWD/traefik.toml:/traefik.toml"
 
   webapp:
-    image: osones/helloworld
+    image: particule/helloworld
     labels:
       - "traefik.port=80"
       - "traefik.backend=hello"
@@ -60,7 +60,7 @@ services:
 
 Rien de spécial du côté du conteneur Traefik. Une interface web est dispo sur le port 8080.
 
-Pour notre webapp de test, j'ai repris l'image dockercloud/hello-world modifiée avec le logo Osones, qui nous permettra de vérifier la load balancing simplement.
+Pour notre webapp de test, j'ai repris l'image dockercloud/hello-world modifiée avec le logo particule, qui nous permettra de vérifier la load balancing simplement.
 Les labels servent à donner les informations à Traefik.
 
   * Un backend représente ici un service. Si traefik décide de forwarder les requêtes web à un backend, celles-ci seront load balancées entre tous les conteneurs appartenant à ce backend.
@@ -86,9 +86,9 @@ On peut ensuite lancer tout ça : `docker-compose up -d`
 
 Pour le test, j'ai ajouté `127.0.0.1 hello.docker` dans mon fichier `/etc/hosts`.
 
-Vous pouvez tester l'URL `http://hello.docker` dans votre navigateur. La page du conteneur `osones/helloworld` devrait fonctionner.
+Vous pouvez tester l'URL `http://hello.docker` dans votre navigateur. La page du conteneur `particule/helloworld` devrait fonctionner.
 
-Mais ce qui est vraiment intéressant c'est que si on augmente le nombre de conteneur `osones/helloworld`
+Mais ce qui est vraiment intéressant c'est que si on augmente le nombre de conteneur `particule/helloworld`
 
 ```
 docker-compose scale webapp=5
@@ -108,9 +108,9 @@ curl localhost:8500/v1/catalog/services | jq .
 {
   "consul": [],
   "hello": [],
-  "osones/helloworld": [
+  "particule/helloworld": [
     "traefik.backend=hello2",
-    "traefik.frontend.rule=Host:hello2.osones.com"
+    "traefik.frontend.rule=Host:hello2.particule.io"
   ]
 }
 ```
@@ -118,14 +118,14 @@ Le KV Store
 ```
 curl http://localhost:8500/v1/kv/\?recurse
 
-curl -X PUT -d 'good' http://localhost:8500/v1/kv/web/osones
+curl -X PUT -d 'good' http://localhost:8500/v1/kv/web/particule
 curl  http://localhost:8500/v1/kv/\?recurse | jq .
 [
   {
     "CreateIndex": 35,
     "ModifyIndex": 35,
     "LockIndex": 0,
-    "Key": "web/osones",
+    "Key": "web/particule",
     "Flags": 0,
     "Value": "Z29vZA=="
   }
@@ -169,13 +169,13 @@ services:
       SERVICE_IGNORE: "true"
 
   hello:
-    image: osones/helloworld
+    image: particule/helloworld
     labels:
       SERVICE_NAME: "hello"
   hello2:
-    image: osones/helloworld
+    image: particule/helloworld
     labels:
-      SERVICE_TAGS: "traefik.backend=hello2,traefik.frontend.rule=Host:hello2.osones.com"
+      SERVICE_TAGS: "traefik.backend=hello2,traefik.frontend.rule=Host:hello2.particule.io"
 ```
 
 Et le traefik.toml
@@ -206,7 +206,7 @@ curl localhost:8500/v1/catalog/service/helloworld | jq .
     "ServiceName": "helloworld",
     "ServiceTags": [
       "traefik.backend=hello2",
-      "traefik.frontend.rule=Host:hello2.osones.com"
+      "traefik.frontend.rule=Host:hello2.particule.io"
     ],
     "ServiceAddress": "172.18.0.4",
     "ServicePort": 80
@@ -215,36 +215,14 @@ curl localhost:8500/v1/catalog/service/helloworld | jq .
 ```
 
 
-Deux URL sont donc disponibles, `hello.consul.local` et `hello2.osones.com` donnant respectivement accès aux backends `hello` et `hello2`.
+Deux URL sont donc disponibles, `hello.consul.local` et `hello2.particule.io` donnant respectivement accès aux backends `hello` et `hello2`.
 
 
 # Conclusion
 
 Bien que consul-template permettait déjà d'effectuer beaucoup d'update de configuration de façon automatique, Traefik apporte énormément de simplicité et de puissance ainsi qu'une compatibilité avec énormément de produit.
 
-Une présentation des Ingress Controllers sous Kubernetes ainsi qu'une intérgration avec Traefik et Let's Encrypt en bonus est disponible [ici](kubernetes-ingress-controller-avec-traefik-et-lets-encrypt.html) !
+Une présentation des [Ingress Controllers sous Kubernetes ainsi qu'une intérgration avec Traefik et Let's Encrypt est disponible](https://dev.particule.io/blog/kubernetes-ingress/) !
 
 
-<br />
-# Aller plus loin :
-
-## (Re)découvrez les derniers articles Osones !
-
-Si vous les avez loupés, voici les nouveaux articles sur le Blog Osones :
-
-* [Construire un pipeline de déploiement continu avec Kubernetes et Concourse-CI](https://blog.osones.com/construire-un-pipeline-de-deploiement-continu-avec-kubernetes-et-concourse-ci.html)
-* [Conteneurs sur AWS : ECS, EKS, ou Fargate ?](https://blog.osones.com/conteneurs-sur-aws-ecs-eks-ou-fargate.html)
-* [Multi git branches workflow with Concourse-CI (EN)](https://blog.osones.com/en/multi-git-branches-workflow-with-concourse-ci.html)
-* [Kubernetes : Introduction aux PetSet et bootstrap d'un cluster Consul](http://blog.osones.com/kubernetes-introduction-aux-petset-et-bootstrap-dun-cluster-consul.html)
-
-
-<br /> <br />
-## Rejoignez vous aussi la conversation !
-
-* Questions, remarques, suggestions... Contactez-nous directement sur Twitter sur [@osones](https://twitter.com/osones) !
-* Pour discuter avec nous de vos projets, nous sommes disponibles directement via contact@osones.com !
-
-<br />
-
-
-**[Romain Guichard](author/romain-guichard.html)**
+**[Romain Guichard](https://www.linkedin.com/in/romainguichard)**
