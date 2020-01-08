@@ -4,7 +4,7 @@ Date: 2018-02-05
 Category: CI/CD
 Summary: Combiner Concourse-CI et Kubernetes pour construire un pipeline de déploiement pour vos applications
 Author: Romain Guichard
-image: cicd-generic.png
+image: images/thumbnails/kubernetes.png
 lang: fr
 ---
 
@@ -57,19 +57,9 @@ Elle est volontairement extrêmement simple et ne fait qu'afficher notre logo ai
 
 On peut attaquer la configuration de Concourse-CI !
 
-
-<br />
-<center>
-<a href="mailto:recrutement@osones.com"><img src="/images/campagnes-osones/recrutement.png" alt="Contactez des Experts AWS certifiés !" align="middle">
-</a>
-</center>
-<br />
-
-
 # Concourse-CI
 
-<center>![Concourse CI](/images/concourse-logo.png)</center>
-
+![Concourse CI](/images/concourse-logo.png#center)
 
 Comme prévenu, je ne reviendrais pas en détails sur Concourse et son fonctionnement. Pour faire court, __Concourse est un outil de CI/CD écrit en Go, nativement prévu pour tourner sur des infrastructures cloud et pour scaler__. Il fonctionne sur des "ressources" permettant de récupérer des images Docker, de pusher sur S3, créer des ressources Kubernetes etc. Tout se décrit dans des fichiers yml et tout est donc versionnable, Concourse ne stocke quasiment rien. Voilà pour l'intro ;)
 
@@ -144,14 +134,13 @@ $ fly -t osones unpause-pipeline -p demo-cicd
 ```
 Dans notre `secrets/demo-cicd.yml` vous devrez retrouvez les variables utilisées dans votre pipeline.
 
-<center>![Pipeline](/images/pipeline-concourse-k8s-cd.png)</center>
-
+![Pipeline](/images/pipeline-concourse-k8s-cd.png#center)
 
 Passons maintenant Kubernetes :
 
 # Kubernetes
 
-<center>![Kubernetes](/images/docker/kubernetes.png)</center>
+![Kubernetes](/images/docker/kubernetes.png#center)
 
 On va utiliser 3 objets pour notre application, un deployment, un service et un ingress. Notre ingress controller sera assuré par Traefik [dont nous avons déjà pas mal parlé sur le blog](https://blog.osones.com/kubernetes-ingress-controller-avec-traefik-et-lets-encrypt.html).
 
@@ -221,7 +210,7 @@ demo-cicd-58c9f4c994-q8tnh   1/1       Running   0          1m
 ```
 Le doute écarté, on peut constater que notre page est bien accessible :
 
-<center> ![helloworld-red](/images/helloworld-osones-rouge.png)</center>
+![helloworld-red](/images/helloworld-osones-rouge.png#center)
 
 On peut avec plaisir constater que le load balancing entre nos 3 conteneurs est parfaitement fonctionnel si vous rafraichissez plusieurs fois la page (attention au cache ;) ).
 
@@ -234,9 +223,7 @@ $ git commit -am "from red to green" && git push
 
 Et on attend que la CI fasse tourner tout ça ! 3 min plus tard :
 
-<center> ![helloworld-green](/images/helloworld-osones-vert.png)</center>
-
-
+![helloworld-green](/images/helloworld-osones-vert.png#center)
 
 Tout ça est vraiment simple, nous n'avons apporté aucune complexité au pipeline. Dans les axes d'améliorations possibles on peut citer :
 
