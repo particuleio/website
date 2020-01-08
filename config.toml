@@ -109,9 +109,9 @@ unsafe= true
     # Blog Section On Homepage
     [Languages.fr.params.blog]
         enable  = true
-        topTitle= "Notre Cloud"
+        topTitle= ""
         title   = "Blog."
-        subtitle= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum reiciendis quasi itaque, obcaecati atque sit!"
+        subtitle= ""
 
     # Contact Section
     [Languages.fr.params.contact]
@@ -144,12 +144,12 @@ unsafe= true
     title = "Particule | Cloud Native Infrastructure"
     dateFormat = "January 2, 2006"
 
-    home = "EN Home"
+    home = "Home"
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
 
-    footerDescription = "We help customers into their Cloud Native journey with a strong expertise on Kubernetes, Docker, Amazon Web Services and OpenStack"
+    footerDescription = "Particule helps you get started into the Cloud Native world with a strong expertise on Kubernetes, Docker, Amazon Web Services and OpenStack"
     footerServiceTitle = "Service"
     footerQuicklinkTitle = "Quicklinks"
     footerAboutTitle = "About"
@@ -159,7 +159,7 @@ unsafe= true
     [Languages.en.params.hero]
         enable  = true
         heading = "We build Cloud Native infrastructure"
-        description = "From an application on your laptop to a scalable infrastructure, define as code"
+        description = "From an application on your developers laptop to a scalable infrastructure, define as code"
         button  = true
         btnText = "Let's scale"
         btnURL  = "https://themefisher.com/"
@@ -173,20 +173,20 @@ unsafe= true
     # About 2 Section
     [Languages.en.params.aboutSm]
         enable  = true
-        title   = "We have explored the digital landscape with passion for a long time"
-        description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae deleniti ipsa labore necessitatibus culpa veritatis quo accusantium, neque enim ea ad eaque iure, quas tempore velit, quibusdam dolor illo! Explicabo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quisquam maiores iste soluta, nihil dolorem?"
+        title   = "Particule, Cloud Native experts"
+        description = "Particule is built with DevOps principle at its core. Our mission is to help you navigate the growing Cloud Native ecosystem. Our skills as a service for your projects."
 
     # Blog Section On Homepage
     [Languages.en.params.blog]
         enable  = true
-        topTitle= "Our Cloud"
+        topTitle= ""
         title   = "Blog."
         subtitle= ""
 
     # Contact Section
     [Languages.en.params.contact]
         enable  = true
-        topTitle= "DROP US A NOTE"
+        topTitle= "Tell us about your project"
         title   = "Contact Us."
         subtitle= ""
         address = "128 rue la Boétie, 75008, Paris"
@@ -195,7 +195,6 @@ unsafe= true
         github = "https://github.com/particuleio"
         twitter = "https://twitter.com/particuleio"
         linkedin= "https://www.linkedin.com/company/particuleio/"
-#        instagram= "https://www.instagram.com/"
         mapLatitude = "48.870955"
         mapLongitude= "2.305982"
         mapMarker   = "images/marker.png"
@@ -204,9 +203,9 @@ unsafe= true
     [Languages.en.params.cta]
         enable  = true
         bg      = "images/call-to-action/call-to-action-bg-2.jpg"
-        title   = "Let's Create Something Together"
-        subtitle= "Proin gravida nibh vel velit auctor aliquet. Aenean sollicudin bibendum auctor, <br> nisi elit consequat ipsum, nesagittis sem nid elit. Duis sed odio sitain elit."
-        btnText = "Contact Us"
+        title   = ""
+        subtitle= ""
+        btnText = "Contact Us."
 
 # We Used Themefisher Icon font for Icon, for more details check this github repository - https://github.com/themefisher/themefisher-font
 
@@ -217,27 +216,3 @@ unsafe= true
         name    = "Blog"
         url     = "blog"
         weight  = 1
-    # Footer Service Menu
-    [[menu.service]]
-        name    = "graphicdesign"
-        url     = "service"
-        weight  = 1
-    [[menu.service]]
-        name    = "webdesign"
-        url     = "service"
-        weight  = 2
-    [[menu.service]]
-        name    = "webdevelopment"
-        url     = "service"
-        weight  = 3
-
-    # Footer Quick links Menu
-    [[menu.quicklink]]
-        name    = "symplegma"
-        url     = "https://github.com/clusterfrak-dynamics/symplegma"
-        weight  = 1
-    [[menu.quicklink]]
-        name    = "teks"
-        url     = "https://github.com/clusterfrak-dynamics/teks"
-        weight  = 2
-

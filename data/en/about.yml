@@ -2,17 +2,18 @@ enable  : true
 item    :
   - positionRight : false
     image : images/about/wheel_logo.png
-    title : le IAAS c'est vachement sympa
+    title : No matter where
     description : >
-      Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      We are infrastructure agnostic. That's why we work on the platforms that suit your projects, should it be in your datacenter our in a public cloud. If there are APIs, we will know how to benefit from them, whether it means building an <strong>OpenStack</strong> cluster, deploying <strong>Kubernetes</strong> clusters on <strong>Amazon Web Service</strong> or building scalable infrastructure on <strong>Google Cloud Platform</strong>.
 
   - positionRight : true
     image : images/about/codedry.png
-    title : La CI/CD c'est bon aussi
+    title : As long as it is defined As Code
     description : >
-      Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      Infrastructure as Code acts as a single <strong>source of truth</strong>, ensuring a coherence between your production and test environments as well as allowing you to deploy from scratch in a matter of minutes. It will bring confidence and serenity into your projects lifecycles.
+
   - positionRight : false
     image : images/about/gitflow.png
-    title : le DevOps c'est cool
+    title : Gitops all the way
     description : >
-      Curabitur felis nibh, imperdiet eu erat non, luctus cursus lectus. Donec maximus diam leo, sed fringilla nisl auctor eget. Donec dictum neque est, ac faucibus ex blandit a Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quo minima ab aperiam molestiae natus repellendus neque culpa iure, nemo veritatis explicabo facilis, officia, saepe! Et corrupti odit, non deserunt.
+      This <strong>single source of truth</strong> will also define how your applications are deployed, just like your infrastructure. <strong>Git</strong> and <strong>CI/CD</strong> will become the cornerstone of all your application stack. Adding infratsructure component will be as simple as committing to <strong>Git</strong>.
