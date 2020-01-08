@@ -80,7 +80,7 @@ unsafe= true
 
     home = "Home"
     logo = "images/logo.png"
-    logopreload = "images/logofull.png"
+    logopreload = "images/logos/logopreload.png"
     menufixed = false
 
     footerDescription = "Particule vous accompagne dans vos projets Cloud Native avec une expertise pointue sur Kubernetes, Docker, Amazon Web Services et OpenStack"
