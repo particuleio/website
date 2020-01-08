@@ -60,7 +60,7 @@ etc) nécessaires à votre projet.
  - Synchronisation du contenu d'un dépôt Git avec votre cluster
  - Déploiement automatique de nouvelles images Docker
 
-![flux-workflow](https://raw.githubusercontent.com/weaveworks/flux/master/site//images/deployment-pipeline.png)
+![flux-workflow](https://github.com/fluxcd/flux/raw/master/docs/_files/flux-cd-diagram.png)
 
 Quant à Concourse-CI, [nous en avons déjà parlé dans un précédent article](https://blog.alterway.fr/construire-un-pipeline-de-deploiement-continu-avec-kubernetes-et-concourse-ci.html).
 Dans cet article, nous avons mis une chaine de CI/CD complète jusqu'au

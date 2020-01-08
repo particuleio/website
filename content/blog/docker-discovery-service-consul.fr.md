@@ -5,7 +5,7 @@ Date: 2015-12-14T11:00:00+00:00
 Category: Docker
 Summary: Un discovery service pour conteneurs avec Consul
 Author: Romain GUICHARD
-image: docker-generic.png
+image: images/thumbnails/docker-generic.png
 ---
 
 
