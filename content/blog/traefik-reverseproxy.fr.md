@@ -5,7 +5,7 @@ Date: 2016-09-20
 Category: Docker
 Summary: Traefik est un reverse-proxy intelligent pour vos conteneurs supportant Docker, Kubernetes, Consul, etcd etc
 Author: Romain Guichard
-image: docker-generic.png
+image: images/thumbnails/docker-generic.png
 ---
 
 **[Update 04/2018]**

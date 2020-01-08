@@ -4,7 +4,7 @@ Date: 2016-01-06T10:00:00+00:00
 Category: Docker
 Summary: CoreOS est une distribution linux minimaliste complètement orientée vers Docker. Elle permet grâce à des outils natifs de monter des clusters pour containers Docker.
 Author: Romain Guichard
-image: docker-generic.png
+image: images/thumbnails/docker-generic.png
 lang: fr
 ---
 

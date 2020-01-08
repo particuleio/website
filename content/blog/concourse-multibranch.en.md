@@ -4,7 +4,7 @@ Date: 2018-03-13T11:00:00+00:00
 Category: CI/CD
 Summary: Build every git project's branches so that every developers can see their changes ! Once again with Concourse-CI !
 Author: Romain Guichard
-image: cicd-generic.png
+image: images/thumbnails/cicd-generic.png
 lang: en
 ---
 
