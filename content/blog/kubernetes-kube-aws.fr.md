@@ -56,13 +56,13 @@ L'installation et la gestion de Kubernetes nécessitent l'installation de 2 bina
 - [*kube-aws*](https://github.com/coreos/coreos-kubernetes/releases) : pré-configurer le cluster et le déployer
 - kubectl : contrôle de Kubernetes via les API :
 
-```
+```bash
 curl -O https://storage.googleapis.com/kubernetes-release/release/v1.2.3/bin/linux/amd64/kubectl
 ```
 
 Pour pouvoir se connecter aux instances, si besoin, il est nécessaire de disposer d'une clé SSH sur AWS EC2 ainsi que d'un compte IAM valide afin de pouvoir provisionner l'infrastructure sur AWS. De plus, afin d'assurer la sécurité des communications au sein du cluster ainsi qu'entre les composants d'AWS, *AWS Key Management Service (KMS)* est utilisé. Pour générer une clé via *awscli* :
 
-```
+```bash
 aws --profile particule kms --region=eu-west-1 create-key --description="particule-k8s-clust kms"
 {
     "KeyMetadata": {
@@ -82,14 +82,14 @@ aws --profile particule kms --region=eu-west-1 create-key --description="particu
 
 Dans un premier temps, il faut exporter les credentials du compte IAM.
 
-```
+```bash
 $ export AWS_ACCESS_KEY_ID=AKID1234567890
 $ export AWS_SECRET_ACCESS_KEY=MY-SECRET-KEY
 ```
 
 Puis, dans un répertoire dédié, on initialise le cluster.
 
-```
+```bash
 kube-aws init --cluster-name=particule-k8s-clust \
 --external-dns-name=k8s.particule.io \
 --region=eu-west-1 \
@@ -107,7 +107,7 @@ Cette commande génère un fichier `cluster.yaml` pré-rempli qui définit les o
 
 Par exemple, le fichier `cluster.yaml` pour le cluster particule :
 
-```
+```yaml
 clusterName: particule-k8s-clust
 externalDNSName: k8s.particule.io
 releaseChannel: alpha
@@ -127,7 +127,7 @@ workerRootVolumeSize: 30
 Dans cet exemple, le cluster est déployé dans la région `eu-west-1`, dans l'AZ `eu-west-1b`. Nous utilisons des instances `t2.medium` avec des disques de 30Go pour le contrôleur et des instances `t2.small` avec 30 Go de disque pour les nœuds worker. Il y aura au départ 2 workers. Les API seront accessibles à l'adresse `k8s.particule.io` et l'enregistrement DNS sera créé au moment de la création de la stack sur la zone `particule.io` déjà gérée sur AWS Route53.
 
 Ensuite, à partir du fichier `cluster.yaml` on prépare les templates CloudFormation.
-```
+```bash
 kube-aws render
 Success! Stack rendered to stack-template.json.
 
@@ -139,7 +139,7 @@ Next steps:
 
 Une fois le rendu effectué on se retrouve avec l'arborescence suivante :
 
-```
+```bash
 drwxr-xr-x 4 klefevre klefevre 4.0K May  9 14:57 .
 drwxr-xr-x 3 klefevre klefevre 4.0K May  9 11:31 ..
 -rw------- 1 klefevre klefevre 3.0K May  9 14:50 cluster.yaml
@@ -153,7 +153,7 @@ Pour information, les *userdata* générées avec *kube-aws* sont conformes à l
 
 Enfin on valide les userdata ainsi que la stack CloudFormation :
 
-```
+```bash
 kube-aws validate
 Validating UserData...
 UserData is valid.
@@ -173,7 +173,7 @@ Validation OK!
 
 Une fois toutes les étapes effectuées, on déploie le cluster avec la simple commande `kube-aws up`.
 
-```
+```bash
 kube-aws up
 Creating AWS resources. This should take around 5 minutes.
 Success! Your AWS resources have been created:
@@ -187,7 +187,7 @@ You should be able to access the Kubernetes API once the containers finish downl
 
 Afin de valider le bon fonctionnement du cluster, on peut par exemple lister les nœuds du cluster :
 
-```
+```bash
 kubectl --kubeconfig=kubeconfig get nodes
 NAME                                       STATUS    AGE
 ip-10-0-0-148.eu-west-1.compute.internal   Ready     4m
@@ -196,7 +196,7 @@ ip-10-0-0-149.eu-west-1.compute.internal   Ready     3m
 
 Le fichier `kubeconfig` contient les credentials ainsi que les certificats TLS pour accéder aux API de Kubernetes :
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 clusters:
@@ -226,7 +226,7 @@ Nous allons tester simplement le fonctionnement du cluster pour terminer cet art
 
 Dans un premier temps, on définit le *replication controller* `deployment-minecraft.yaml`.
 
-```
+```yaml
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -250,7 +250,7 @@ spec:
 
 Dans ce cas, nous avons un seul réplica. Ce qui signifie un seul pod Minecraft. La sélection se fait grâce au label, qui permet au replication controller de matcher le pod avec le même label (ici *minecraft*). On vérifie avec kubectl :
 
-```
+```bash
 kubectl --kubeconfig=kubeconfig create -f deployment-minecraft.yaml
 replicationcontroller "minecraft" created
 
@@ -267,7 +267,7 @@ Pour le moment, le pod est accessible uniquement depuis l'intérieur du cluster,
 
 Le fichier `service-minecraft.yaml` :
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -284,7 +284,7 @@ spec:
 
 Ici, le load balancer écoute sur le même port que le pod (le port 25565, par défaut pour Minecraft) et forward le trafic vers les workers. Pour avoir le détail :
 
-```
+```bash
 kubectl --kubeconfig=kubeconfig create -f service-minecraft.yaml
 kubectl --kubeconfig=kubeconfig describe service minecraft
 Name:                   minecraft
@@ -310,7 +310,7 @@ Pour le moment, Kubernetes ne supporte pas la configuration automatique d'un ali
 
 Il est possible d'automatiser la création d'un enregistrement DNS en utilisant la CLI AWS. Dans un fichier `route53-minecraft.json` :
 
-```
+```json
 {
   "Comment": "minecraft dns record",
   "Changes": [
@@ -333,7 +333,7 @@ Il est possible d'automatiser la création d'un enregistrement DNS en utilisant 
 
 Ensuite via l'awscli :
 
-```
+```bash
 aws --profile particule route53 change-resource-record-sets --hosted-zone-id Z2BYZVP5DZBBWK --change-batch file://route53-minecraft.json
 
 host minecraft.particule.io
