@@ -7,6 +7,8 @@ env:
   - HUGO_VERSION="0.62.0"
   - AWS_S3_BUCKET_NAME="particule-frontend-static-site"
   - AWS_CLOUDFRONT_DISTRIBUTION_ID="E2BTLS675M5S4F"
+before_install:
+- git submodule update --init --recursive --remote
 install:
 - pip install awscli
 script:
