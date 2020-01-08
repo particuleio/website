@@ -18,7 +18,7 @@ continue sur Kubernetes en utilisant Concourse-CI et Flux
 Profitons-en pour parler de la CNCF et de cette Sandbox et de ce que cela
 signifie pour Flux.
 
-# Les fondations Open Sources
+### Les fondations Open Sources
 
 La plupart des projets Open Source sont aujourd'hui chapotés par des
 fondations, cela permet à ces projets de garder une certaine indépendance
@@ -41,7 +41,7 @@ On peut noter :
   CNI, Helm etc.
 
 
-# Les différents niveaux de projets de la CNCF
+### Les différents niveaux de projets de la CNCF
 
 La CNCF héberge donc un nombre assez important de projets, 40 à l'heure où
 j'écris ces lignes, mais ces projets ne sont pas tous égaux et sont répartis en
@@ -71,11 +71,9 @@ CNCF !
 
 ![graduatedprogram](/images/cncf/graduated.png)
 
-Tous les détails peuvent être trouvés ici :
-<https://github.com/cncf/toc/blob/master/process/graduation_criteria.adoc>
+Tous les détails peuvent être trouvés [ici](https://github.com/cncf/toc/blob/master/process/graduation_criteria.adoc)
 
-
-## La Sandbox pour Flux
+#### La Sandbox pour Flux
 
 Flux intègre donc le premier niveau : la Sandbox. Cela va lui permettre de
 gagner en visibilité, d'augmenter son nombre d'utilisateurs, ce qui entrainera
