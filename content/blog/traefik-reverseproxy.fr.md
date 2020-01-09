@@ -222,7 +222,7 @@ Deux URL sont donc disponibles, `hello.consul.local` et `hello2.particule.io` do
 
 Bien que consul-template permettait déjà d'effectuer beaucoup d'update de configuration de façon automatique, Traefik apporte énormément de simplicité et de puissance ainsi qu'une compatibilité avec énormément de produit.
 
-Une présentation des [Ingress Controllers sous Kubernetes ainsi qu'une intérgration avec Traefik et Let's Encrypt est disponible](https://dev.particule.io/blog/kubernetes-ingress/) !
+Une présentation des [Ingress Controllers sous Kubernetes ainsi qu'une intérgration avec Traefik et Let's Encrypt est disponible](https://particule.io/blog/kubernetes-ingress/) !
 
 
 **[Romain Guichard](https://www.linkedin.com/in/romainguichard)**
