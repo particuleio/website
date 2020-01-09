@@ -16,7 +16,7 @@ locals {
 }
 
 dependency "acm" {
-  config_path = "../acm-particule-io"
+  config_path = "../acm"
 
   mock_outputs = {
     certificate_arn = "arn:aws:acm:us-east-1:000000000000:certificate/00000000-0000-0000-0000-000000000000"
@@ -35,7 +35,7 @@ inputs = {
   dns = {
     use_route53    = true
     hosted_zone_id = "ZYP9UY3E2Z6EX"
-    hostname       = "dev.particule.io"
+    hostname       = "particule.io"
   }
 
   custom_tags = merge(
@@ -48,7 +48,7 @@ inputs = {
     log_bucket_expiration_days     = 365
     s3_origin_id                   = "s3-particule-frontend-static-site"
     origin_access_identity_comment = "Origin Access Identity for particule website"
-    aliases                        = ["dev.particule.io"]
+    aliases                        = ["particule.io","www.particule.io"]
     cloudfront_price_class         = "PriceClass_100"
     acm_arn                        = dependency.acm.outputs.certificate_arn
     minimum_protocol_version       = "TLSv1.1_2016"
