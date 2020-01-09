@@ -14,7 +14,7 @@ image: images/thumbnails/kubernetes.png
 
 We are going to deploy a Kubernetes cluster on AWS EKS and then use virtual Kubelet with AWS Fargate.
 
-## Prerequisites
+### Prerequisites
 
 * [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [`terraform`](https://github.com/hashicorp/terraform/releases)
@@ -23,7 +23,7 @@ We are going to deploy a Kubernetes cluster on AWS EKS and then use virtual Kube
 * [`aws-iam-authenticator`](https://github.com/kubernetes-sigs/aws-iam-authenticator)
 * `awscli` with proper account configured
 
-## EKS Cluster
+### EKS Cluster
 
 To do so, let's use [tEKS](https://github.com/clusterfrak-dynamics/teks) which supports EKS and Virtual Kubelet, I will explain later the plumbing behind.
 
@@ -131,7 +131,7 @@ You can see the extra IAM policy on the controller. In addition, two roles are c
 
 <center><img src="/images/virtual-kubelet/vk-iam-exec.png" alt="vk-iam-exec" width="600" align="middle"></center>
 
-## Deploying Virtual Kubelet
+### Deploying Virtual Kubelet
 
 Now we can focus on the Virtual kubelet. In the `eks-addons/terraform.tfvars`:
 
@@ -256,7 +256,7 @@ Allocated resources:
 Events:              <none>
 ```
 
-### What's happened under the hood ?
+#### What's happened under the hood ?
 
 It's a bit tricky to make Virtual Kubelet works, the logic is integrated in the Terraform/Terragrunt modules but let's take a closer look.
 
@@ -350,7 +350,7 @@ data:
 kind: ConfigMap
 ```
 
-## Let's see how it works
+### Let's see how it works
 
 In the Fargate console, you can see a new cluster name sample:
 
@@ -462,6 +462,6 @@ aws ecs list-tasks --cluster sample
 }
 ```
 
-## Conclusion
+### Conclusion
 
 This is still an early project, but it is getting more and more traction and support for multiple provider. This is the perfect way to lower infrastructure cost, for jobs or periodic tasks such as cronjob or when you need to burst rapidly without provisioning new instances.

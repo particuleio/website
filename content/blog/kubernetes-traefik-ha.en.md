@@ -15,7 +15,7 @@ We already talked about Træfɪk (you can check out the Kubernetes articles seri
 
 Today we are going to talk about running Træfɪk at scale on a Kubernetes cluster, the issues with Let's Encrypt and how Træfɪk with a K/V store can solve this.
 
-# Scaling Traefik ?
+### Scaling Traefik ?
 
 Why scale Træfɪk ? Well, for availability of course and to load balance traffic across Træfɪk pods. This is especially true when you start scaling your Kubernetes nodes.
 
@@ -23,7 +23,7 @@ As an ingress controller, Træfɪk can be scaled easily, either as a Kubernetes 
 
 If you can share the TLS certs and the configuration (via *ConfigMap*) between all the Træfɪk pods there is no issues at all, we have been doing that with nginx or haproxy for a long time...
 
-## Adding Let's Encrypt ?
+#### Adding Let's Encrypt ?
 
 When you add Let's Encrypt into the mix, it gets more complicated: Kubernetes [*Services*](https://kubernetes.io/docs/user-guide/services/) load balances traffic between Træfɪk pods and Let's Encrypt is trying to do server side validation. Basically the route between Let's Encrypt and Træfɪk pods will be random and asymmetric.
 
@@ -33,17 +33,17 @@ Let's Encrypt data and certificates are stored into a file `acme.json` by defaul
 
 Anyway this is not really a Cloud native solution neither a scalable one so how to solve this ?
 
-## Træfɪk HA
+#### Træfɪk HA
 
 Træfɪk is a cloud reverse proxy ! As advertise, it can plug itself to several backends (Consul, etcd, Swarm ...) to handle automatic L7 routing. One other awesome feature is that it can also [store its own configuration](https://docs.traefik.io/user-guide/cluster/) (the `traefik.toml` file) inside a K/V store like Consul or Etcd and work in HA cluster mode.
 
 With this you can have a centralized configuration store for Træfɪk. You can also store your Let's Encrypt certificates inside this K/V store so any pod can handle traffic, ask for certificates and renew the old ones. Certificates,challenges and configurations are shared thanks to the K/V store.
 
-# Demo on Kubernetes
+### Demo on Kubernetes
 
 We are going to use Consul as there is [a bug](https://github.com/containous/traefik/issues/926) with Træfɪk / libkv and etcd at the moment.
 
-## Consul StatefulSet
+#### Consul StatefulSet
 
 To deploy a Consul Cluster, we are going to use a [*StatefulSet*](https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) which is the evolution of [*PetSet*](https://kubernetes.io/docs/user-guide/petset/) (now in beta and not alpha anymore, yeah !) that we already [discussed in french on the blog](https://blog.osones.com/kubernetes-introduction-aux-petset-et-bootstrap-dun-cluster-consul.html).
 
@@ -53,7 +53,7 @@ The storage is backed on AWS EBS which is the block storage service for AWS. Wit
 
 Here is the manifest for the StatefulSet:
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -154,13 +154,13 @@ spec:
           storage: 1Gi
 ```
 
-```
+```bash
 kubectl apply -f consul-statefulset.yaml
 ```
 
 This bootstrap a 3 nodes Consul cluster on Kubernetes which we are going to use as Træfɪk backend to store its configuration.
 
-# Preparing Træfɪk
+### Preparing Træfɪk
 
 Once the K/V store is OK we have to tell Træfɪk to store its configuration inside Consul. To do so we are running a [*job*](https://kubernetes.io/docs/user-guide/jobs/) to initialize the K/V with the right configuration.
 
@@ -168,7 +168,7 @@ We have:
 
 * A static [`configmap`](https://kubernetes.io/docs/user-guide/configmap/) that Træfɪk will use to populate Consul:
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -205,13 +205,13 @@ data:
     prefix = "traefik"
 ```
 
-```
+```bash
 kubectl apply -f traefik-configmap.yaml
 ```
 
 * A job that runs a one time Træfɪk instance to populate the K/V Store:
 
-```
+```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -243,17 +243,17 @@ spec:
       restartPolicy: Never
 ```
 
-```
+```bash
 kubectl apply -f traefik-kv-jobs.yaml
 ```
 
 With this job, the static configuration from Configmap is stored into Consul, now we don't need it anymore, we just have to tell Træfɪk to use etcd instead.
 
-## Deploying Træfɪk
+#### Deploying Træfɪk
 
 There is one small bug with Consul, the first time Traefik populate the K/V Store, it creates a key that needs to be deleted manually (https://github.com/containous/traefik/issues/927). This is a one time thing during the initialization and should be fixed upstream.
 
-```
+```bash
 kubectl --namespace kube-system exec -it traefik-consul-0 consul kv delete traefik/acme/storagefile
 ```
 
@@ -263,7 +263,7 @@ Instead of using `services` with AWS ELB Load Balancing feature for each applica
 
 With this, we can reduce the number of ELB needed and AWS cost. We also manage virtual host with Kubernetes [*Ingress Resources*](https://kubernetes.io/docs/user-guide/ingress/) and no manual configuration. Also, services are not directly exposed, only Træfɪk and you get to manage the reverse proxy and the TLS setup with Kubernetes only ! :)
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -324,17 +324,17 @@ spec:
             - --consul.endpoint=traefik-consul:8500
 ```
 
-```
+```bash
 kubectl apply -f traefik-kv.yaml
 ```
 
 With this, 3 Træfɪk replicas are spawned, all using Consul to store cluster state and Let's Encrypt data.
 
-## Using Træfɪk
+#### Using Træfɪk
 
 To use Træfɪk, we are going to use [*Ingress Resources*](https://kubernetes.io/docs/user-guide/ingress/) from the Kubernetes API. We already discussed this [in a previous article](https://blog.osones.com/en/kubernetes-ingress-controller-with-traefik-and-lets-encrypt.html).
 
-```
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -359,7 +359,7 @@ kubectl apply -f ingress.yaml
 
 Træfɪk is watching the Kubernetes API for ingresses and automatically does the routing and gets the TLS certificates from Lets Encrypt.
 
-## About namespaces and Ingress Controller
+#### About namespaces and Ingress Controller
 
 It is important to note that even though *Ingress* resources are [namespaced](https://kubernetes.io/docs/user-guide/namespaces/), this is not the case for the ingress controller.
 
@@ -369,7 +369,7 @@ Træfɪk is watching for ingresses and services across namespaces so if the righ
 
 If we have a look at the kube-system namespace:
 
-```
+```bash
 kubectl --kubeconfig kubeconfig --namespace kube-system get all                                                                                                             master 
 NAME                                                                  READY     STATUS    RESTARTS   AGE
 po/calico-node-828fc                                                  2/2       Running   0          7d
@@ -433,7 +433,7 @@ rs/traefik-ingress-controller-1802447368   3         3         3         6d
 
 We can see the resources we created. But if you look at another namespace using ingress:
 
-```
+```bash
 kubectl --kubeconfig kubeconfig --namespace user-manage-namespace get all
 NAME                                READY     STATUS    RESTARTS   AGE
 po/app-3326329437-37ld3             1/1       Running   0          7d
@@ -458,7 +458,7 @@ app             app.archifleks.xyz            80        7d
 ```
 You have no idea of the ingress controller or other resources running inside the kube-system namespace. But you stil get your reverse proxy automatically :)
 
-# Conclusion
+### Conclusion
 
 With this solution, we are able to run Traefik at scale on Kubernetes cluster by either using a DaemonSet where you can have one Træfɪk instance on each nodes or a Deployment like in this example where you can manage the numbers of replicas. You can even add an [horizontal pod scaler](https://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/) to scale Træfɪk pods automatically.
 

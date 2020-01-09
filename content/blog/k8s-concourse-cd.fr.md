@@ -8,8 +8,7 @@ image: images/thumbnails/kubernetes.png
 lang: fr
 ---
 
-<br />
-# Introduction
+### Introduction
 
 Compiler/builder et déployer manuellement des applications conteneurisées est __généralement lent et source de nombreuses erreurs__.
 
@@ -32,7 +31,7 @@ Pas de questions ?
 
 Let's go !
 
-# Préparation de l'environnement
+### Préparation de l'environnement
 
 On va avoir besoin de __quelques outils__ avant de démarrer :
 
@@ -41,7 +40,7 @@ On va avoir besoin de __quelques outils__ avant de démarrer :
 * De credentials pour se connecter à Kubernetes
 
 On va créer notre projet sur GitHub (le répo doit être créé au préalable) :
-```
+```bash
 $ mkdir demo-cicd && cd demo-cicd
 $ git init
 $ git remote add origin https://github.com/osones/demo-cicd
@@ -57,7 +56,7 @@ Elle est volontairement extrêmement simple et ne fait qu'afficher notre logo ai
 
 On peut attaquer la configuration de Concourse-CI !
 
-# Concourse-CI
+### Concourse-CI
 
 ![Concourse CI](/images/concourse-logo.png#center)
 
@@ -67,7 +66,7 @@ Comme prévenu, je ne reviendrais pas en détails sur Concourse et son fonctionn
 Notre pipeline va ressembler à quelque chose comme ça :
 
 Tout d'abord nos ressources :
-```
+```yaml
 resource_types:
 - name: kubernetes
   type: docker-image
@@ -100,7 +99,7 @@ On défini 3 ressources :
 
 Maintenant nos jobs :
 
-```
+```yaml
 jobs:
   - name: "Docker-Build"
     public: false
@@ -128,7 +127,7 @@ Seulement deux jobs ! Le premier build notre image à partir des sources. __C'es
 Pour updater notre application, on décide simplement de kill notre pod (merci les labels), notre deployment se chargera d'en lancer un nouveau avec la nouvelle image. Cela implique effectivement que l'application ai déjà été déployée une première fois. On aurai pu redéployer "normalement", cela ne change pas grand chose ;)
 
 Et on déploie notre pipeline !
-```
+```bash
 $ fly -t osones set-pipeline -p demo-cicd -c demo-cicd.yml --load-vars-from secrets/demo-cicd.yml
 $ fly -t osones unpause-pipeline -p demo-cicd
 ```
@@ -138,13 +137,13 @@ Dans notre `secrets/demo-cicd.yml` vous devrez retrouvez les variables utilisée
 
 Passons maintenant Kubernetes :
 
-# Kubernetes
+### Kubernetes
 
 ![Kubernetes](/images/docker/kubernetes.png#center)
 
 On va utiliser 3 objets pour notre application, un deployment, un service et un ingress. Notre ingress controller sera assuré par Traefik [dont nous avons déjà pas mal parlé sur le blog](https://blog.osones.com/kubernetes-ingress-controller-avec-traefik-et-lets-encrypt.html).
 
-```
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -200,7 +199,7 @@ spec:
 Le paramètre `imagePullPolicy: Always` est important car il permet de dire à Kubernetes de puller notre image à chaque déploiement. Ce qui permettra son update lors du `kubectl delete pod` déclenché par Concourse.
 
 Comme on doute de nous, donc on va quand même aller vérifier sur notre cluster que les pods sont bien présents :
-```
+```bash
 $ kubectl get pods -l app=demo-cicd
 ds -l app=demo-cicd
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -216,7 +215,7 @@ On peut avec plaisir constater que le load balancing entre nos 3 conteneurs est 
 
 Maintenant on va décider de changer la couleur et de passer notre titre en vert :
 
-```
+```bash
 $ sed -i s/red/green/ index.php
 $ git commit -am "from red to green" && git push
 ```
@@ -232,12 +231,6 @@ Tout ça est vraiment simple, nous n'avons apporté aucune complexité au pipeli
 * Utiliser d'autres méthodes de [rolling update sur Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/update-intro/), la notre est un peu violente...
 * Publier une release github (une ressource existe pour ça aussi ! ) lorsque le déploiement est terminé et le nouvelle version validée
 * ...
-
-
-# Rejoignez vous aussi la conversation !
-
-** - Questions, remarques, suggestions... Contactez-nous directement sur Twitter sur [@osones](https://twitter.com/osones) !**
-** - Pour discuter avec nous de vos projets, nous restons disponibles directement via contact@osones.com !**
 
 
 **[Romain Guichard](https://fr.linkedin.com/in/romainguichard/en)**

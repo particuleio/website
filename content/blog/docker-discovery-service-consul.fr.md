@@ -29,7 +29,7 @@ informations peuvent être obtenues via un service de discovery.
 Je présenterai ici Consul, un produit libre d'HashiCorp qui développe
 notamment Vagrant, Packer ou bien encore Terraform.
 
-# Ce que Consul change
+### Ce que Consul change
 
 <center><img src="/images/docker/hashicorp.png" alt="hashicorp" width="500" align="middle"></center>
 
@@ -74,7 +74,7 @@ utiliserons l'image registrator de gliderlabs pour cette action. Registrator va
 Consul.
 
 
-# Mise en place du cluster Consul
+### Mise en place du cluster Consul
 
 Pour une simple question d'efficacité, je ferai tourner un seul noeud Consul. Les
 bonnes pratiques voudraient que Consul soit composé d'un cluster d'au moins
@@ -91,7 +91,7 @@ infra mononode, cela est inutile puisque le trafic restera interne. Le fait
 d'utiliser l'IP locale des conteneurs est une information qu'il faudra passer
 en paramètre à Registrator.
 
-```
+```bash
 docker run -d -h consul -e "SERVICE_NAME=consul" -p 8400:8400 -p 8500:8500 -p 8600:53/udp gliderlabs/consul-server -server -bootstrap
 ```
 Les variables d'env permettent de nommer vos services. On verra ça quand on
@@ -100,7 +100,7 @@ lancera un service.
 Consul prend -server ou -agent en paramètre en fonction du rôle donné.
 Le rôle de server implique automatiquement le rôle d'agent.
 
-```
+```bash
 docker run -d -v /var/run/docker.sock:/tmp/docker.sock gliderlabs/registrator -internal consul://172.17.0.1:8500
 ```
 
@@ -118,17 +118,17 @@ Dans le cas d'une archi multihosts, il faudrait positionner un conteneur
 Registrator sur chaque host.
 
 
-# Utiliser l'API
+### Utiliser l'API
 
 On va maintenant lancer deux conteneurs nginx pour vérifier le
 fonctionnement.
 
-```
+```bash
 docker run -d -e "SERVICE_NAME=nginx" vsense/nginx
 docker run -d -e "SERVICE_NAME=nginx" vsense/nginx
 ```
 
-```
+```bash
 $ curl localhost:8500/v1/catalog/services | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -154,6 +154,7 @@ $ curl localhost:8500/v1/catalog/services | jq .
   "nginx-80": []
 }
 ```
+
 *`jq` est un programme permettant de parser "simplement" du json, ici je ne m'en sers que pour avoir un affichage humainement lisible*
 
 On voit tous les ports Consul (ceux exposés et non exposés) et on voit bien les deux ports de Nginx. Malgré le fait que nous ayons lancé deux fois le conteneur Nginx, nous avons utilisé le même nom
@@ -161,7 +162,7 @@ de service dans les deux cas, Consul ne voit donc qu'un seul service.
 
 En détails cela donne ça :
 
-```
+```bash
 $ curl localhost:8500/v1/catalog/service/nginx-80 | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -187,15 +188,17 @@ $ curl localhost:8500/v1/catalog/service/nginx-80 | jq .
   }
 ]
 ```
+
 On voit ici que les deux conteneurs tournent sur deux IP bien distinctes (.6 et .7).
 
 Et avec DNS ?
 
-```
+```bash
 $ dig @172.17.0.2 -p 8600 nginx3-80.service.consul +short
 172.17.0.6
 172.17.0.7
 ```
+
 On voit bien que deux IP répondent au service "nginx-80"
 Le nom de domaine est généré automatiquement par Consul. Le tld **.consul** peut être modifié dans la configuration de Consul. Nous avons utilisé une configuration par défaut, mais vous pouvez monter votre propre conf au démarrage du conteneur.
 
@@ -204,18 +207,20 @@ aussi un nom pour un port particulier avec SERVICE_numPORT_TAGS.
 
 Cela peut donner quelque chose comme ça :
 
-```
+```bash
 $ docker run -d -e "SERVICE_NAME=webserver" -e "SERVICE_80_TAGS=http" -e "SERVICE_443_TAGS=https" vsense/nginx
 ```
+
 Un enregistrement DNS de ce type sera créé :
-```
+
+```bash
 $ dig @172.17.0.2 -p 8600 http.webserver-80.service.consul +short
 172.17.0.5
 $ dig @172.17.0.2 -p 8600 https.webserver-443.service.consul +short
 172.17.0.5
 ```
 
-# Utiliser le service de discovery pour un service de load-balancing
+### Utiliser le service de discovery pour un service de load-balancing
 
 Maintenant que l'on sait comment interroger notre service de discovery, on va
 voir comment l'utiliser dans le cadre d'un load-balancer.
@@ -230,7 +235,7 @@ fonction de leur état (conteneur UP et health check OK).
 On va faire ça simplement avec nginx (ça marche avec n'importe quel service qui
 utilise une conf texte). Voici le template :
 
-```
+```bash
 upstream webserver {
   least_conn;
   {{range service "nginx-80"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
@@ -253,7 +258,9 @@ server {
 Consul-template a un paramètre -dry permettant de tester le résultat du
 template une fois parsé :
 
-```$ ./consul-template -consul $IP_CONSUL:8500 -template nginx.template -dry```
+```bash
+$ ./consul-template -consul $IP_CONSUL:8500 -template nginx.template -dry
+```
 
 Vous devriez obtenir les 2 IP de vos 2 conteneurs Nginx.
 
@@ -263,7 +270,7 @@ La commande à exécuter va vous servir notamment à reload Nginx lorsque le
 fichier généré change.
 
 
-# Conclusion
+### Conclusion
 
 Cet article donne une base relativement succincte du fonctionnement de Consul,
 il ne s'agit pas encore d'un vrai cluster et il sera intéressant de voir plus
@@ -275,21 +282,6 @@ qu'on peut imaginer.
 
 
 Enjoy ~.°
-
-
-
-**Romain GUICHARD**
-
-<br>
-<br>
-
-# Rejoignez vous aussi la conversation !
-
-### Questions, remarques, suggestions... Contactez-nous directement sur Twitter sur [@osones](https://twitter.com/osones) !
-
-### Pour discuter avec nous de vos projets, nous restons disponibles directement via contact@osones.com !
-
-<center>
 
 
 **Romain GUICHARD**

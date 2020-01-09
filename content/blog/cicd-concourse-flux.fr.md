@@ -13,7 +13,7 @@ mais bien des pratiques de travail que certains outils, en effet, aident à
 mettre en place. Dans le même ordre d'idée, le terme *GitOps* commence très
 sérieusement à émerger.
 
-# GitOps ?
+### GitOps ?
 
 Pour expliquer la problématique que GitOps tente de résoudre, revenons un peu
 en arrière et parlons d'Infrastructure as Code. Ce concept désigne le fait de
@@ -45,7 +45,7 @@ déployons donc directement des conteneurs (parce que 2019). Avec GitOps, ce ne
 sont pas des conteneurs, mais du code qui est déployé, différence subtile mais
 pas insignifiante.
 
-# Et dans le détail alors ?
+### Et dans le détail alors ?
 
 GitOps va donc se comporter comme une interface entre votre code et vos
 applications/infrastructures/conteneurs. Vous n'intéragissez qu'avec Git, vous
@@ -70,18 +70,18 @@ uniquement de builder nos images à chaque nouveau commit.
 
 Tout ça est en réalité très simple, mais terriblement puissant.
 
-# Mise en pratique
+### Mise en pratique
 
-## Use case
+#### Use case
 
 Nous allons utiliser une application toute simple, une page web avec un Hello
 World. Concourse-CI va se charger de builder notre application puis Flux se chargera
 continuellement de la déployer sur notre cluster Kubernetes. Nous changerons le
 code de cette application et observerons le résultat.
 
-## Préparation
+#### Préparation
 
-### Notre application
+##### Notre application
 
 Je vais utiliser cette application :
 <https://github.com/alterway/demo-concourse-flux>
@@ -89,20 +89,18 @@ Je vais utiliser cette application :
 L'application est composée d'un fichier index.php et d'une image PNG. Le
 Dockerfile servant à builder l'application se trouve à la racine et j'ai crée
 un dossier "deploy" dans lequel se trouvent [les déclarations de ressources
-Kubernetes](https://github.com/alterway/demo-concourse-flux/blob/master/deploy/helloworld.yml). Le cluster Kubernetes sur lequel sera déployée l'application est en 1.15.
+Kubernetes](https://github.com/alterway/demo-concourse-flux/blob/master/deploy/helloworld.yml).
+Le cluster Kubernetes sur lequel sera déployée l'application est en 1.15.
 
-### Mise en place de Concourse
+##### Mise en place de Concourse
 
-<center>
-![concourse-logo](/images/concourse-logo.png)
-</center>
+![concourse-logo](/images/concourse-logo.png#center)
 
-<https://concourse-ci.org/install.html>
-
+Le guide d'installation est disponible [ici](https://concourse-ci.org/install.html).
 On ne rentre pas dans le détail ici, il n'y a rien de spécial à connaitre ou à
 effectuer côté Concourse.
 
-### Mise en place de Flux
+##### Mise en place de Flux
 
 <https://github.com/weaveworks/flux/blob/master/site/get-started.md>
 
@@ -134,7 +132,7 @@ possibilité de choisir la votre si vous le souhaitez.
 
 Une fois que c'est prêt : `kubectl apply -f deploy/`
 
-## Création du Pipeline
+#### Création du Pipeline
 
 ```yaml
 resources:
@@ -187,7 +185,7 @@ Le reste du pipeline est plutôt simple, vous pourriez reproduire la même chose
 avec n'importe quelle CI assez facilement.
 
 
-## Configuration Flux
+#### Configuration Flux
 
 La majeure partie du travail a déjà été effectué en réalité. Il nous reste
 seulement à ajouter quelques annotations à notre déployement pour préciser à
@@ -237,7 +235,7 @@ faut retourner dans la configuration et y ajouter `--git-ci-skip`. Cela pour
 effet d'ajouter *[ci skip]* au message commit et de faire comprendre à la quasi
 totalité des CI de ne pas lancer un nouveau build.
 
-# Et GitOps dans tout ça ?
+### Et GitOps dans tout ça ?
 
 Et bien on y est. Si vous avez des changements à faire, ceux ci ne passeront
 qu'au travers d'un commit ou d'une PR sur le dépot

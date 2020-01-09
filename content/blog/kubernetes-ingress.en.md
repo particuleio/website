@@ -15,15 +15,15 @@ Still with the alpha/beta features but not that much (it's been here since v1.1)
 
 Before we start you can check out [Romain's article](http://blog.osones.com/traefik-un-reverse-proxy-pour-vos-conteneurs.html) (for the moment it's only available in French) which describe what Træfɪk is, and how it works with Docker.
 
-# Kubernetes Object
+### Kubernetes Object
 
-## Ingress Resource
+#### Ingress Resource
 
 An *ingress* is a relativly simple object that define a set of applicative routes. Those rules will allow the configuration of a reverse proxy in front of Kubernetes services.
 
 Without *ingress*, Kubernetes services are directly exposed :
 
-```
+```bash
     internet
         |
   ------------
@@ -32,7 +32,7 @@ Without *ingress*, Kubernetes services are directly exposed :
 
 *Ingress* happens between the Internet and Kubernetes services :
 
-```
+```bash
     internet
         |
    [ Ingress ]
@@ -42,7 +42,7 @@ Without *ingress*, Kubernetes services are directly exposed :
 
 How do we define *ingress* rules :
 
-```YAML
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -85,7 +85,7 @@ Ok so we have a YAML file, with a bunch of rules, but how do we use them ?
 
 To do so we have to use an *Ingress Controller*, it is not directly into Kubernetes but rely on external components that implements the [*ingress controller* specs](https://github.com/kubernetes/contrib/tree/master/ingress/controllers)
 
-## Ingress Controller
+#### Ingress Controller
 
 Alone, ingress definitions don't do much. To be applied, they need an *ingress controller* : a reverse proxy that's plugged into Kubernetes API, watches for creation/update/deletion of *ingress* rules, and configures itself accordingly.
 
@@ -102,7 +102,7 @@ Google offers its own controller on GCE/GKE but there are others available based
 - [Træfɪk](https://docs.traefik.io/toml/#kubernetes-ingress-backend)
 - Probably others
 
-# Let's Træfɪk and Let's Encrypt
+### Let's Træfɪk and Let's Encrypt
 
 What is [Træfɪk](https://traefik.io/) ?
 
@@ -110,11 +110,11 @@ What is [Træfɪk](https://traefik.io/) ?
 
 In addition, Træfɪk supports the [ACME](https://github.com/ietf-wg-acme/acme/) protocol used by [Let's Encrypt](https://letsencrypt.org/). We are able to publish services and to support TLS automaticly and for free (and that's Cloud (automaticly, not free) !
 
-## Træfɪk configuration for Kubernetes
+#### Træfɪk configuration for Kubernetes
 
 First, we need to deploy the *ingress controller* with a *Deployment* :
 
-```YAML
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -172,7 +172,7 @@ I don't know what you think about but it is a neat solution compare to using `Ho
 
 Optional, a service in front of Træfɪk :
 
-```YAML
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -196,7 +196,7 @@ In my scenario, I have got only one node so I'm using an `externalIP`, all traff
 
 Still optional, it is possible to define a service to make Træfɪk webui accessible (it will be accessible from the outside and also published via Traefik and an *ingress* rule) :
 
-```YAML
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -214,7 +214,7 @@ spec:
 
 Finally and the most important, we define a *configmap* containing Træfɪk configuration :
 
-```YAML
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -264,7 +264,7 @@ Once all these files are ready, it's possible to merge them all in a single YAML
 
 Full `traefik.yml` file :
 
-```YAML
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -371,11 +371,11 @@ spec:
             - --logLevel=DEBUG
 ```
 
-## Demo
+#### Demo
 
 On the cluster, we got the following pods :
 
-```
+```bash
 kubectl get pods
 NAME                           READY     STATUS    RESTARTS   AGE
 couchpotato-1954888086-ehrc3   1/1       Running   1          21d
@@ -387,7 +387,7 @@ sickrage-3769118260-h5c78      1/1       Running   7          21d
 
 First we deploy the [`traefik.yml`](https://raw.githubusercontent.com/ArchiFleKs/containers/master/kubernetes/zero.vsense.fr/traefik.yml) previously created :
 
-```
+```bash
 kubectl create -f traefik.yml
 service "traefik" created
 service "traefik-console" created
@@ -406,7 +406,7 @@ traefik-ingress-controller-379161919-3lhff   1/1       Running   0          51s
 
 Træfɪk startup logs :
 
-```
+```bash
 time="2016-09-29T13:54:54Z" level=info msg="Preparing server https &{Network: Address::443 TLS:0xc42030ac00 Redirect:<nil> Auth:0xc4203f6df0}"
 time="2016-09-29T13:54:54Z" level=debug msg="Generating default certificate..."
 time="2016-09-29T13:54:55Z" level=info msg="Generating ACME Account..."
@@ -452,7 +452,7 @@ cat acme.json
 
 For now, Træfɪk is not serving any backend, to do so we must define *ingress* rules with [`ingress.yml`](https://raw.githubusercontent.com/ArchiFleKs/containers/master/kubernetes/zero.vsense.fr/ingress.yml) :
 
-```
+```bash
 kubectl create -f ingress.yml
 ingress "seedbox" configured
 ingress "traefik" configured
@@ -461,7 +461,7 @@ ingress "kubernetes-dashboard" configured
 
 Træfɪk logs:
 
-```
+```bash
 time="2016-09-29T14:05:51Z" level=debug msg="Waited for kubernetes config, OK"
 time="2016-09-29T14:05:51Z" level=debug msg="Creating frontend kubernetes.archifleks.net"
 time="2016-09-29T14:05:51Z" level=debug msg="Wiring frontend kubernetes.archifleks.net to entryPoint http"
@@ -540,7 +540,7 @@ We can see 2 things :
 
 Connectivity check :
 
-```
+```bash
 http tv.archifleks.net
 
 HTTP/1.1 302 Found
@@ -572,7 +572,7 @@ Vary: Accept-Encoding
 
 Ok, for the demo I had to use insecure mode because of the staging API, truth be told, I messed up with volumes the first time and reach the rate limit so I could not generate any more certificates :)
 
-# Conclusion
+### Conclusion
 
 *Ingress* feature really does simplify application depoyment on Kubernetes. It adds another abstraction layer on top of a complex feature, especially in the container world, where time to live is very low and reverse proxies have to be dynamic.
 

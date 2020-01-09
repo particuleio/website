@@ -13,7 +13,7 @@ image: images/thumbnails/kubernetes.png
 
 Particule vous propose un dossier sur Kubernetes. Nous allons dans ce premier article déployer un cluster Kubernetes sur AWS, puis tester son fonctionnement de base - en particulier les fonctionnalités liées au Cloud Provider. Le but n'est pas d'installer à la main Kubernetes étape par étape mais de montrer une méthode de déploiement, sur un Cloud Provider que nous utilisons : Amazon Web Services.
 
-# Le Choix de CoreOS pour Kubernetes
+### Le Choix de CoreOS pour Kubernetes
 
 Kubernetes est un projet Open Source lancé en 2014 par Google. Popularisé en quelques années seulement, ce COE (*Container Orchestration Engine*) permet de gérer le cycle de vie d'applications de type [12 factor](http://12factor.net/) / micro-services à l'aide de conteneurs. Kubernetes propose des fonctionnalités de clustering, de déploiement automatique et de scalabilité ainsi que des API ouvertes. Les configurations se font à l'aide de fichiers JSON ou YAML.
 À noter que d'autres COE existent, parmi lesquels Docker Swarm et Apache Mesos.
@@ -28,7 +28,7 @@ Nous avons fait ici le choix de la distribution Linux CoreOS, une distribution m
 Membre de l'*Open Container Initiative* (OCI), *CoreOS, Inc* a également compté parmi les premiers à pousser l'utilisation de Kubernetes en production, et propose une solution packagée de Kubernetes appelée Tectonic.
 CoreOS est donc une distribution de choix pour faire fonctionner Kubernetes, même sans avoir recours à la version commerciale.
 
-# The "CoreOS way"
+### The "CoreOS way"
 
 Dans le respect des best practices, les fonctionnalités suivantes sont déployées :
 
@@ -39,11 +39,11 @@ Dans le respect des best practices, les fonctionnalités suivantes sont déploy�
 Kubernetes supporte de multiples Cloud Providers, dont AWS, pour permettre l'utilisation de composants externes mis à disposition. Par exemple, dans le cas de la publication de services, il est possible d'automatiquement provisionner un ELB (*Elastic Load Balancer*) ainsi que les règles de filtrage (security groups) associées.
 Nous utiliserons dans cet article un outil de déploiement CoreOS appelé [*kube-aws*](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), permettant de déployer facilement un cluster dans AWS.
 
-# Préparation du cluster
+### Préparation du cluster
 
 Pour préparer le cluster, nous allons utiliser [*kube-aws*](https://github.com/coreos/coreos-kubernetes/tree/master/multi-node/aws), un outil qui permet de gérer un cluster Kubernetes en mode Infrastructure as Code. À partir d'un template YAML, *kube-aws* génère un template CloudFormation et le provisionne sur AWS. Les templates générés peuvent par exemple être stockés sur un dépôt Git, comme pour les templates [Terraform](https://www.terraform.io/), afin d'être versionnés.
 
-## Pré-requis
+#### Pré-requis
 
 Les objets sont multiples dans Kubernetes :
 
@@ -78,7 +78,7 @@ aws --profile particule kms --region=eu-west-1 create-key --description="particu
 }
 ```
 
-## Initialisation du cluster
+#### Initialisation du cluster
 
 Dans un premier temps, il faut exporter les credentials du compte IAM.
 
@@ -169,7 +169,7 @@ stack template is valid.
 Validation OK!
 ```
 
-# Déploiement du cluster
+### Déploiement du cluster
 
 Une fois toutes les étapes effectuées, on déploie le cluster avec la simple commande `kube-aws up`.
 
@@ -220,7 +220,7 @@ current-context: kube-aws-particule-k8s-clust-context
 
 L'enregistrement DNS a automatiquement été créé sur Route53, et l'on remarque bien que la connexion aux API s'effectue via HTTPS.
 
-# Test d'un simple service
+### Test d'un simple service
 
 Nous allons tester simplement le fonctionnement du cluster pour terminer cet article. Avec par exemple, un serveur Minecraft, publié automatiquement via un ELB.
 
@@ -344,7 +344,7 @@ a3b6af5e415f211e6b97202fce3039af-98360.eu-west-1.elb.amazonaws.com has address 5
 
 Le champs *hosted-zone-id* correspond à l'ID de zone Route53 dans laquelle on ajoute l'enregistrement. On peut ensuite se connecter au service depuis l'extérieur à l'adresse `minecraft.particule.io`.
 
-# Conclusion
+### Conclusion
 
 Il existe beaucoup de méthodes de déploiement pour Kubernetes, que ce soit via Ansible, Puppet ou Chef. Elles dépendent également du Cloud Provider utilisé. CoreOS est l'une des premières distributions à s'être intégrée avec Kubernetes, et à supporter complètement AWS. Dans une suite d'articles nous nous détacherons de la partie installation et nous nous intéresserons plus précisément au fonctionnement de Kubernetes ainsi qu'aux differents objets disponibles et leurs cas d'utilisation.
 

@@ -16,16 +16,14 @@ Un des problèmes rencontrés lorsque l'on travaille avec des conteneurs, c'est 
 
 Les reverseproxy comme Nginx ou HAProxy ne gèrent pas nativement ce genre de comportement. Mais : Y'a Traefik ! Et Traefik est un reverse-proxy un peu plus récent et donc un peu plus intelligent que Nginx ;)
 
-# On cherche à faire quoi déjà ?
+### On cherche à faire quoi déjà ?
 
 La problématique est un peu toujours la même : un conteneurs ça apparait et disparait assez vite, on ne veut pas avoir à maitriser le port de l'host sur lequel ils écoutent. Et quand il s'agit de webservices, ça devient vite problématique...
 Consul et les discovery services en général solutionnent une partie du problème, on a un outil qui permet de savoir ce qui tourne et où. C'est bien, mais si on pouvait exploiter ces infos ça serait mieux.
 
 Dans le cas de webservices, on cherche à avoir un reverse-proxy qui sache en "temps réel" où se trouvent nos conteneurs et sache sur quel groupe de conteneurs forwarder les requêtes destinées à une URL donnée. Si on peut load-balancer entre plusieurs conteneurs et disposer de plusieurs backends, ça serait top.
 
-<br />
-
-# Traefik
+### Traefik
 
 Je présente ici Traefik. Traefik a été écrit par [Emile Vauge](https://github.com/EmileVauge), c'est français, bien de chez nous, donc c'est bien !
 
@@ -37,7 +35,7 @@ Comme pour Registrator et Consul, il faudra donner à notre conteneur Traefik ac
 
 Utilisons docker-compose pour créer les conteneurs nécessaires :
 
-```
+```yaml
 version: '2'
 services:
   traefik:
@@ -72,7 +70,7 @@ Pas besoin d'exposer de port, nous sommes sur un seul host, le trafic se fera au
 
 Ah et la conf Traefik `traefik.toml` !
 
-```
+```ini
 [docker]
 domain = "docker"
 endpoint = "unix:///var/run/docker.sock"
@@ -90,20 +88,20 @@ Vous pouvez tester l'URL `http://hello.docker` dans votre navigateur. La page du
 
 Mais ce qui est vraiment intéressant c'est que si on augmente le nombre de conteneur `particule/helloworld`
 
-```
+```bash
 docker-compose scale webapp=5
 ```
 
 Et qu'on recharge plusieurs fois notre page web, on voit bien le round-robin s'effectuer !
 
-## La même chose avec un discovery service existant
+#### La même chose avec un discovery service existant
 
 Dans l'exemple précédent nous avons donné accès à Traefik directement au socket Docker. Mais il est possible que votre infra dispose déjà d'un cluster Consul par exemple et que vous souhaitiez vous en servir comme backend pour Traefik.
 
 Avec Consul, on a deux options, soit utiliser son KV Store ou son catalogue. De base, le KV Store est vide. Registrator ne peuple pas le KV Store mais le catalogue, le KV Store est juste là si vous en avez besoin mais il est vide de base.
 
 Le catalogue :
-```
+```bash
 curl localhost:8500/v1/catalog/services | jq .
 {
   "consul": [],
@@ -115,7 +113,7 @@ curl localhost:8500/v1/catalog/services | jq .
 }
 ```
 Le KV Store
-```
+```bash
 curl http://localhost:8500/v1/kv/\?recurse
 
 curl -X PUT -d 'good' http://localhost:8500/v1/kv/web/particule
@@ -137,7 +135,7 @@ Le KV doit être rempli pour être utilisé. Il y'a donc peu de chance que vous 
 
 Repartons sur un docker-compose.yml :
 
-```
+```yaml
 version: "2"
 services:
   consul:
@@ -180,7 +178,7 @@ services:
 
 Et le traefik.toml
 
-```
+```ini
 logLevel = "DEBUG"
 
 [web]
@@ -196,7 +194,7 @@ Prenons le conteneur "hello" :
 Si aucun SERVICE_NAME n'est défini, une URL de la forme "nom_image"."traefik_domain" sera créee.
 SERVICE_NAME permet d'override le nom de l'image et vous pouvez override toute l'URL avec `traefil.frontend.rule`.
 Les paramètres Traefik ne sont plus passés directement au conteneur mais sont passés à Consul via SERVICE_TAGS :
-```
+```json
 curl localhost:8500/v1/catalog/service/helloworld | jq .
 [
   {
@@ -218,7 +216,7 @@ curl localhost:8500/v1/catalog/service/helloworld | jq .
 Deux URL sont donc disponibles, `hello.consul.local` et `hello2.particule.io` donnant respectivement accès aux backends `hello` et `hello2`.
 
 
-# Conclusion
+### Conclusion
 
 Bien que consul-template permettait déjà d'effectuer beaucoup d'update de configuration de façon automatique, Traefik apporte énormément de simplicité et de puissance ainsi qu'une compatibilité avec énormément de produit.
 

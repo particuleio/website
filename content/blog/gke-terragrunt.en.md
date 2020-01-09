@@ -12,24 +12,22 @@ image: images/thumbnails/kubernetes.png
 
 <center><img src="/images/gke-terragrunt/terraform.png" alt="terraform" width="300" align="middle"></center>
 
-![terraform](//images/gke-terragrunt/terraform.png){ width: 200px; }
-
-# Sources
+### Sources
 
 Terraform modules and configuration files used in this article can be found [here](https://github.com/Osones/cloud-infra/tree/master/gcp/terraform)
 
-# Requirements
+### Requirements
 
 - Working [Google Cloud SDK](https://cloud.google.com/sdk/).
 - `application default credentials` that Terraform can use out of the box without specifying provider configuration. To generate [`application default credentials`](https://cloud.google.com/docs/authentication/production):
-```
+```bash
  gcloud auth application-default login
 ```
 This generates a default access key for your apps, using you account rights. This will allow terraform to run out of the box with the same right as your GCP account.
 - [Terraform](https://www.terraform.io/downloads.html)
 - [Terragrunt](https://github.com/gruntwork-io/terragrunt/releases) : standalone Go binary, can be install anywhere is path if not available in distribution packages.
 - At least two GCP projects:
-```
+```bash
 gcloud projects create gke-blog-prod
 Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/gke-blog-prod].
 Waiting for [operations/pc.4802334422007730518] to finish...done.
@@ -41,7 +39,7 @@ Waiting for [operations/pc.3759965873816129841] to finish...done.
 ```
 - Billing enabled on both projects: `https://console.developers.google.com/project/${PROJECT_ID}/settings`
 - Google Container API enabled on both projects:
-```
+```bash
 gcloud services enable container.googleapis.com --project gke-blog-preprod
 Waiting for async operation operations/tmo-acf.ff5396f9-57ab-422c-b7eb-f9bf9cf060a7 to complete...
 Operation finished successfully. The following command can describe the Operation details:
@@ -54,7 +52,7 @@ Operation finished successfully. The following command can describe the Operatio
 gcloud services operations describe operations/tmo-acf.81d7dd57-1df2-44ac-8225-ccc46d98f1e4
 ```
 
-# Terragrunt
+### Terragrunt
 
 Terragrunt enables separation of Terraform modules and configuration files (variables) without [code duplication](https://github.com/gruntwork-io/terragrunt#keep-your-terraform-code-dry). It is mainly developed by [Gruntwork](https://www.gruntwork.io/).
 
@@ -64,7 +62,7 @@ Like Terraform, you can also reuse remote modules. Our GKE modules are stored [o
 
 The directory structure is:
 
-```
+```bash
 .
 └── terraform
     └── modules
@@ -77,7 +75,7 @@ Modules are reusable and fully customizable, no hard coded values are present.
 
 The specific configuration is done in another directory, for example `env`:
 
-```
+```bash
 └── env
     ├── prod
     │   ├── terraform.tfvars
@@ -91,17 +89,17 @@ The specific configuration is done in another directory, for example `env`:
 
 Each directory contains specific variables relative to each environment and inside each modules variables specific to each modules. The root `terraform.tfvars` contains variables common to all modules of a specific environment.
 
-# Customize each environment
+### Customize each environment
 
 Terraform modules and configuration files used in this article can be found [here](https://github.com/Osones/cloud-infra/tree/master/gcp/terraform)
 
-## GKE variables
+#### GKE variables
 
 Let's create a new repository with the same structure as before. The [required variables](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/modules/gke/variables.tf) to setup a GKE cluster are defined in the module.
 
 [`env/preprod/gke/terraform.tfvars`](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/example_env/preprod/gke/terraform.tfvars) for the preproduction environment:
 
-```
+```bash
 terragrunt = {
   include {
     path = "${find_in_parent_folders()}"
@@ -140,7 +138,7 @@ Then let's do the same for prod environment.
 
 [`env/prod/gke/terraform.tfvars`](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/example_env/prod/gke/terraform.tfvars) for the prod environment:
 
-```
+```bash
 terragrunt = {
   include {
     path = "${find_in_parent_folders()}"
@@ -173,7 +171,7 @@ daily_maintenance_window_start_time = "00:00"
 env = "prod"
 ```
 
-## Manage remote state
+#### Manage remote state
 
 Terragrunt also support remote state and the official [Terraform backend](https://www.terraform.io/docs/backends/types/gcs.html). We can also avoid code duplication and specify the backend only once.
 
@@ -181,7 +179,7 @@ Terragrunt also support remote state and the official [Terraform backend](https:
 
 Each environment state will be store in its own GCS bucket. Terragrunt supports creating bucket automatically with S3, but not with GCS so let's create one bucket per environment:
 
-```
+```bash
 gsutil mb -p gke-blog-preprod gs://gke-blog-preprod-tf-remote-state
 Creating gs://gke-blog-preprod-tf-remote-state/...
 
@@ -191,7 +189,7 @@ Creating gs://gke-blog-prod-tf-remote-state/...
 
 Then a `terraform.tfvars` in the root folder of each environment will tell Terraform to store the remote state in this bucket, this root file is reused by all the modules inside the environment. This is defined [here](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/example_env/preprod/gke/terraform.tfvars#L3) for example with:
 
-```
+```bash
   include {
     path = "${find_in_parent_folders()}"
   }
@@ -199,7 +197,7 @@ Then a `terraform.tfvars` in the root folder of each environment will tell Terra
 
 [`env/preprod/terraform.tfvars`](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/example_env/preprod/terraform.tfvars) content:
 
-```
+```bash
 terragrunt = {
   remote_state {
     backend = "gcs"
@@ -215,7 +213,7 @@ terragrunt = {
 
 [`env/prod/terraform.tfvars`](https://github.com/Osones/cloud-infra/blob/master/gcp/terraform/example_env/prod/terraform.tfvars) content:
 
-```
+```bash
 terragrunt = {
   remote_state {
     backend = "gcs"
@@ -231,7 +229,7 @@ terragrunt = {
 
 Our final directory structure should look like this:
 
-```
+```bash
 .
 ├── preprod
 │   ├── gke
@@ -251,7 +249,7 @@ You should end up with on cluster in each projects, and each Terraform state sto
 
 <center><img src="/images/gke-terragrunt/gke-terragrunt-2.png" alt="GKE-2" width="1200" align="middle"></center>
 
-```
+```bash
 gcloud container clusters list --project gke-blog-prod
 NAME           LOCATION        MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS
 gke-blog-prod  europe-west1-b  1.9.6-gke.0     35.189.251.203  n1-standard-1  1.9.6-gke.0   3          RUNNING
@@ -261,7 +259,7 @@ NAME              LOCATION        MASTER_VERSION  MASTER_IP      MACHINE_TYPE   
 gke-blog-preprod  europe-west1-b  1.9.6-gke.0     35.195.157.89  n1-standard-1  1.9.6-gke.0   3          RUNNING
 ```
 
-```
+```bash
 gsutil ls -p gke-blog-preprod gs://gke-blog-preprod-tf-remote-state/gke
 gs://gke-blog-preprod-tf-remote-state/gke/default.tfstate
 
@@ -270,6 +268,9 @@ gs://gke-blog-prod-tf-remote-state/gke/default.tfstate
 ```
 Terraform modules and configuration files used in this article can be found [here](https://github.com/Osones/cloud-infra/tree/master/gcp/terraform)
 
-# Conclusion
+### Conclusion
 
 Terragrunt allows you to reuse generic modules for multiple environments, here we only use the GKE module, but you can add multiple modules inside the `env` folder, for example if you need a MySQL database or other GCP services, these modules will also use the GCP bucket for remote state locking and storage and all your environment state will be stored remotely.
+
+
+**Kevin Lefevre**

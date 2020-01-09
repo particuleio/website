@@ -13,7 +13,7 @@ image: images/thumbnails/kubernetes.png
 
 Still in the Kubernetes series, this week let's take a look at Torus, a cloud native distributed file system developed by CoreOS which give persistent storage to Kubernetes PODs.
 
-# Qu'est-ce que Torus ?
+### Qu'est-ce que Torus ?
 
 In the container world, persistent storage is still a major issue : stateless application are easily moved to container based environment and do not usually need persistent data. This is not the case of stateful applications such as databases. For Docker, there are some plugins available already :
 
@@ -43,13 +43,13 @@ What are the differences with GlusterFS or NFS ? Torus provides only block stora
   * *torusctl* : CLI to manage Torus
   * *torusblk* : CLI to manage Torus Block Devices
 
-# Kubernetes integration with Flex Volume
+### Kubernetes integration with Flex Volume
 
 Torus is independent from Kubernetes. It can be installed as a standalone application and expose volumes via NBD. These volume can then be used like any other block device.
 
 Kubernetes, in addition to built-in volumes, has a FlexVolume plugin that allows custom storage solution to implements a storage drivers without touching the heart of Kubernetes. *torusblk* binary is compatible with FlexVolume specs so we can directly mount storage into PODs.
 
-# Demo on a Kubernetes cluster with etherpad-lite
+### Demo on a Kubernetes cluster with etherpad-lite
 
 This test takes place on Kubernetes 1.3 cluster with 3 CoreOS nodes. We are going to deploy Torus as a container, directly on Kubernetes. To work properly Torus needs :
 
@@ -58,13 +58,13 @@ This test takes place on Kubernetes 1.3 cluster with 3 CoreOS nodes. We are goin
   * Etcd v3
   * Free storage on the nodes
 
-## Plugin installation
+#### Plugin installation
 
 Torus binaries are available [here](https://github.com/coreos/torus/releases).
 
 First let's check [Kubelet's](http://kubernetes.io/docs/admin/kubelet/) config :
 
-```Bash
+```bash
 # /etc/systemd/system/kubelet.service
 [Service]
 ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
@@ -91,20 +91,20 @@ We need to add `volume-plugin-dir` if not already present. Default is `--volume-
 
 Then we need to create the directory and drop `torusblk` binary as `torus` on each node `/etc/kubernetes/kubelet-plugins/volume/exec/coreos.com~torus/` :
 
-```Bash
+```bash
 ansible -i ../ansible-coreos/inventory "worker*" -m file -b -a "dest=/etc/kubernetes/kubelet-plugins/volume/exec/coreos.com~torus mode=700 state=directory"
 ansible -i ../ansible-coreos/inventory "worker*" -m copy -b -a "src=/home/klefevre/go/src/github.com/coreos/torus/bin/torusblk dest=/etc/kubernetes/kubelet-plugins/volume/exec/coreos.com~torus/torus mode=700"
 ```
 
 Torus also needs `nbd` kernel module. It can be loaded manually :
 
-```Bash
+```bash
 ansible -i ../ansible-coreos/inventory -m shell -b -a "modprobe nbd" "worker*"
 ```
 
 Or with cloud-init :
 
-```YAML
+```yaml
 #cloud-config
 write_files:
   - path: /etc/modules-load.d/nbd.conf
@@ -117,15 +117,15 @@ coreos:
 
 Finally we need to restart the Kubelet service on each node and we are done for the prerequisites. The remaining steps take place on Kubernetes :
 
-```Bash
+```bash
 ansible -i inventory -m shell -b -a "systemctl restart kubelet" "worker*"
 ```
 
-## Etcdv3 deployment
+#### Etcdv3 deployment
 
 To work properly, Torus needs the latest etcd v3. It can be deploy on Kubernetes and publish with a service :
 
-```YAML
+```yaml
 # etcdv3-daemonset.yml
 ---
 apiVersion: v1
@@ -203,7 +203,7 @@ spec:
 
 Usage of DeamonSet ensure that there is one instance of etcd per node. Etcd cluster state can be validated with `etcdctl` and the Kubernetes service IP :
 
-```Bash
+```bash
 kubectl create -f etcdv3-daemonset.yml
 
 kubectl get pods --selector="daemon=etcdv3"
@@ -213,7 +213,7 @@ etcdv3-7r46s   1/1       Running   1          1d
 etcdv3-o0n86   1/1       Running   1          1d
 ```
 
-```Bash
+```bash
 core@coreos00 ~ $ etcdctl --endpoints=http://10.3.0.100:2379 cluster-health
 member 3f87be33d946732d is healthy: got healthy result from http://10.2.78.2:2379
 member a19d841707579e60 is healthy: got healthy result from http://10.2.36.3:2379
@@ -226,11 +226,11 @@ a19d841707579e60: name=etcdv3-4jncl peerURLs=http://10.2.36.3:2380 clientURLs=ht
 d5479de5c3342460: name=etcdv3-o0n86 peerURLs=http://10.2.55.2:2380 clientURLs=http://10.2.55.3:2379 isLeader=false
 ```
 
-## Torus deployment
+#### Torus deployment
 
 Torus is also deployed on top of Kubernetes, also with a DaemonSet so there is one instance of Torus on each node. That instance is using local storage to populate Torus storage pool (with the host volume).
 
-```YAML
+```yaml
 # torus-daemonset.yml
 ---
 apiVersion: extensions/v1beta1
@@ -278,7 +278,8 @@ spec:
           hostPath:
             path: /srv/torus                        #-> HostPath with torus block device
 ```
-```Bash
+
+```bash
 kubectl create -f etcdv3-daemonset.yml
 
 kubectl get pods --selector="daemon=torus"
@@ -290,13 +291,13 @@ torus-wc54r   1/1       Running   0          1m
 
 On a machine running Kubectl, we can control Torus cluster with the binaries we saw previously. To do so we use the port forward feature of Kubectl to access an etcd pod :
 
-```Bash
+```bash
 kubectl port-forward etcdv3-4jncl
 ```
 
 That makes it possible to locally control Torus cluster :
 
-```Bash
+```bash
 torusctl list-peers
 Handling connection for 2379
 ADDRESS                 UUID                                  SIZE     USED  MEMBER  UPDATED        REB/REP DATA
@@ -308,7 +309,7 @@ Balanced: true Usage:  0.00%
 
 So in our case, we have 3 instances with each a 5GiB pool, like we specified into Torus' manifest. We create a 1GiB volume for our etherpad app :
 
-```Bash
+```bash
 torusctl volume create-block pad 1GiB
 torusctl volume list
 Handling connection for 2379
@@ -318,11 +319,11 @@ pad          1.0 GiB  block
 
 The volume `pad` is now available has a Kubernetes volume.
 
-## Etherpad deployment
+#### Etherpad deployment
 
 Like the other, etherpad is deploy on top of Kubernetes with a `deployment` and a `service` :
 
-```YAML
+```yaml
 # deployment-etherpad.yml
 ---
 apiVersion: v1
@@ -378,7 +379,7 @@ spec:
 
 To check the deployment :
 
-```Bash
+```bash
 kubectl create -f ymlfiles/deployment-etherpad.yml
 deployment "etherpad" created
 service "etherpad" created
@@ -430,7 +431,7 @@ NAME              STATUS                     AGE
 
 Scheduling is disable on node 192.168.122.111. Let's detroy etherpad pod :
 
-```Bash
+```bash
 kubectl get pods --selector="app=etherpad"
 NAME                        READY     STATUS    RESTARTS   AGE
 etherpad-2266423034-6wk4u   1/1       Running   0          14m
@@ -441,7 +442,7 @@ pod "etherpad-2266423034-6wk4u" deleted
 
 Check the new pod :
 
-```Bash
+```bash
 kubectl get pods --selector="app=etherpad"
 NAME                        READY     STATUS    RESTARTS   AGE
 etherpad-2266423034-urb2f   1/1       Running   0          1m
@@ -462,7 +463,7 @@ Controllers:    ReplicaSet/etherpad-2266423034
 
 Ok, it is just screen capture so I invite you to trust me on this one or test by yourself :)
 
-# Conclusion
+### Conclusion
 
 Torus is a young product that fits right into the philosophy behind other OSS products launched by CoreOS.
 

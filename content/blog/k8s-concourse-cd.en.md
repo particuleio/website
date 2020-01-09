@@ -8,7 +8,7 @@ image: images/thumbnails/kubernetes.png
 lang: en
 ---
 
-# Introduction
+### Introduction
 
 Building and deploying containerized services manually is slow and subject to errors. Continuous delivery with automated build and test mechanisms helps detect errors early, saves time, and reduces failures, making this a popular model for application deployments on your favorite containers orchestrator (if it's not Kubernetes yet, [Osones provides training](http://osones.com/formations/kubernetes.en.html), let us convince you!). This chain guarantees idempotency and reduces time between code development and production release.
 
@@ -27,7 +27,7 @@ All clear?
 
 Let's go!
 
-# Prep talk
+### Prep talk
 
 First things first, we'll need some tools:
 
@@ -36,7 +36,7 @@ First things first, we'll need some tools:
 * Kubernetes credentials
 
 Let's create our git repository:
-```
+```bash
 $ mkdir demo-cicd && cd demo-cicd
 $ git init
 $ git remote add origin https://github.com/osones/demo-cicd
@@ -52,16 +52,16 @@ It's - intentionally - extremely simple, printing our logo and a "hello world". 
 
 We are set, let's start with Concourse.
 
-# Concourse-CI
+### Concourse-CI
 
-<center>![Concourse CI](/images/concourse-logo.png)</center>
+![Concourse CI](/images/concourse-logo.png#center)
 
 As said before, I will not get into details regarding Concourse. To keep it short, Concourse is a CI/CD tool written in Go that scales natively and can be easily deployed on cloud platforms. It uses "resources", allowing you to get Docker images, push data on AWS S3, spin up Kubernetes pods etc. Everything is written in yaml files, making it easy to put all your configuration into another git repository.
 
 Our pipeline will look like the following.
 
 First, our resources:
-```
+```yaml
 resource_types:
 - name: kubernetes
   type: docker-image
@@ -94,7 +94,7 @@ We use 3 resources:
 
 And now, our jobs:
 
-```
+```yaml
 jobs:
   - name: "Docker-Build"
     public: false
@@ -121,23 +121,23 @@ Only two jobs! The first one builds our image form the code source. As you can s
 As a rolling update strategy, we decided to simply kill our pods (thanks to the labels), our deployment object will take care to spin up as many replicas as we need with the new Docker image. It's clearly not the more efficient way to go but come on, it's just an example.
 
 We can deploy it with the Fly CLI:
-```
+```bash
 $ fly -t osones set-pipeline -p demo-cicd -c demo-cicd.yml --load-vars-from secrets/demo-cicd.yml
 $ fly -t osones unpause-pipeline -p demo-cicd
 ```
 Our `secrets/demo-cicd.yml` contains the variables used in our pipeline.
 
-<center>![Pipeline](/images/pipeline-concourse-k8s-cd.png)</center>
+![Pipeline](/images/pipeline-concourse-k8s-cd.png#center)
 
 And now, Kubernetes!
 
-# Kubernetes
+### Kubernetes
 
-<center>![Kubernetes](/images/docker/kubernetes.png)</center>
+![Kubernetes](/images/docker/kubernetes.png#center)
 
 We are going to use 3 Kubernetes objects for our application, a deployment, a service and an ingress. Our ingress controller we be implemented by Traefik. [Check out Kevin's blog post on Traefik as an Ingress Controller for Kubernetes for more infos](https://blog.osones.com/en/kubernetes-ingress-controller-with-traefik-and-lets-encrypt.html).
 
-```
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -193,7 +193,7 @@ spec:
 The `imagePullPolicy: Always` is pretty important because it tells Kubernetes to pull at each deployment. It ensures that the new Docker image will be deploy when a rolling update is triggered.
 
 If you doubt yourself, you can see our 3 replicas:
-```
+```bash
 $ kubectl get pods -l app=demo-cicd
 ds -l app=demo-cicd
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -203,20 +203,20 @@ demo-cicd-58c9f4c994-q8tnh   1/1       Running   0          1m
 ```
 And our web application is reachable at thr URL used in the ingress object.
 
-<center> ![helloworld-red](/images/helloworld-osones-rouge.png)</center>
+![helloworld-red](/images/helloworld-osones-rouge.png#center)
 
 Happily, we can also see that our web application is load-balanced between the 3 pods (mind your browser's cache ;) ).
 
 Let's decide to change the color of our title!
 
-```
+```bash
 $ sed -i s/red/green/ index.php
 $ git commit -am "from red to green" && git push
 ```
 
 Wait & see, wait & see... (maybe 3 minutes ^^)
 
-<center> ![helloworld-green](/images/helloworld-osones-vert.png)</center>
+![helloworld-green](/images/helloworld-osones-vert.png#center)
 
 We keep this extremely simple. In the future we could :
 
@@ -225,7 +225,6 @@ We keep this extremely simple. In the future we could :
 * Use a different [rolling update method with Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/update-intro/), ours is a bit hard...
 * Publish a GitHub release (there is a resource for that too! ) once the deployment is finished and the new version tagged
 * ...
-
 
 
 **[Romain Guichard](https://fr.linkedin.com/in/romainguichard/en)**

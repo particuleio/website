@@ -20,7 +20,7 @@ Cet article va tenter de repositionner tout ce beau monde, qui remplace qui,
 qui dépend de qui, de façon à avoir une bonne vision de ce que sont tous ces
 outils et vous permettre de choisir les bons.
 
-# C'est quoi une runtime ?
+### C'est quoi une runtime ?
 
 Si on met de côté les runtimes qui servent de contexte d'exécution pour
 certains langages comme Java, dans le monde des conteneurs, la runtime est
@@ -31,7 +31,7 @@ dans la suite de l'article qu'il existe plusieurs types de runtimes dont les
 objectifs sont différents et souvent complémentaires.
 
 
-# In principio erat Docker
+### In principio erat Docker
 
 Reconnaissons que Docker ne nous a pas simplifié la tâche pour
 comprendre ce qu'était une container runtime. En effet, "à l'époque",
@@ -54,7 +54,7 @@ Docker a gagné cette guerre contre CoreOS.
 Docker a donc commencé à devenir de moins en moins monolithique. On peut
 d'ailleurs voir désormais que runc est la runtime utilisée par Docker :
 
-```
+```bash
 $ docker info | grep -i runtime
 [...]
 Runtimes: runc
@@ -69,7 +69,7 @@ originellement de Docker.
 [https://github.com/opencontainers/image-spec](https://github.com/opencontainers/image-spec)
 
 
-# Différents types de container runtimes
+### Différents types de container runtimes
 
 Le problème a néanmoins persisté. Toutes les runtimes ne font pas la même
 chose. Runc par exemple est assez bas niveau et se charge uniquement de
@@ -95,7 +95,7 @@ fournit une API ainsi qu'une CLI et si on a bien suivi, il délègue désormais 
 partie création du conteneur à runc. Mais pas tout à fait, il existe en effet encore une couche
 entre Docker et runc : containerd.
 
-<center>![containerd](https://containerd.io/img/logos/footer-logo.png)</center>
+![containerd](https://containerd.io/img/logos/footer-logo.png#center)
 
 Containerd fut aussi sortie du projet Docker. Containerd fait tout ce que
 Docker fait, sauf builder une image. Nous pourrions intéragir directement avec
@@ -112,10 +112,10 @@ vérifier leur checksum, etc. Une fois ces activités de haut niveau effectuées
 elle délègue à la container runtime de bas niveau les tâches pour créer les
 conteneurs.
 
-![container runtime](https://storage.googleapis.com/static.ianlewis.org/prod/img/771/runtime-architecture.png)
+![container runtime](https://storage.googleapis.com/static.ianlewis.org/prod/img/771/runtime-architecture.png#center)
 
 
-# Kubernetes et CRI
+### Kubernetes et CRI
 
 Mais deux couches, de haut et bas niveau, ce n'était pas suffisant. Le problème
 s'est posé lorsque les orchestrateurs de conteneurs sont arrivés. Je parlerai
@@ -134,18 +134,18 @@ utilisant le framework gRPC. Le kubelet est donc le client et CRI le serveur.
 Ce "serveur" est en fait une interface shim qui intercepte et traduit les calls
 entre le kubelet et la container runtime.
 
-![kubelet](https://d3vv6lp55qjaqc.cloudfront.net/items/0I3X2U0S0W3r1D1z2O0Q/Image%202016-12-19%20at%2017.13.16.png)
+![kubelet](https://d3vv6lp55qjaqc.cloudfront.net/items/0I3X2U0S0W3r1D1z2O0Q/Image%202016-12-19%20at%2017.13.16.png#center)
 
 CRI-O est un autre exemple de runtime qui implémente CRI et communique ensuite
 avec une autre runtime qui implémente elle la spécification de l'OCI. CRI-O peut, par
 exemple, parler à runc ou à Kata Containers.
 
-![katacontainers](https://katacontainers.io/media/uploads/katacontainers//images/posts/kubeletkatacontainers.jpg)
+![katacontainers](https://katacontainers.io/images/kata-explained1@2x.png#center)
 
 [Plus d'infos sur Kata Containers](https://katacontainers.io/posts/why-kata-containers-doesnt-replace-kubernetes/)
 
 
-## Implication pour vos clusters Kubernetes
+#### Implication pour vos clusters Kubernetes
 
 Une implication directe de ces informations est que Docker n'est pas un
 prérequis à Kubernetes et ne peux même pas être considéré comme un choix par
@@ -174,7 +174,6 @@ volontairement été omises, nous aurions pu citer
 [gVisor](https://github.com/google/gvisor),
 [frakti](https://github.com/kubernetes/frakti) ou
 [Railcar](https://github.com/oracle/railcar)
-
 
 
 **Romain Guichard - [@herrguichard](https://twitter.com/herrguichard)**

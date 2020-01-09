@@ -14,8 +14,7 @@ image: images/thumbnails/kubernetes.png
 Pour continuer dans la série des fonctionnalités Alpha/Beta de Kubernetes, après [Torus](https://blog.osones.com/presentation-de-torus-un-systeme-de-fichier-distribue-cloud-natif.html), nous allons aujourd'hui tester un nouvel objet : les PetSet, qui vont permettre de manager plus facilement des applications stateful au sein d'un cluster Kubernetes. Pour valider tout cela, nous ferons un petit test en bootstrappant (du verbe bootstrapper) un cluster Consul qui rentre parfaitement dans le cas d'utilisation des PetSet.
 
 
-<br />
-# Les PetSets, pourquoi ?
+### Les PetSets, pourquoi ?
 
 Les pods Kubernetes sont des unités éphémères disposant potentiellement d'un cycle de vie très court et sont à la base destinés à des applications stateless. Ils disposent d'un nom aléatoire et n'ont pas d'identité propre. Ce mode de fonctionnement rend difficile l'instantiation d'applications stateful fonctionnant en cluster, comme par exemple les systèmes de stockage clé/valeurs tels que Consul, Etcd ou Zookeeper, et les bases de données comme PostgreSQL ou MySQL. Les applications clusterisées nécessitent souvent une identité propre : en général, un membre du cluster ne peut pas être remplacer aussi facilement que simplement en lançant un autre conteneur.
 
@@ -32,16 +31,7 @@ Les PetSet sont similaires aux *deployment* et *replication controller* mais pro
     - Découverte des pairs.
 
 
-
-<br />
-<center>
-<a href="http://bit.ly/ContactezOsones"><img src="/images/campagnes-osones/contactezosones.png" alt="Contactez des Experts AWS certifiés !" align="middle"></center>
-</a>
-
-
-
-<br />
-# Avant les PetSets
+### Avant les PetSets
 
 Il est bien sur déjà possible d'utiliser de telles applications, par exemple via l'utilisation de *DaemonSet* (pour faire fonctionner un pod par nœud) ou de *deployment*, puis combiner à ce que l'on appelle un service *headless* (sans clusterIP ou NodePort).
 
@@ -49,7 +39,7 @@ Les services *headless* permettent de renvoyer via DNS directement les IP des po
 
 Par exemple si l'on prend 2 services et leurs endpoints :
 
-```
+```bash
 kubectl get endpoints
 NAME         ENDPOINTS                                       AGE
 consul       10.2.38.12:8500,10.2.55.8:8500,10.2.81.8:8500   4m
@@ -59,7 +49,7 @@ kubernetes   10.0.0.50:443                                   2d
 
 Exemple de service :
 
-```
+```bash
 kubectl describe svc kubernetes
 Name:                   kubernetes
 Namespace:              default
@@ -76,7 +66,7 @@ No events.
 
 Exemple de service *headless* (ClusterIP: None) :
 
-```
+```bash
 kubectl describe svc consul
 Name:                   consul
 Namespace:              default
@@ -94,7 +84,7 @@ Dans un pod, il est possible d'interroger le *discovery service* via DNS pour r�
 
 Dans le cas d'un service "classique", l'IP retournée est celle du cluster :
 
-```
+```bash
 nslookup kubernetes.default.svc.cluster.local
 
 Name:      kubernetes.default.svc.cluster.local
@@ -103,7 +93,7 @@ Address 1: 10.3.0.1 kubernetes.default.svc.cluster.local
 
 Dans le cas d'un service *headless*, les IPs des endpoints (pods) sont retournées directement :
 
-```
+```bash
 nslookup consul.default.svc.cluster.local
 
 Name:      consul.default.svc.cluster.local
@@ -114,7 +104,7 @@ Address 3: 10.2.81.8 ip-10-2-81-8.eu-west-1.compute.internal
 
 Avec cette technique, il est possible de bootstrapper facilement un cluster consul par exemple avec le [*DeamonSet*](https://raw.githubusercontent.com/ArchiFleKs/k8s-ymlfiles/master/consul-daemonset.yml) suivant :
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -183,7 +173,7 @@ spec:
 
 Création et vérification des pods :
 
-```
+```bash
 kubectl create -f consul-daemonset.yml
 
 kubectl get pods
@@ -195,7 +185,7 @@ consul-zajix   1/1       Running   0          6d
 
 Avec un port forward on vérifie l'état du cluster consul :
 
-```
+```bash
 kubectl port-forward consul-0u8iz 8400:8400 > /dev/null &1
 [1] 22190
 
@@ -208,7 +198,7 @@ consul-zajix  10.2.81.8:8301   alive   server  0.6.4  2         dc1
 
 Que se passe t-il si l'on perd un pod ?
 
-```
+```bash
 kubectl get pods
 NAME           READY     STATUS    RESTARTS   AGE
 consul-0u8iz   1/1       Running   0          6d
@@ -236,12 +226,11 @@ Le cluster récupère correctement mais on remarque que le nouveau Pod apparaît
 
 Les PetSet permettent de palier à ce problème dans le sens ou le nouveau pod disposera de la même identité que l'ancien pod, considéré comme le même membre du cluster.
 
-<br />
-# PetSet, demo
+### PetSet, demo
 
 La ressource *PetSet* est disponible dans l'API apps/v1alpha1, les options de configurations sont similaires au *DeamonSet* avec en plus des options de [bootstrap](http://kubernetes.io/docs/user-guide/petset/bootstrapping/) dont on parlera dans un prochain article. Ci dessous le [*PetSet* Consul](https://raw.githubusercontent.com/ArchiFleKs/k8s-ymlfiles/master/consul-petset.yml) :
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -336,7 +325,7 @@ spec:
 
 Création et vérification des pets :
 
-```
+```bash
 kubectl create -f consul-petset.yml
 service "consul" created
 petset "consul" created
@@ -350,7 +339,7 @@ consul-2   1/1       Running   0          2m
 
 Le nom des pods n'est plus aléatoire contrairement à l'utilisation d'un *daemonset*. Petit coup d'œil sur les endpoints :
 
-```
+```bash
 kubectl describe endpoints consul
 Name:           consul
 Namespace:      default
@@ -373,7 +362,7 @@ No events.
 
 Vérification de l'état du cluster Consul :
 
-```
+```bash
 consul members
 Node      Address          Status  Type    Build  Protocol  DC
 consul-0  10.2.81.12:8301  alive   server  0.6.4  2         dc1
@@ -383,7 +372,7 @@ consul-2  10.2.55.12:8301  alive   server  0.6.4  2         dc1
 
 Que se passe t-il maintenant si l'on perd un Pet :
 
-```
+```bash
 kubectl delete pods consul-2
 pod "consul-2" deleted
 
@@ -402,8 +391,7 @@ consul-2  10.2.55.13:8301  alive   server  0.6.4  2         dc1
 
 Peu de temps après, le nouveau pod remonte et récupère l'identité du précèdent. Pour Consul, c'est le même membre du Cluster. Il est possible d'allier les PetSet avec des *Persistent Volume* et *Claim* afin d'offrir du stockage persistent au Pets. Dans le cas de Consul, les données étant répliquées, perdre un Pet Consul ainsi que son volume éphémère n'a pas d'impact.
 
-<br />
-# Limitations et évolutions
+### Limitations et évolutions
 
 La fonctionnalité est toujours en Alpha pour le moment mais elle évolue rapidement. Il existe toujours certaines limitations :
 
@@ -413,8 +401,7 @@ La fonctionnalité est toujours en Alpha pour le moment mais elle évolue rapide
 
 - La mise à jour est elle aussi manuelle, il faut soit démarrer un nouveau PetSet, soit sortir les Pets du PetSet, les mettre à jour puis les réintégrer au cluster. La fonctionnalité de rolling-update déjà existante pour d'autres objets est [bientôt prévue](https://github.com/kubernetes/kubernetes/issues/28706).
 
-<br />
-# Conclusion
+### Conclusion
 
 Cette fonctionnalité, couplée aux fonctionnalités stables existantes (services discovery et services) ainsi qu'au futur [*Dynamic Volume Provisionning*](https://github.com/kubernetes/kubernetes/blob/release-1.3/examples/experimental/persistent-volume-provisioning/README.md) vont permettre de bootstrapper des services stateful quasi plus facilement sur des COE (*Containers Orchestration Engine*, tel que Kubernetes) que directement sur du IaaS, par exemple sur OpenStack ou les services de discovery et DNS tel que Designate ne sont pas encore au point.
 

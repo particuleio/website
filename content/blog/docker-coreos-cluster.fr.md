@@ -23,7 +23,7 @@ de faire ce dont vous avez besoin.
 
 Sur le principe, si vous voulez avoir mtr (mytraceroute) il faut faire ceci :
 
-```
+```bash
 Dockerfile:
 -----
 FROM alpine:3.2
@@ -89,7 +89,7 @@ On peut commencer à rédiger notre fichier cloud-config.
 
 Tout d’abord un fichier cloud-config commence toujours par #cloud-config et viennent ensuite différentes sections, chacune configurant une partie du système :
 
-```
+```yaml
 #cloud-config
     ssh_authorized_keys:
         - ssh-rsa VOTRE_CLE_PUBLIQUE core@coreos
@@ -122,13 +122,13 @@ Une fois démarré, vous devriez pouvoir accéder à un de vos noeuds en ssh.
 
 Si il s’agit du premier noeud à démarrer, la commande « systemctl status etcd -l » devrait vous montrer son élection en tant que master :
 
-```
+```bash
 Mar 27 15:29:40 coreos-node1 etcd[8759]: [etcd] Mar 27 15:29:40.811 INFO      | ccc095d945964a97d95b2f0377a41e: state changed from 'follower' to 'candidate'. Mar 27 15:29:40 coreos-node1 etcd[8759]: [etcd] Mar 27 15:29:40.811 INFO      | ccc095d945964a97d95b2f0377a41e: state changed from 'candidate' to 'leader'. Mar 27 15:29:40 coreos-node1 etcd[8759]: [etcd] Mar 27 15:29:40.811 INFO      | ccc095d945964a97d95b2f0377a41e: leader changed from '' to 'ccc095d945964a97d95b2f0377a41e'.
 ```
 
 Et sur le second noeud :
 
-```
+```bash
 Mar 27 15:30:29 coreos-node2 etcd[9523]: [etcd]
 Mar 27 15:30:29.001 INFO      | Send Join Request to http://10.0.0.100:7001/join
 Mar 27 15:30:29 coreos-node2 etcd[9523]: [etcd]
@@ -143,7 +143,7 @@ Mar 27 15:30:29 coreos-node2 etcd[9523]: [etcd] Mar 27 15:30:29.648 INFO    
 
 Et sur n’importe quel noeud, on peut voir la liste des machines dans le cluster :
 
-```
+```bash
 $ fleetctl list-machines
 MACHINE         IP              METADATA
 ac2619b7...     10.0.0.101     -
@@ -159,7 +159,7 @@ un template qui permettra de créer plusieurs instances de notre Nginx.
 
 Un unit file ressemble à ceci :
 
-```
+```bash
 core@coreos-node1 /etc/systemd/system $ cat nginx@.service
 [Unit]
 Description=Nginx-frontend
@@ -184,7 +184,7 @@ enfant du processus de l’unit et se coupe après quelques secondes d’exécut
 
 On submit ensuite l’unit à fleet et on la lance :
 
-```
+```bash
 fleetctl submit nginx@.service
 fleetctl start nginx@1
 fleetctl start nginx@2
@@ -215,15 +215,3 @@ intégrées permettent de monter des applications résilientes relativement
 simplement.
 
 **Romain Guichard**
-
-### - Encore un peu de temps ? Nous avons pleins d'autres articles sur Docker :
-
-<center>
-### [Discovery Service avec Consul](http://blog.osones.com/discovery-service-avec-consul.html)
-<img src="/images/docker/consul.png" alt="consul" width="200" align="middle"></center>
-<br>
-
-<center>
-###  [Container as a Service avec Amazon EC2 Container Service (ECS)](http://blog.osones.com/container-as-a-service-avec-amazon-ec2-container-service-ecs.html)
-<img src="/images/ECS/AmazonEC2ContainerService_Banner.png" alt="Amazon ECS" width="500" align="middle"></center>
-<br>

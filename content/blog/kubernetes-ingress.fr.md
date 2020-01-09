@@ -15,17 +15,16 @@ Toujours dans les features alpha/beta mais pas trop quand même (depuis la v1.1)
 
 Avant de démarrer, vous pouvez faire un petit tour sur [l'article de Romain](http://blog.osones.com/traefik-un-reverse-proxy-pour-vos-conteneurs.html) qui présente Træfɪk un peu plus en détail et son fonctionnement avec [Consul](https://www.consul.io/) et Docker.
 
-<br />
 
-# Quels composants?
+### Quels composants?
 
-## Ingress Resource
+#### Ingress Resource
 
 Un [*ingress*](http://kubernetes.io/docs/user-guide/ingress) est un objet Kubernetes relativement simple qui définit des règles de routage applicatives. Ces règles vont permettre de configurer un reverse proxy en frontal des services.
 
 Sans Ingress, les services Kubernetes sont directement exposés sur Internet :
 
-```
+```bash
     internet
         |
   ------------
@@ -34,7 +33,7 @@ Sans Ingress, les services Kubernetes sont directement exposés sur Internet :
 
 L'Ingress se positionne au niveau applicatif entre Internet et les services :
 
-```
+```bash
     internet
         |
    [ Ingress ]
@@ -44,7 +43,7 @@ L'Ingress se positionne au niveau applicatif entre Internet et les services :
 
 Définition d'un *Ingress* :
 
-```
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -87,7 +86,7 @@ Nous avons des règles de routage dans un fichier YAML, ok c'est top, mais comme
 
 Non pas directement par Kubernetes mais par des composant externes qui implémentent la spécification d'[*Ingress Controller*](https://github.com/kubernetes/contrib/tree/master/ingress/controllers).
 
-## Ingress Controller
+#### Ingress Controller
 
 Seules, les définitions d'Ingress ne font rien de particulier. Pour fonctionner elles ont besoin d'un *Ingress Controller* : un reverse proxy capable de communiquer avec les API Kubernetes, c'est à dire de regarder les *creation/update/deletion* d'Ingress et implémenter les règles définies.
 
@@ -104,7 +103,7 @@ Google propose son propre *Ingress Controller* sur GCE, mais il en existe d'autr
 - [Træfɪk](https://docs.traefik.io/toml/#kubernetes-ingress-backend)
 - Sûrement d'autres dont je n'ai pas encore entendu parler
 
-# Let's Træfɪk et Let's Encrypt
+### Let's Træfɪk et Let's Encrypt
 
 Qu'est ce que [Træfɪk](https://traefik.io/) ?
 
@@ -114,11 +113,11 @@ Pour citer Romain :
 
 En plus de tout cela, Træfɪk supporte le protocole [ACME](https://github.com/ietf-wg-acme/acme/) utilisé par [Let's Encrypt](https://letsencrypt.org/). On va donc pouvoir publier des services et supporter l'HTTPS automatiquement et gratuitement. Et ça c'est cloud (automatiquement, pas gratuit) !
 
-## Configuration de Træfɪk et des composants Kubernetes
+#### Configuration de Træfɪk et des composants Kubernetes
 
 Dans un premier temps, il faut déployer l'*Ingress Controller*. Pour cela on utilise un *Deployment* :
 
-```
+```yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -173,7 +172,7 @@ Je ne sais pas ce que vous en pensez mais c'est même plutôt élégant surtout 
 
 Facultatif, un service devant Træfɪk :
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -197,7 +196,7 @@ Dans mon cas, avec un seul nœud, j'utilise une *ExternalIP*, le trafic à desti
 
 Toujours facultatif, il est possible de définir un service pour rendre la webui de Træfɪk accessible (qui sera elle même accessible depuis l'extérieur via Traefik et une règle Ingress :
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -215,7 +214,7 @@ spec:
 
 Enfin et le plus important, il faut définir *configmap* qui contiendra la configuration de Træfɪk.
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -264,7 +263,7 @@ Une fois que l'on a tous ces fichier, il est possible de les concaténer dans un
 
 Le fichier `traefik.yml` complet :
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -371,11 +370,11 @@ spec:
             - --logLevel=DEBUG
 ```
 
-## Demo
+#### Demo
 
 Sur le cluster, on dispose des PODs suivant :
 
-```
+```bash
 kubectl get pods
 NAME                           READY     STATUS    RESTARTS   AGE
 couchpotato-1954888086-ehrc3   1/1       Running   1          21d
@@ -387,7 +386,7 @@ sickrage-3769118260-h5c78      1/1       Running   7          21d
 
 Dans un premier temps, on déploie le fichier [`traefik.yml`](https://raw.githubusercontent.com/ArchiFleKs/containers/master/kubernetes/zero.vsense.fr/traefik.yml) créé dans la partie précédente :
 
-```
+```bash
 kubectl create -f traefik.yml
 service "traefik" created
 service "traefik-console" created
@@ -406,7 +405,7 @@ traefik-ingress-controller-379161919-3lhff   1/1       Running   0          51s
 
 Logs du démarrage de Træfɪk :
 
-```
+```bash
 time="2016-09-29T13:54:54Z" level=info msg="Preparing server https &{Network: Address::443 TLS:0xc42030ac00 Redirect:<nil> Auth:0xc4203f6df0}"
 time="2016-09-29T13:54:54Z" level=debug msg="Generating default certificate..."
 time="2016-09-29T13:54:55Z" level=info msg="Generating ACME Account..."
@@ -425,7 +424,7 @@ time="2016-09-29T13:55:00Z" level=debug msg="Testing certificate renew..."
 
 La communication avec Let's Encrypt est OK mais aucun certificat n'as été généré, uniquement un compte utilisateur. Il est possible de le vérifier sur le volume de l'hôte :
 
-```
+```json
 cat acme.json
 {
   "Email": "lefevre.kevin@gmail.com",
@@ -454,7 +453,7 @@ Pour le moment, Træfɪk ne sert aucun backend, il faut pour cela définir une I
 
 Le fichier [`ingress.yml`](https://raw.githubusercontent.com/ArchiFleKs/containers/master/kubernetes/zero.vsense.fr/ingress.yml) :
 
-```
+```bash
 kubectl create -f ingress.yml
 ingress "seedbox" configured
 ingress "traefik" configured
@@ -463,7 +462,7 @@ ingress "kubernetes-dashboard" configured
 
 Logs de Træfɪk :
 
-```
+```bash
 time="2016-09-29T14:05:51Z" level=debug msg="Waited for kubernetes config, OK"
 time="2016-09-29T14:05:51Z" level=debug msg="Creating frontend kubernetes.archifleks.net"
 time="2016-09-29T14:05:51Z" level=debug msg="Wiring frontend kubernetes.archifleks.net to entryPoint http"
@@ -542,7 +541,7 @@ On remarque 2 choses :
 
 On test la connectivité pour valider le tout :
 
-```
+```bash
 http tv.archifleks.net
 
 HTTP/1.1 302 Found
@@ -574,7 +573,7 @@ Vary: Accept-Encoding
 
 Bon pour la demo je suis obligé de me mettre en insecure parce que j'utilise l'API staging, et surtout que je me suis planté la première fois et que j'ai grillé tout mon quota de la semaine donc je ne peux plus générer de certificats pour le moment :)
 
-# Conclusion
+### Conclusion
 
 La fonctionnalité d'Ingress simplifie vraiment le déploiement d'applications sur Kubernetes et rajoute une couche d'abstraction à une fonctionnalité parfois complexe à implémenter dans le monde des conteneurs.
 
