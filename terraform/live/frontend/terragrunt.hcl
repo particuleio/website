@@ -57,7 +57,7 @@ inputs = {
     index_document                 = "index.html"
     error_document                 = "404.html"
     custom_error_response          = []
-    web_acl_id                     = "arn:aws:wafv2:us-east-1:886701765425:global/webacl/particuleio/ac7b8423-a3bf-4b24-8b2e-e9c5bd87acf3"
+    web_acl_id                     = null
   }
 
   dynamic_custom_origin_config = [
