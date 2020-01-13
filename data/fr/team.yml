@@ -7,10 +7,10 @@ team:
       name : Romain Guichard
       designation : CEO / Co-founder
       content : |
-        ![cka](/images/badges/logo_cka.png#flex10)
-        ![ckad](/images/badges/logo_ckad.png#flex10)
-        ![coa](/images/badges/coa_badge.png#flex10)
-        ![docker](/images/badges/docker_badge.png#flex10)
+        [![cka](/images/badges/logo_cka.png#flex10)](https://www.cncf.io/certification/cka/)
+        [![ckad](/images/badges/logo_ckad.png#flex10)](https://www.cncf.io/certification/ckad/)
+        [![coa](/images/badges/coa_badge.png#flex10)](https://www.openstack.org/coa/)
+        [![docker](/images/badges/docker_badge.png#flex10)](https://success.docker.com/certification)
       social_Icon :
         - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
           link : "https://twitter.com/herrguichard"
@@ -20,13 +20,13 @@ team:
       name : Kevin Lefevre
       designation : CTO / Co-founder
       content : |
-        ![sa](/images/badges/sa.png#flex10)
-        ![sapro](/images/badges/sapro.png#flex10)
+        [![sa](/images/badges/sa.png#flex10)](https://aws.amazon.com/fr/certification/certified-solutions-architect-associate/)
+        [![sapro](/images/badges/sapro.png#flex10)](https://aws.amazon.com/fr/certification/certified-solutions-architect-professional/)
         ![sysops](/images/badges/sapro.png#flex10)
-        ![cka](/images/badges/logo_cka.png#flex10)
-        ![ckad](/images/badges/logo_ckad.png#flex10)
-        ![coa](/images/badges/coa_badge.png#flex10)
-        ![cca](/images/badges/cca.png#flex10)
+        [![cka](/images/badges/logo_cka.png#flex10)](https://www.cncf.io/certification/cka/)
+        [![ckad](/images/badges/logo_ckad.png#flex10)](https://www.cncf.io/certification/ckad/)
+        [![coa](/images/badges/coa_badge.png#flex10)](https://www.openstack.org/coa/)
+        [![cca](/images/badges/cca.png#flex10)](https://cloud.google.com/certification/cloud-architect)
       social_Icon :
         - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
           link : "https://twitter.com/archifleks"
