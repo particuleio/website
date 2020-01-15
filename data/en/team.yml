@@ -27,7 +27,7 @@ team:
         - Certified Kubernetes Application Developer
       social_Icon :
         - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
-          link : "https//twitter.com/archifleks"
+          link : "https://twitter.com/archifleks"
         - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
           link : "https://www.linkedin.com/in/kevinlefevre/"
     - image : images/team/logo-team.png
