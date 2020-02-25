@@ -1,13 +1,17 @@
 [about]
-other = "EN About"
+other = "about."
 [service]
-other = "EN Service"
+other = "service."
 [portfolio]
-other = "EN Portfolio"
+other = "portfolio."
 [blog]
-other = "EN Blog"
+other = "blog."
 [contact]
-other = "EN Contact"
+other = "contact."
+[formations]
+other = "trainings."
+[legal]
+other = "legal."
 
 [graphicdesign]
 other = "EN Graphic Design"
