@@ -1,0 +1,23 @@
+enable    : true
+topTitle  :
+title     : Mentions Légales
+subtitle  :
+tabItem   :
+  - id        : legal
+    title     : Mentions Légales
+    heading   : Particule
+    content   : |
+      128 rue la Boétie
+
+      75008 Paris
+
+      SAS au capital social: 1000,00€
+
+      RCS Paris : 879 608 834
+
+      TVA FR: FR 05 879 608 834
+
+      Président: Romain Guichard
+
+      Directeur Général: Kevin Lefevre
+    image     : "images/logos/logo_light_200px.png#center"
