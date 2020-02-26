@@ -218,5 +218,5 @@ unsafe= true
         weight  = 1
     [[menu.nav]]
         name    = "formations"
-        url     = "formations"
+        url     = "trainings"
         weight  = 2
