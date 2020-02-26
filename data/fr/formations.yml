@@ -1,7 +1,7 @@
 enable  : true
 topTitle: 
 title   : formations.
-subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [open-sourcés](https://github.com/particuleio/formations).
+subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations).
 
 item  :
   - name        : Kubernetes Utilisateur
@@ -12,7 +12,7 @@ item  :
       - item: Les principaux objets de l'API
       - item: Concevoir et déployer des applications
       - item: Bonnes pratiques
-      - item: Preparation [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Préparation [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-user.fr.html)/[PDF](https://particule.io/formations/kubernetes-user.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -20,7 +20,7 @@ item  :
 
   - name        : Kubernetes Opérateur
     price       : 3 jours
-    description : Deployer et administrer un cluster Kubernetes
+    description : Déployer et administrer un cluster Kubernetes
     featurelist :
       - item: Ou déployer ? Comment ?
       - item: Les différents outils de déploiements
@@ -45,12 +45,12 @@ item  :
 
   - name        : OpenStack Utilisateur
     price       : 3 jours
-    description : Se familiariser avec les API et le développent d'application Cloud Ready
+    description : Se familiariser avec les API et le développement d'applications Cloud Ready
     featurelist :
       - item: Découvrir OpenStack et manipuler les différents services
       - item: Connaître le fonctionnement du projet OpenStack et ses possibilités
       - item: Manipuler l'API (Application Programming Interface), la CLI (Command Line Interface) et le Dashboard
-      - item: Être capable de définir, déployer et maintenir une infrastructure sur le cloud
+      - item: Être capable de définir, déployer et maintenir une infrastructure OpenStack
       - item: Être capable de manipuler et orchestrer des ressources sur un cloud OpenStack
       - item: Support de cours [HTML](https://particule.io/formations/openstack-user.fr.html)/[PDF](https://particule.io/formations/openstack-user.fr.html?print-pdf)
     btnText     : Nous contacter

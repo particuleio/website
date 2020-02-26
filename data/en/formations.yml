@@ -31,7 +31,7 @@ item  :
     color       : kubernetes
 
   - name        : Kubernetes - AIO
-    price       : 5 jours
+    price       : 5 days
     description : "All in one : operator and user trainings"
     featurelist :
       - item: User and operator training
