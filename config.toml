@@ -220,7 +220,3 @@ unsafe= true
         name    = "formations"
         url     = "formations"
         weight  = 2
-    [[menu.nav]]
-        name    = "legal"
-        url     = "legal"
-        weight  = 3
