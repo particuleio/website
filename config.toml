@@ -78,7 +78,7 @@ unsafe= true
     title = "Particule | Cloud Native Infrastructure"
     dateFormat = "2 January 2006"
 
-    home = "Home"
+    home = "home."
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
@@ -144,7 +144,7 @@ unsafe= true
     title = "Particule | Cloud Native Infrastructure"
     dateFormat = "January 2, 2006"
 
-    home = "Home"
+    home = "home."
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
@@ -213,6 +213,10 @@ unsafe= true
 [menu]
     # Navbar Menus
     [[menu.nav]]
-        name    = "Blog"
+        name    = "blog"
         url     = "blog"
         weight  = 1
+    [[menu.nav]]
+        name    = "formations"
+        url     = "formations"
+        weight  = 2

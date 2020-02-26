@@ -1,0 +1,72 @@
+enable  : true
+topTitle: 
+title   : formations.
+subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations).
+
+item  :
+  - name        : Kubernetes Utilisateur
+    price       : 3 jours
+    description : Se familiariser avec les API et préparer le CKAD
+    featurelist :
+      - item: Découverte des concepts
+      - item: Les principaux objets de l'API
+      - item: Concevoir et déployer des applications
+      - item: Bonnes pratiques
+      - item: Préparation [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-user.fr.html)/[PDF](https://particule.io/formations/kubernetes-user.fr.html?print-pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : kubernetes
+
+  - name        : Kubernetes Opérateur
+    price       : 3 jours
+    description : Déployer et administrer un cluster Kubernetes
+    featurelist :
+      - item: Ou déployer ? Comment ?
+      - item: Les différents outils de déploiements
+      - item: Opérer et sécuriser un cluster
+      - item: Les principaux objet admin de l'API
+      - item: Preparation [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ops.fr.html)/[PDF](https://particule.io/formations/kubernetes-ops.fr.html?print-pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : kubernetes
+
+  - name        : Kubernetes - AIO
+    price       : 5 jours
+    description : "All in one : formations utilisateur et opérateur"
+    featurelist :
+      - item: Combine la formation utilisateur et opérateur
+      - item: Prepare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : kubernetes
+
+  - name        : OpenStack Utilisateur
+    price       : 3 jours
+    description : Se familiariser avec les API et le développement d'applications Cloud Ready
+    featurelist :
+      - item: Découvrir OpenStack et manipuler les différents services
+      - item: Connaître le fonctionnement du projet OpenStack et ses possibilités
+      - item: Manipuler l'API (Application Programming Interface), la CLI (Command Line Interface) et le Dashboard
+      - item: Être capable de définir, déployer et maintenir une infrastructure OpenStack
+      - item: Être capable de manipuler et orchestrer des ressources sur un cloud OpenStack
+      - item: Support de cours [HTML](https://particule.io/formations/openstack-user.fr.html)/[PDF](https://particule.io/formations/openstack-user.fr.html?print-pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : openstack
+
+  - name        : OpenStack Opérateur
+    price       : 3 jours
+    description : Déploiement d'OpenStack avec OpenStack-Ansible
+    featurelist :
+      - item: Architecture de référence
+      - item: Découvrir OpenStack et manipuler les différents services
+      - item: Connaitre les bonnes pratiques de déploiement d’OpenStack
+      - item: Connaitre la solution de déploiement OpenStack Ansible
+      - item: Savoir configurer OSA pour fournir un control-plane hautement disponible
+      - item: Support de cours [HTML](https://particule.io/formations/openstack.fr.html)/[PDF](https://particule.io/formations/openstack.fr.html?print-pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : openstack

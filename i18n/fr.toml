@@ -1,13 +1,19 @@
 [about]
-other = "FR About"
+other = "à-propos."
 [service]
-other = "FR Service"
+other = "service."
 [portfolio]
-other = "FR Portfolio"
+other = "portfolio."
 [blog]
-other = "FR Blog"
+other = "blog."
 [contact]
-other = "FR Contact"
+other = "contact."
+[formations]
+other = "formations."
+[legal]
+other = "legal."
+[legalnotice]
+other = "Mentions Légales"
 
 [graphicdesign]
 other = "FR Graphic Design"

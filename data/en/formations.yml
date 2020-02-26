@@ -1,0 +1,67 @@
+enable  : true
+topTitle: 
+title   : trainings.
+subtitle : Through our training courses, we help you comprehend the landscape of Cloud Native technologies. Our courses are all [Open Source](https://github.com/particuleio/formations).
+
+item  :
+  - name        : Kubernetes User
+    price       : 3 days
+    description : Getting started with the API and prepare CKAD exam
+    featurelist :
+      - item: Kubernetes concepts
+      - item: Main API objects
+      - item: Design and deploy applications
+      - item: Best practices
+      - item: Prepare [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+    btnText     : Contact Us
+    btnURL      : "https://particule.io/en#contact"
+    color       : kubernetes
+
+  - name        : Kubernetes Operator
+    price       : 3 days
+    description : Deploy and manage Kubernetes clusters
+    featurelist :
+      - item: Where to deploy and how ?
+      - item: Deployment tools
+      - item: Cluster operation and hardening
+      - item: Main admin API objects
+      - item: Prepare [CKA exam](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+    btnText     : Contact Us
+    btnURL      : "https://particule.io/en#contact"
+    color       : kubernetes
+
+  - name        : Kubernetes - AIO
+    price       : 5 days
+    description : "All in one : operator and user trainings"
+    featurelist :
+      - item: User and operator training
+      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+    btnText     : Contact Us
+    btnURL      : "https://particule.io/en#contact"
+    color       : kubernetes
+
+  - name        : OpenStack User
+    price       : 3 days
+    description : Getting started with the API and designing Cloud Ready Application
+    featurelist :
+      - item: Discover OpenStack and its several services
+      - item: Learn how to the project works and how to contribute
+      - item: Use the API (Application Programming Interface), CLI (Command Line Interface) and Dashboard
+      - item: Define, deploy and maintain a Cloud native infrastructure
+      - item: Orchestrate resources on an OpenStack Cloud
+    btnText     : Contact Us
+    btnURL      : "https://particule.io/en#contact"
+    color       : openstack
+
+  - name        : OpenStack Operator
+    price       : 3 days
+    description : Deploy OpenStack with OpenStack-Ansible
+    featurelist :
+      - item: Reference architecture
+      - item: Discover OpenStack and its several services
+      - item: Best practices for OpenStack deployment
+      - item: Getting started with OpenStack-Ansible (OSA)
+      - item: Configure OSA to get a highly available control plane
+    btnText     : Contact Us
+    btnURL      : "https://particule.io/en#contact"
+    color       : openstack
