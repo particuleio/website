@@ -12,6 +12,8 @@ other = "contact."
 other = "trainings."
 [legal]
 other = "legal."
+[legalnotice]
+other = "Legal Notice"
 
 [graphicdesign]
 other = "EN Graphic Design"
