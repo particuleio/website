@@ -1,6 +1,6 @@
 ---
 Title: k3s, k8s moins 5 !
-Date: 2020-01-13
+Date: 2020-02-03
 Category: Kubernetes
 Summary: Rancher k3s est une distribution Kubernetes, légère, dans un binaire de 50Mo prêt à l'emploi pour vos jobs de CI
 Author: Romain Guichard
@@ -14,8 +14,7 @@ notamment pour leur produit éponyme
 produits comme [RKE](https://rancher.com/docs/rke/latest/en/) ou
 [Rio](https://rio.io).
 
-K3s est donc une distribution Kubernetes légère. C'est donc une distribution
-particulièrement adaptée pour l'IoT, le edge computing ou bien les
+K3s est distribution Kubernetes légère. Particulièrement adaptée pour l'IoT, le edge computing ou bien les
 environements de CI/CD. En effet, k3s tient dans un binaire d'à peine 50Mo et
 peut donc être déployée extrêmement rapidement.
 
@@ -106,9 +105,9 @@ k3d-k3s-default-server   Ready    master   14s   v1.17.2+k3s1
 Depuis quelques années, la plupart des providers CI
 (travis-ci, circle-ci, concourse etc) fournissent un environement Docker pour
 pouvoir faire tourner nos jobs au sein de conteneurs dont nous avons nous même
-construit l'image. Les avantages sont nombreux, notamment de s'assurer que
-l'environement de tests est le plus proche possible de l'environement de
-production.
+construit les images. Les avantages sont nombreux, assurance de la cohérence
+des versions, agnosticité du provider, environement de tests et de production
+aussi proches que possible etc.
 
 Mais désormais lorsque l'on veut tester notre application, c'est Kubernetes qui
 va se charger de la faire fonctionner, [Docker ou une autre container
@@ -120,6 +119,7 @@ Nous allons donc nous servir de k3s pour démarrer un environement Kubernetes
 sur un projet Travis-CI.
 
 ```
+$ cat .travis-ci.yml
 branches:
   only:
   - master
