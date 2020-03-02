@@ -1,6 +1,6 @@
 ---
 Title: k3s, k8s moins 5 !
-Date: 2020-02-03
+Date: 2020-03-02
 Category: Kubernetes
 Summary: Rancher k3s est une distribution Kubernetes, légère, dans un binaire de 50Mo prêt à l'emploi pour vos jobs de CI
 Author: Romain Guichard
