@@ -12,7 +12,7 @@ lang: fr
 
 Compiler/builder et déployer manuellement des applications conteneurisées est __généralement lent et source de nombreuses erreurs__.
 
-Le déploiement continu permet d'automatiser la compilation de votre projet, la création de l'image Docker correspondante, les tests inhérents à votre application ainsi que le déploiement final sur votre orchestrateur préféré (si ce n'est pas encore Kubernetes, [Osones propose une formation](http://osones.com/formations/kubernetes.fr.html) pour combler ce trou dans votre raquette). Cet enchainement permet d'__assurer une reproductibilité quasiment parfaite__, accélère bien évidemment le temps entre la modification du code source et le déploiement en production. __En tant qu'Ops nous gagnons en sérénité__ et gagnons du temps !
+Le déploiement continu permet d'automatiser la compilation de votre projet, la création de l'image Docker correspondante, les tests inhérents à votre application ainsi que le déploiement final sur votre orchestrateur préféré (si ce n'est pas encore Kubernetes, [Particule propose une formation](http://particule.io/formations/kubernetes-full.fr.html) pour combler ce trou dans votre raquette). Cet enchainement permet d'__assurer une reproductibilité quasiment parfaite__, accélère bien évidemment le temps entre la modification du code source et le déploiement en production. __En tant qu'Ops nous gagnons en sérénité__ et gagnons du temps !
 
 
 Dans cet article, __nous utiliserons [Concourse-CI](https://concourse.ci/) comme outil de CI/CD et [Kubernetes](https://kubernetes.io/) comme orchestrateur de conteneurs__. Nous ne nous arrêtons pas sur le déploiement de ces deux outils, néanmoins, transparence oblige, je ne voudrais pas avoir de problème, Kubernetes est déployé via [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) en version 1.9.2 et Concourse-CI via des conteneurs dont [les images sont fournies](https://hub.docker.com/r/concourse/concourse/) en version 3.8.0.
@@ -141,7 +141,7 @@ Passons maintenant Kubernetes :
 
 ![Kubernetes](/images/docker/kubernetes.png#center)
 
-On va utiliser 3 objets pour notre application, un deployment, un service et un ingress. Notre ingress controller sera assuré par Traefik [dont nous avons déjà pas mal parlé sur le blog](https://blog.osones.com/kubernetes-ingress-controller-avec-traefik-et-lets-encrypt.html).
+On va utiliser 3 objets pour notre application, un deployment, un service et un ingress. Notre ingress controller sera assuré par Traefik [dont nous avons déjà pas mal parlé sur le blog](https://particule.io/blog/kubernetes-ingress/).
 
 ```yaml
 ---
@@ -209,7 +209,7 @@ demo-cicd-58c9f4c994-q8tnh   1/1       Running   0          1m
 ```
 Le doute écarté, on peut constater que notre page est bien accessible :
 
-![helloworld-red](/images/helloworld-osones-rouge.png#center)
+![helloworld-red](/images/helloworld-particule-red.png#center)
 
 On peut avec plaisir constater que le load balancing entre nos 3 conteneurs est parfaitement fonctionnel si vous rafraichissez plusieurs fois la page (attention au cache ;) ).
 
@@ -222,7 +222,7 @@ $ git commit -am "from red to green" && git push
 
 Et on attend que la CI fasse tourner tout ça ! 3 min plus tard :
 
-![helloworld-green](/images/helloworld-osones-vert.png#center)
+![helloworld-green](/images/helloworld-particule-green.png#center)
 
 Tout ça est vraiment simple, nous n'avons apporté aucune complexité au pipeline. Dans les axes d'améliorations possibles on peut citer :
 
