@@ -1,6 +1,6 @@
 ---
 Title: "Kubernetes deep dive: pod security policy"
-Date: 2020-02-21T11:00:00+02:00
+Date: 2020-03-26T11:00:00+02:00
 Category: Kubernetes
 Summary: Comprendre en détails les PSP  ainsi que leur fonctionnement
 Author: Kevin Lefevre
@@ -17,7 +17,9 @@ quasi inexistant, il n'y avait globalement que deux alternatives : autoriser
 ou non les pods privilégiés. Ce mode "privilégié" correspondait au parramètre
 `--privileged` de Docker.
 
-Les *PodSecurityPolicies*, que nous appellerons PSP dans la suite de l'article, permettent justement de contrôler finement les specifications d'un pod avant de l'accepter sur le cluster. Elles permettent notamment de contrôler :
+Les *PodSecurityPolicies*, que nous appellerons PSP dans la suite de l'article,
+permettent justement de contrôler finement les specifications d'un pod avant de
+l'accepter sur le cluster. Elles permettent notamment de contrôler :
 
 * Les types de volumes utilisés
 * Le GID du point de montage d'un volume
@@ -29,7 +31,9 @@ Les *PodSecurityPolicies*, que nous appellerons PSP dans la suite de l'article, 
 * Les UID/GID utilisés par le Pod
 * Les élévations de privilèges ( = sudo )
 
-Alors à quoi cela ressemble ? Ci dessous l'exemple d'une policy `privileged` qui autorise tout, qui est le fonctionnement par défaut d'un cluster sans *PodSecurityPolicy* d'activé.
+Alors à quoi cela ressemble ? Ci dessous l'exemple d'une policy `privileged` qui
+autorise tout, qui est le fonctionnement par défaut d'un cluster sans
+*PodSecurityPolicy* d'activé.
 
 ```yaml
 apiVersion: policy/v1beta1
@@ -63,21 +67,41 @@ spec:
 
 ### Activer les PodSecurityPolicy
 
-Les *PodSecurityPolicy* sont, à l'heure où j'écris cet article, en beta. Elles doivent être activées via un [admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/). Suivant votre méthode de déploiement il faudra ajouter à l'API server, l'admission controller `PodSecurityPolicy` et le redémarrer.
+Les *PodSecurityPolicy* sont, à l'heure où j'écris cet article, en beta. Elles
+doivent être activées via un [admission
+controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/).
+Suivant votre méthode de déploiement il faudra ajouter à l'API server,
+l'admission controller `PodSecurityPolicy` et le redémarrer.
 
-En ce qui concerne les services managés, la plupart supportent les PodSecurityPolicy:
+En ce qui concerne les services managés, la plupart supportent les
+PodSecurityPolicy:
 
 * Activées par défaut dans EKS : [liste des admission controller](https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html)
 * Activable sur GKE : `gcloud beta container clusters create [CLUSTER_NAME] --enable-pod-security-policy`
 * Activable sur AKS : `az aks update --resource-group myResourceGroup --name myAKSCluster --enable-pod-security-policy`
 
-Une mise en garde cependant, activer les PodSecurityPolicy sur un cluster existant peut potentiellement casser le cluster si les bonnes policies ne sont pas en place mais nous y reviendrons.
+Une mise en garde cependant, activer les PodSecurityPolicy sur un cluster
+existant peut potentiellement casser le cluster si les bonnes policies ne sont
+pas en place mais nous y reviendrons.
 
 ### Principe de fonctionnement
 
-Le principe de fonctionnement des PSP n'est pas des plus plus intuitif. La première règle est que si les PSP sont activées sur le cluster, **tous** les pods doivent utiliser au moins une policy pour pouvoir être accepté par l'API server. Voilà la raison pour laquelle vous pouvez "casser" votre cluster en activant les PSP sans créer les policies adéquates. L'association entre les PSP et les pods qui les utilisent est effectuée via les [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). En effet chaque pod dispose d'un *ServiceAccount*, et chaque namespace dispose d'un *ServiceAccount* `default` utilisé par les pods qui ne spécifient pas explicitement de *ServiceAccount*. C'est donc ces ServiceAccount qui vont obtenir le droit d'utiliser les PSP.
+Le principe de fonctionnement des PSP n'est pas des plus plus intuitif. La
+première règle est que si les PSP sont activées sur le cluster, **tous** les
+pods doivent utiliser au moins une policy pour pouvoir être acceptés par l'API
+server. Voilà la raison pour laquelle vous pouvez "casser" votre cluster en
+activant les PSP sans créer les policies adéquates. L'association entre les PSP
+et les pods qui les utilisent est effectuée via les
+[RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). En effet
+chaque pod dispose d'un *ServiceAccount*, et chaque namespace dispose d'un
+*ServiceAccount* `default` utilisé par les pods qui ne spécifient pas
+explicitement de *ServiceAccount*. C'est donc ces ServiceAccount qui vont
+obtenir le droit d'utiliser les PSP.
 
-Pour associer un *ServiceAccount* avec une PSP, il faut créer un *Role* ou *ClusterRole* pouvant utiliser cette policy et il faut ensuite utiliser un *RoleBinding* ou un *ClusterRoleBinding* pour associer le *ServiceAccount* à ce *Role* ou *ClusterRole*.
+Pour associer un *ServiceAccount* avec une PSP, il faut créer un *Role* ou
+*ClusterRole* pouvant utiliser cette policy et il faut ensuite utiliser un
+*RoleBinding* ou un *ClusterRoleBinding* pour associer le *ServiceAccount* à ce
+*Role* ou *ClusterRole*.
 
 Exemple avec la PSP `privileged` vu plus haut :
 
@@ -110,7 +134,8 @@ subjects:
   namespace: myNamespace
 ```
 
-Il est également possible de specifier tous les *ServiceAccounts* d'un namespace:
+Il est également possible de specifier tous les *ServiceAccounts* d'un
+namespace:
 
 ```yaml
 # Authorize all service accounts in a namespace:
@@ -130,13 +155,14 @@ Ou encore tous les utilisateurs authentifiés de tous les namespaces:
 
 #### Précedence
 
-Une pod (via son ServiceAccount) peut donc être autorisé à utiliser plusieurs PSP, mais une seule sera appliquée.
+Une pod (via son ServiceAccount) peut donc être autorisé à utiliser plusieurs
+PSP, mais une seule sera appliquée.
 
 Il faut tout d'abord faire la différence entre deux types de PSP, les `mutable
-policy` et les `non mutable policy`. La plupart des PSP ne font que vérifier
-que le pod respecte bien les règles (`non mutable policy`) mais certains annotations d'une PSP peuvent
-permettre d'appliquer des règles seccomp et/ou apparmor au pod, dans ce cas la policy modifie le
-pod, c'est donc une `mutable policy`.
+policy` et les `non mutable policy`. La plupart des PSP ne font que vérifier que
+le pod respecte bien les règles (`non mutable policy`) mais certains annotations
+d'une PSP peuvent permettre d'appliquer des règles seccomp et/ou apparmor au
+pod, dans ce cas la policy modifie le pod, c'est donc une `mutable policy`.
 
 Par exemple prenons une PSP:
 
@@ -239,12 +265,15 @@ En général, on distingue deux PSP par défaut sur les clusters :
 * une policy `default` qui autorise uniquement des fonctionnalités jugées sans
 risque pour des namespaces/workloads non privilégiés.
 
-Les resources utilisées dans la documentation Kubernetes et dans cet article sont disponibles [ici](https://github.com/therandomsecurityguy/kubernetes-security)
+Les resources utilisées dans la documentation Kubernetes et dans cet article
+sont disponibles
+[ici](https://github.com/therandomsecurityguy/kubernetes-security)
 
 #### Sécuriser AWS EKS
 
-Sur EKS, les PSP sont activées par défaut et EKS propose par défaut un mode
-de compatibilité en autorisant tous les pods à utiliser une [PSP `eks-privileged`](https://github.com/aws/containers-roadmap/issues/401).
+Sur EKS, les PSP sont activées par défaut et EKS propose par défaut un mode de
+compatibilité en autorisant tous les pods à utiliser une [PSP
+`eks-privileged`](https://github.com/aws/containers-roadmap/issues/401).
 
 L'implementation est réalisée de la façon suivante:
 
@@ -326,14 +355,16 @@ subjects:
 ```
 
 Globalement cette combinaison permet à n'importe quel pod d'utiliser n'importe
-quelle fonctionnalité sans restriction. C'est le comportement par défaut sur EKS.
+quelle fonctionnalité sans restriction. C'est le comportement par défaut sur
+EKS.
 
 Nous allons voir maintenant comment restreindre et sécuriser notre cluster.
 L'objectif est le suivant :
 
 1. Permettre aux noeuds ainsi qu'au namespace `kube-system` de fonctionner
-correctement et de pouvoir utiliser une policy `privileged`.
-2. Permettre à tous les autres namespaces d'utiliser une policy par défaut sécurisée.
+   correctement et de pouvoir utiliser une policy `privileged`.
+2. Permettre à tous les autres namespaces d'utiliser une policy par défaut
+   sécurisée.
 3. Supprimer la politique par défaut de EKS
 
 Nous allons créer deux PSP.
@@ -404,7 +435,8 @@ spec:
     rule: 'RunAsAny'
 ```
 
-Ensuite nous allons autoriser les composants internes de Kubernetes ainsi que le namespace `kube-system` à utiliser la policy `privileged`.
+Ensuite nous allons autoriser les composants internes de Kubernetes ainsi que le
+namespace `kube-system` à utiliser la policy `privileged`.
 
 Tout d'abord un *ClusterRole* qui match la policy `privileged` :
 
@@ -425,7 +457,8 @@ rules:
   resourceNames: ['privileged']
 ```
 
-Puis un *RoleBinding* dans le namespace `kube-system` pour autoriser l'utilisation de cette policy :
+Puis un *RoleBinding* dans le namespace `kube-system` pour autoriser
+l'utilisation de cette policy :
 
 ```yaml
 ---
@@ -452,7 +485,8 @@ subjects:
 
 Ces objets permettent de remplir la condition `1`.
 
-Maintenant nous allons permettre à tous les autres ServiceAccount de tous les namespaces d'utiliser la policy `default`.
+Maintenant nous allons permettre à tous les autres ServiceAccount de tous les
+namespaces d'utiliser la policy `default`.
 
 *ClusterRole* :
 
@@ -654,7 +688,8 @@ Events:
   Warning  FailedCreate  52s (x15 over 2m14s)  replicaset-controller  Error creating: pods "nginx-deployment-5c99864ddf-" is forbidden: unable to validate against any pod security policy: [spec.volumes[0]: Invalid value: "hostPath": hostPath volumes are not allowed to be used]
 ```
 
-Le pod ne peut pas être créé car il requière un volume de l'host, ce qui n'est pas permis par le PSP `default`.
+Le pod ne peut pas être créé car il requière un volume de l'host, ce qui n'est
+pas permis par le PSP `default`.
 
 #### Activation des PSP sur un cluster générique kubeadm
 
@@ -680,16 +715,16 @@ apiServer:
 ```
 
 Vous pouvez ensuite `kubeadm upgrade` votre cluster. Si vous utilisez une
-méthode de déploiement autre, il faut rajouter le
-flag `--enable-admission-plugins=NodeRestriction,PodSecurityPolicy` à l'API server.
+méthode de déploiement autre, il faut rajouter le flag
+`--enable-admission-plugins=NodeRestriction,PodSecurityPolicy` à l'API server.
 
 ### Conclusion
 
 Je vous invite à jouer avec la policy par défaut afin de découvrir les
-possibilités offerte par les PSP. L'important étant de trouver un bon
-compromis entre les politiques internes de build des images Docker et les
-prérequis de sécurité afin d'une part de sécuriser vos clusters Kubernetes
-tout en communiquant aux développeurs les best practices de build d'images
-Docker et les critères d'acceptation des images et applications sur vos clusters.
+possibilités offerte par les PSP. L'important étant de trouver un bon compromis
+entre les politiques internes de build des images Docker et les prérequis de
+sécurité afin d'une part de sécuriser vos clusters Kubernetes tout en
+communiquant aux développeurs les best practices de build d'images Docker et les
+critères d'acceptation des images et applications sur vos clusters.
 
 [**Kevin Lefevre**](https://www.linkedin.com/in/kevinlefevre/)
