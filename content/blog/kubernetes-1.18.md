@@ -1,6 +1,6 @@
 ---
 Title: "Kubernetes 1.18"
-Date: 2020-03-31:00:00+02:00
+Date: 2020-03-31
 Category: Kubernetes
 Summary: Kubernetes 1.18 est sortie, passons en revue les nouveautés
 Author: Romain Guichard
