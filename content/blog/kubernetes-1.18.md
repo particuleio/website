@@ -122,7 +122,7 @@ behavior:
 
 Si l'application démarre avec 1 pod le scale up se fera de la façon suivante : 1 -> 10 -> 100 -> 1000 alors que le scale down se fera d'un pod toutes les 10 minutes.
 
-### Les Secrets et ConfigMaps peuvent être immubales
+### Les Secrets et ConfigMaps peuvent être immuables
 
 Grâce à la [FeatureGate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates ) `ImmutableEphemeralVolumes`, on peut désormais protéger nos Secrets et nos ConfigMaps en les rendant immuables. Cela permet d'éviter une modification malencontreuse.
 
