@@ -62,7 +62,7 @@ etc) nécessaires à votre projet.
 
 ![flux-workflow](https://github.com/fluxcd/flux/raw/master/docs/_files/flux-cd-diagram.png)
 
-Quant à Concourse-CI, [nous en avons déjà parlé dans un précédent article](https://blog.alterway.fr/construire-un-pipeline-de-deploiement-continu-avec-kubernetes-et-concourse-ci.html).
+Quant à Concourse-CI, [nous en avons déjà parlé dans un précédent article](https://particule.io/blog/k8s-concourse-cd/).
 Dans cet article, nous avons mis une chaine de CI/CD complète jusqu'au
 déploiement sur Kubernetes. Nous allons reproduire le même type de workflow
 mais en déléguant la partie "CD" à Flux. Concourse-CI se chargera donc
@@ -84,12 +84,12 @@ code de cette application et observerons le résultat.
 ##### Notre application
 
 Je vais utiliser cette application :
-<https://github.com/alterway/demo-concourse-flux>
+<https://github.com/particuleio/demo-concourse-flux>
 
 L'application est composée d'un fichier index.php et d'une image PNG. Le
 Dockerfile servant à builder l'application se trouve à la racine et j'ai crée
 un dossier "deploy" dans lequel se trouvent [les déclarations de ressources
-Kubernetes](https://github.com/alterway/demo-concourse-flux/blob/master/deploy/helloworld.yml).
+Kubernetes](https://github.com/particuleio/demo-concourse-flux/blob/master/deploy/helloworld.yml).
 Le cluster Kubernetes sur lequel sera déployée l'application est en 1.15.
 
 ##### Mise en place de Concourse
@@ -114,7 +114,7 @@ cd flux/
 Un seul fichier a besoin d'être édité : `deploy/flux-deployment.yaml`
 
 ```bash
-- --git-url=ssh://git@github.com/alterway/demo-concourse-flux
+- --git-url=ssh://git@github.com/particuleio/demo-concourse-flux
 - --git-branch=master
 - --git-path=deploy
 ```
@@ -139,20 +139,20 @@ resources:
   - name: git
     type: git
     source:
-      uri: https://github.com/alterway/demo-concourse-flux
+      uri: https://github.com/particuleio/demo-concourse-flux
       branch: master
   - name: version
     type: semver
     source:
       driver: git
-      uri: git@github.com:alterway/demo-concourse-flux
+      uri: git@github.com:particuleio/demo-concourse-flux
       branch: version
       file: version
       private_key: {{rguichard_pkey}}
   - name: image-helloworld
     type: docker-image
     source:
-      repository: osones/demo-concourse-flux
+      repository: particule/demo-concourse-flux
       username: rguichard
       password: {{dh-rguichard-passwd}}
 jobs:
@@ -215,7 +215,7 @@ vous n'avez rien à faire puisqu'il a déjà commencé à surveiller votre dépo
 ![concourse](/images/concourse-flux-2.png)
 
 ```
-ts=2019-06-26T16:49:23.845635134Z caller=daemon.go:652 component=daemon event="**Automated release of osones/demo-concourse-flux:1.0.1**" logupstream=false
+ts=2019-06-26T16:49:23.845635134Z caller=daemon.go:652 component=daemon event="**Automated release of particule/demo-concourse-flux:1.0.1**" logupstream=false
 ```
 
 Une fois que tout s'est déroulé correctement on peut constater plusieurs choses
@@ -239,7 +239,7 @@ totalité des CI de ne pas lancer un nouveau build.
 
 Et bien on y est. Si vous avez des changements à faire, ceux ci ne passeront
 qu'au travers d'un commit ou d'une PR sur le dépot
-<https://github.com/alterway/demo-concourse-flux>. Vous pouvez vous amusez à
+<https://github.com/particuleio/demo-concourse-flux>. Vous pouvez vous amusez à
 changer la couleur du texte et à voir Concourse builder votre nouvelle image
 puis Flux la déployer et synchroniser l'état de l'application sur le cluster
 Kubernetes avec la déclaration du `deployment` dans Git.
