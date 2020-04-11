@@ -48,7 +48,7 @@ On peut voir que l'IngressClass va plus loin que la simple annotation. Elle déf
 
 ### Wildcard dans les IngressRules
 
-On continue sur les Ingress avec la possibilité, désormais ouverte, d'utiliser des wildcards dans les règles `host` de nos Ingress. Auparavant, le champ `hosþ` devait matcher exactement un FQDN, dorénavant `*.particule.io` matchera `foo.particule.io` et `bar.particule.io`. Le wildcard ne match que le premier label (au sens DNS du terme), cela signifie que `foo.bar.particule.io` ne sera pas matché, ni `particule.io`.
+On continue sur les Ingress avec la possibilité, désormais ouverte, d'utiliser des wildcards dans les règles `host` de nos Ingress. Auparavant, le champ `host` devait matcher exactement un FQDN, dorénavant `*.particule.io` matchera `foo.particule.io` et `bar.particule.io`. Le wildcard ne match que le premier label (au sens DNS du terme), cela signifie que `foo.bar.particule.io` ne sera pas matché, ni `particule.io`.
 
 C'est peu mais extrêmement utile.
 
