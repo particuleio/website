@@ -18,7 +18,7 @@ Les reverseproxy comme Nginx ou HAProxy ne gèrent pas nativement ce genre de co
 
 ### On cherche à faire quoi déjà ?
 
-La problématique est un peu toujours la même : un conteneurs ça apparait et disparait assez vite, on ne veut pas avoir à maitriser le port de l'host sur lequel ils écoutent. Et quand il s'agit de webservices, ça devient vite problématique...
+La problématique est un peu toujours la même : un conteneurs ça apparaît et disparaît assez vite, on ne veut pas avoir à maîtriser le port de l'host sur lequel ils écoutent. Et quand il s'agit de webservices, ça devient vite problématique...
 Consul et les discovery services en général solutionnent une partie du problème, on a un outil qui permet de savoir ce qui tourne et où. C'est bien, mais si on pouvait exploiter ces infos ça serait mieux.
 
 Dans le cas de webservices, on cherche à avoir un reverse-proxy qui sache en "temps réel" où se trouvent nos conteneurs et sache sur quel groupe de conteneurs forwarder les requêtes destinées à une URL donnée. Si on peut load-balancer entre plusieurs conteneurs et disposer de plusieurs backends, ça serait top.
@@ -191,9 +191,10 @@ prefix = "traefik"
 ```
 
 Prenons le conteneur "hello" :
-Si aucun SERVICE_NAME n'est défini, une URL de la forme "nom_image"."traefik_domain" sera créee.
-SERVICE_NAME permet d'override le nom de l'image et vous pouvez override toute l'URL avec `traefil.frontend.rule`.
+Si aucun SERVICE_NAME n'est défini, une URL de la forme "nom_image"."traefik_domain" sera créée.
+SERVICE_NAME permet d'override le nom de l'image et vous pouvez override toute l'URL avec `traefik.frontend.rule`.
 Les paramètres Traefik ne sont plus passés directement au conteneur mais sont passés à Consul via SERVICE_TAGS :
+
 ```json
 curl localhost:8500/v1/catalog/service/helloworld | jq .
 [
@@ -212,15 +213,13 @@ curl localhost:8500/v1/catalog/service/helloworld | jq .
 ]
 ```
 
-
 Deux URL sont donc disponibles, `hello.consul.local` et `hello2.particule.io` donnant respectivement accès aux backends `hello` et `hello2`.
-
 
 ### Conclusion
 
 Bien que consul-template permettait déjà d'effectuer beaucoup d'update de configuration de façon automatique, Traefik apporte énormément de simplicité et de puissance ainsi qu'une compatibilité avec énormément de produit.
 
-Une présentation des [Ingress Controllers sous Kubernetes ainsi qu'une intérgration avec Traefik et Let's Encrypt est disponible](https://particule.io/blog/kubernetes-ingress/) !
+Une présentation des [Ingress Controllers sous Kubernetes ainsi qu'une integration avec Traefik et Let's Encrypt est disponible](https://particule.io/blog/kubernetes-ingress/) !
 
 
 **[Romain Guichard](https://www.linkedin.com/in/romainguichard)**

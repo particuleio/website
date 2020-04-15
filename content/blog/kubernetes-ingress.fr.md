@@ -536,6 +536,7 @@ time="2016-09-29T14:06:10Z" level=debug msg="Got certificate for domains [seedbo
 ```
 
 On remarque 2 choses :
+
 - La création des backends dés que l'Ingress est détectée
 - La génération des certificats automatiquement dés que les backends sont ajoutés
 

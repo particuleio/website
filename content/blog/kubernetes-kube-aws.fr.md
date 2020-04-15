@@ -180,7 +180,7 @@ Success! Your AWS resources have been created:
 Cluster Name:   particule-k8s-clust
 Controller IP:  52.18.58.120
 
-The containers that power your cluster are now being dowloaded.
+The containers that power your cluster are now being downloaded.
 
 You should be able to access the Kubernetes API once the containers finish downloading.
 ```

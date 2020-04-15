@@ -10,7 +10,7 @@ lang: en
 
 ### Introduction
 
-I like Concourse, it is, IMO, one of the best CI tool I had the opportunity to work with. The worker system can easily scale, nothing is stored _directly_ in Concourse and the yaml syntax used to describe the pipelines is exactly what we can expect in 2018. Nevertheless, [one of the main concerns the Concourse community has is the absence of git branch managment](https://github.com/concourse/concourse/issues/1172). When you declare a git resource, you have to specify the branch you want to checkout. If I create a new feature branch, I have to create a new pipeline for my branch... It's time consumming, it will not scale and you increase the likelyhood of not having that kind of permission... Who said automation ?
+I like Concourse, it is, IMO, one of the best CI tool I had the opportunity to work with. The worker system can easily scale, nothing is stored _directly_ in Concourse and the yaml syntax used to describe the pipelines is exactly what we can expect in 2018. Nevertheless, [one of the main concerns the Concourse community has is the absence of git branch management](https://github.com/concourse/concourse/issues/1172). When you declare a git resource, you have to specify the branch you want to checkout. If I create a new feature branch, I have to create a new pipeline for my branch... It's time consumming, it will not scale and you increase the likelihood of not having that kind of permission... Who said automation ?
 
 Don't worry though : if Concourse doesn't handle it natively, it allows us to create any custom resource. And that gives us all we need !
 
@@ -199,7 +199,7 @@ jobs:
 
 Yeah it looks like a lot to the one in my previous article ^^
 
-We choose, for each branch, to build a Docker image which will contain the source code of our demo app. It's not ideal to put data inside a Docker image, but it's pretty useful in that case. I'm not showing you the shell script behind, it's pretty straigtforward, it mainly replaces the "\_\_\_VERSION\_\_\_" with the actual version/branch.
+We choose, for each branch, to build a Docker image which will contain the source code of our demo app. It's not ideal to put data inside a Docker image, but it's pretty useful in that case. I'm not showing you the shell script behind, it's pretty straightforward, it mainly replaces the "\_\_\_VERSION\_\_\_" with the actual version/branch.
 
 Why did I use the same Kubernetes resource twice ? The job __Deploy__ is for deploying the application the first time the branch is created. But as the template will not change (image stays unchanged), this job will not do anything after the first deployment. So we use a second job __Rolling Update__ which will delete our pod and wait for our deployment to schedule a new one (don't forget the `imagePullPolicy: Always`).
 

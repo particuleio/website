@@ -103,10 +103,10 @@ k3d-k3s-default-server   Ready    master   14s   v1.17.2+k3s1
 ### k3s dans une CI
 
 Depuis quelques années, la plupart des providers CI
-(travis-ci, circle-ci, concourse etc) fournissent un environement Docker pour
+(travis-ci, circle-ci, concourse etc) fournissent un environnement Docker pour
 pouvoir faire tourner nos jobs au sein de conteneurs dont nous avons nous même
 construit les images. Les avantages sont nombreux, assurance de la cohérence
-des versions, agnosticité du provider, environement de tests et de production
+des versions, agnosticité du provider, environnements de tests et de production
 aussi proches que possible etc.
 
 Mais désormais lorsque l'on veut tester notre application, c'est Kubernetes qui
@@ -115,7 +115,7 @@ runtime](https://particule.io/blog/container-runtime/) se charge seulement
 d'exécuter le conteneur. On a donc besoin de tester nos fichiers yaml et
 n'importe quelle primitive fournie par Kubernetes.
 
-Nous allons donc nous servir de k3s pour démarrer un environement Kubernetes
+Nous allons donc nous servir de k3s pour démarrer un environnement Kubernetes
 sur un projet Travis-CI.
 
 ```
@@ -139,8 +139,8 @@ script:
   - kubectl get node
 ```
 
-Pas de suprise, tout s'exécute normalement et en quelques dizaines de secondes,
-nous avons un environement Kubernetes déployé chez Travis-CI sur lequel nous
+Pas de surprise, tout s'exécute normalement et en quelques dizaines de secondes,
+nous avons un environnement Kubernetes déployé chez Travis-CI sur lequel nous
 pouvons faire les tests de n'importe quelle application !
 
 

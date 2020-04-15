@@ -108,7 +108,7 @@ What is [Træfɪk](https://traefik.io/) ?
 
 > Træfɪk is a reverse proxy and load-balancer designed for micro services (e.g. Containers). It is very simple, written in Go, and supports a lot backend types : Consul, Etcd, Docker, Kubernetes, Mesos, etc. It can also be backed by a classic static configuration file and a mix of the above to act as a classic reverse proxy.
 
-In addition, Træfɪk supports the [ACME](https://github.com/ietf-wg-acme/acme/) protocol used by [Let's Encrypt](https://letsencrypt.org/). We are able to publish services and to support TLS automaticly and for free (and that's Cloud (automaticly, not free) !
+In addition, Træfɪk supports the [ACME](https://github.com/ietf-wg-acme/acme/) protocol used by [Let's Encrypt](https://letsencrypt.org/). We are able to publish services and to support TLS automatically and for free (and that's Cloud (automatic, not free) !
 
 #### Træfɪk configuration for Kubernetes
 
@@ -162,7 +162,7 @@ spec:
 ```
 
 
-We'are using experimental Træfɪk image because it includes the latest commits for Kubernetes and also for the HTTP Auth basic and digest that have not yet been merged into stable. To store Let's Encrypt certificates, we need to use a volume otherwise they will be regenerated every time the pod reboots. Let's encrypt has a 20 certificates per week rate limit so be careful :)
+We are using experimental Træfɪk image because it includes the latest commits for Kubernetes and also for the HTTP Auth basic and digest that have not yet been merged into stable. To store Let's Encrypt certificates, we need to use a volume otherwise they will be regenerated every time the pod reboots. Let's encrypt has a 20 certificates per week rate limit so be careful :)
 
 I'm using an *HostPath* for the demo but you can use whatever volume type suits your configuration.
 
@@ -535,6 +535,7 @@ time="2016-09-29T14:06:10Z" level=debug msg="Got certificate for domains [seedbo
 ```
 
 We can see 2 things :
+
 - Backends are created on *ingress* rules detection
 - Certificates generation is done after backend addition to the pool
 
@@ -574,12 +575,12 @@ Ok, for the demo I had to use insecure mode because of the staging API, truth be
 
 ### Conclusion
 
-*Ingress* feature really does simplify application depoyment on Kubernetes. It adds another abstraction layer on top of a complex feature, especially in the container world, where time to live is very low and reverse proxies have to be dynamic.
+*Ingress* feature really does simplify application deployment on Kubernetes. It adds another abstraction layer on top of a complex feature, especially in the container world, where time to live is very low and reverse proxies have to be dynamic.
 
 There are few *ingress controller* for now, Google is pushing its but it is only available on GCE. Another community maintained is the Nginx but it does not natively support Kubernetes and/or Let's Encrypt where Træfɪk does.
 
 Even if very few options are available in Træfɪk, there is a strong community and features are coming up quickly. Træfɪk already supports multiple backends such as Kubernetes, Mesos, Consul but also Let's Encrypt as we saw.
 
-About Kubernetes, the project is becoming more and more pluggable, with a high abstraction level, and rapidly evolving. For exemple with *FlexVolume* and *Dynamic Provisioning*, which allow custom storage solutions to interface with kubernetes without touching core Kubernetes code. It is the same thing with *ingress* controller where (in addition to OSS solution) allow editor to publish software comatible with Kubernetes and the *ingress* feature.
+About Kubernetes, the project is becoming more and more pluggable, with a high abstraction level, and rapidly evolving. For exemple with *FlexVolume* and *Dynamic Provisioning*, which allow custom storage solutions to interface with kubernetes without touching core Kubernetes code. It is the same thing with *ingress* controller where (in addition to OSS solution) allow editor to publish software compatible with Kubernetes and the *ingress* feature.
 
 **Kevin Lefevre - [@ArchiFleKs](https://twitter.com/ArchiFleKs)**

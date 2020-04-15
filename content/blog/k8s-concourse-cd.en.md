@@ -221,7 +221,7 @@ Wait & see, wait & see... (maybe 3 minutes ^^)
 We keep this extremely simple. In the future we could :
 
 * Use the `semver` resource for tracking version number
-* Run some tests to ensure the Docker image is fully functionnal
+* Run some tests to ensure the Docker image is fully functional
 * Use a different [rolling update method with Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/update-intro/), ours is a bit hard...
 * Publish a GitHub release (there is a resource for that too! ) once the deployment is finished and the new version tagged
 * ...

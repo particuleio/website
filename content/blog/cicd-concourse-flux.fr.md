@@ -52,7 +52,7 @@ applications/infrastructures/conteneurs. Vous n'intéragissez qu'avec Git, vous
 utilisez un système de review (Gerrit, PR, MR, etc) pour soumettre des
 modifications sur votre infrastructure. Vous utilisez les fonctions natives de Git pour
 effectuer un _rolling update_ ou un _rollback_. Tout est standard, vous n'avez pas
-à connaitre les subtilités de chacunes des CLI (kubectl, ctr, awscli, openstack-cli,
+à connaître les subtilités de chacune des CLI (kubectl, ctr, awscli, openstack-cli,
 etc) nécessaires à votre projet.
 
 [Weave Flux](https://github.com/weaveworks/flux) s'occupe des fonctions principales :
@@ -63,7 +63,7 @@ etc) nécessaires à votre projet.
 ![flux-workflow](https://github.com/fluxcd/flux/raw/master/docs/_files/flux-cd-diagram.png)
 
 Quant à Concourse-CI, [nous en avons déjà parlé dans un précédent article](https://particule.io/blog/k8s-concourse-cd/).
-Dans cet article, nous avons mis une chaine de CI/CD complète jusqu'au
+Dans cet article, nous avons mis une chaîne de CI/CD complète jusqu'au
 déploiement sur Kubernetes. Nous allons reproduire le même type de workflow
 mais en déléguant la partie "CD" à Flux. Concourse-CI se chargera donc
 uniquement de builder nos images à chaque nouveau commit.
@@ -97,7 +97,7 @@ Le cluster Kubernetes sur lequel sera déployée l'application est en 1.15.
 ![concourse-logo](/images/concourse-logo.png#center)
 
 Le guide d'installation est disponible [ici](https://concourse-ci.org/install.html).
-On ne rentre pas dans le détail ici, il n'y a rien de spécial à connaitre ou à
+On ne rentre pas dans le détail ici, il n'y a rien de spécial à connaître ou à
 effectuer côté Concourse.
 
 ##### Mise en place de Flux
@@ -188,7 +188,7 @@ avec n'importe quelle CI assez facilement.
 #### Configuration Flux
 
 La majeure partie du travail a déjà été effectué en réalité. Il nous reste
-seulement à ajouter quelques annotations à notre déployement pour préciser à
+seulement à ajouter quelques annotations à notre deployment pour préciser à
 Flux le comportement que nous souhaitons obtenir.
 
 ```yaml

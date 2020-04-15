@@ -15,7 +15,7 @@ This is the first article of the Kubernetes series. In this article, we are goin
 
 ### CoreOS : distribution of choice for Kubernetes
 
-Kubernetes is an Open Source project launched in 2014 by Google. It became popular very quickly. This COE (*Container Orchestration Engine) can manage the life cycle of cloud native / micro services applications ([12 factor](http://12factor.net/) with containers. Kuberntes allows for clustering, automated deployment, horizontal scalability, with opened APIs. Configuration can be written in JSON or YAML.
+Kubernetes is an Open Source project launched in 2014 by Google. It became popular very quickly. This COE (*Container Orchestration Engine) can manage the life cycle of cloud native / micro services applications ([12 factor](http://12factor.net/) with containers. Kubernetes allows for clustering, automated deployment, horizontal scalability, with opened APIs. Configuration can be written in JSON or YAML.
 
 Other COE exist out there, such as Apache Mesos or Docker Swarm.
 
@@ -42,15 +42,15 @@ Kuberntes supports multiple cloud prociders which allow the use of external comp
 
 ### Cluster bootstrap
 
-To prepare the cluster, we are going to use [*kube-aws*](https://github.com/coreos/coreos-kubernetes/tree/master/multi-node/aws), a tools developed by CoreOS that used CloudFormation stacks to deploy on AWS. From A YAML template, *kube-aws* generates a CloudFormation template and userdate. Generated templates can be stored onto a version control system such as git, like [Terraform](https://www.terraform.io/) templates.
+To prepare the cluster, we are going to use [*kube-aws*](https://github.com/coreos/coreos-kubernetes/tree/master/multi-node/aws), a tools developed by CoreOS that used CloudFormation stacks to deploy on AWS. From A YAML template, *kube-aws* generates a CloudFormation template and userdata. Generated templates can be stored onto a version control system such as git, like [Terraform](https://www.terraform.io/) templates.
 
 #### Prerequisite
 
 There are several objects in Kubernetes :
 
   * Pod : this is the smallest element, it can include one or more containers that are working together to form a single logical component.
-  * Replication Controller : manage the lifecyle of PODs, by ensuring a certain number of PODs is always availabale in the cluster (replicas).
-  * Services : abstraction layer between external network and the cluster, it's a unique entry point wichi is then load balance between a set of pods managed by a replication controller.
+  * Replication Controller : manage the lifecycle of PODs, by ensuring a certain number of PODs is always available in the cluster (replicas).
+  * Services : abstraction layer between external network and the cluster, it's a unique entry point which is then load balance between a set of pods managed by a replication controller.
 
 To install and manage Kubernetes, we need two binaries, you can drop them in `/usr/local/bin` :
 
@@ -60,7 +60,7 @@ To install and manage Kubernetes, we need two binaries, you can drop them in `/u
 ```bash
 curl -O https://storage.googleapis.com/kubernetes-release/release/v1.2.3/bin/linux/amd64/kubectl
 ```
-To be able to connect to EC2 instances, we need on SSH key and a valid IAM account to deploy the infrastrcture on AWS. TO secure communications inside the cluster, we are using *AWS Key Management Services* (KMS).
+To be able to connect to EC2 instances, we need on SSH key and a valid IAM account to deploy the infrastructure on AWS. TO secure communications inside the cluster, we are using *AWS Key Management Services* (KMS).
 
 To generate a Key with *awscli* :
 
@@ -126,7 +126,7 @@ workerInstanceType: t2.small
 workerRootVolumeSize: 30
 ```
 
-In this example, we are using the region `eu-west-1` and the AZ `eu-west-1b`. The master is a 30Go `t2.medium` instance and workers are 30Go `t2.small` instances. We are starting with 2 worker nodes. The APIs will be accessible at the address `k8s.particule.io`, a route53 records will be automaticly created on the `particule.io` zone.
+In this example, we are using the region `eu-west-1` and the AZ `eu-west-1b`. The master is a 30Go `t2.medium` instance and workers are 30Go `t2.small` instances. We are starting with 2 worker nodes. The APIs will be accessible at the address `k8s.particule.io`, a route53 records will be automatically created on the `particule.io` zone.
 
 Then from this file, we generate the CloudFormation template :
 
@@ -183,7 +183,7 @@ Success! Your AWS resources have been created:
 Cluster Name:   particule-k8s-clust
 Controller IP:  52.18.58.120
 
-The containers that power your cluster are now being dowloaded.
+The containers that power your cluster are now being downloaded.
 
 You should be able to access the Kubernetes API once the containers finish downloading.
 ```
@@ -267,7 +267,7 @@ NAME              READY     STATUS    RESTARTS   AGE
 minecraft-wj65z   1/1       Running   0          1m
 ```
 
-So Minecraft is running, for now the pod is only accessible inside the cluster. To make it accessible outisde the cluster we are going to create a Kubernetes service and use the load balancing feature by the cloud provider. Kubernetes is going to provision an ELB, open security groups and add the worker nodes into the backend pool automatically.
+So Minecraft is running, for now the pod is only accessible inside the cluster. To make it accessible outside the cluster we are going to create a Kubernetes service and use the load balancing feature by the cloud provider. Kubernetes is going to provision an ELB, open security groups and add the worker nodes into the backend pool automatically.
 
 `service-minecraft.yaml` :
 
@@ -309,7 +309,7 @@ Events:
   41m           41m             1       {service-controller }                   Normal          CreatedLoadBalancer     Created load balancer
 
 ```
-For now, Kubernetes does not support the creation of Route53 alias dynamicly. The service is accessible outside at : a3b6af5e415f211e6b97202fce3039af-98360.eu-west-1.elb.amazonaws.com:25565 which is not very practical.
+For now, Kubernetes does not support the creation of Route53 alias dynamically. The service is accessible outside at : a3b6af5e415f211e6b97202fce3039af-98360.eu-west-1.elb.amazonaws.com:25565 which is not very practical.
 
 We can create `route53-minecraft.json` :
 
@@ -349,7 +349,7 @@ a3b6af5e415f211e6b97202fce3039af-98360.eu-west-1.elb.amazonaws.com has address 5
 
 ### Conclusion
 
-There are serveral deployment methods for Kubernetes, via Ansible, Puppet, or Chef. They depends on the cloud provider. CoreOS is just one of them and one of the first to have integrated with Kubernetes and supported AWS.
+There are several deployment methods for Kubernetes, via Ansible, Puppet, or Chef. They depends on the cloud provider. CoreOS is just one of them and one of the first to have integrated with Kubernetes and supported AWS.
 
 In a next series of articles, we'll move forward installation and focus on running Kubernetes and what the other available features are.
 

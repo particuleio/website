@@ -22,7 +22,7 @@ lisible](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELO
 Le but de cet exercice n'est pas de paraphraser le changelog mais bien de vous
 donner nos insights et de pointer les éléments qui sont, *selon nous*,
 importants et/ou intéressants. Cette review de la 1.18 n'est donc ni
-exhaustive, ni impartialle ;)
+exhaustive, ni impartiale ;)
 
 ## Ce qui change !
 
@@ -76,7 +76,7 @@ Pour investiguer les erreurs liées à un conteneur, nous passons en général p
 
 Pour pallier à celà, la version 1.17 a introduit la notion d'[EphemeralContainer](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/), qui permet de lancer un conteneur de ["debug"](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container) dans le pod basé sur une autre image.
 
-La version 1.18 continue sur cette lancée et intègre les EphemeralContainer à `kubectl` via la commande `kubectl alpha debug` qui permet de lancer rapidement un EphemeralContainer lié à un pod. Pour cela il faut au préalable activer la [FeatureGate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates ) sur les differents composants.
+La version 1.18 continue sur cette lancée et intègre les EphemeralContainer à `kubectl` via la commande `kubectl alpha debug` qui permet de lancer rapidement un EphemeralContainer lié à un pod. Pour cela il faut au préalable activer la [FeatureGate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates ) sur les différents composants.
 
 #### Mini démo
 
@@ -149,7 +149,7 @@ Pratique !
 
 <https://github.com/kubernetes/kubernetes/pull/86377>
 
-## Ce qui disparait !
+## Ce qui disparaît !
 
 ### kube-apiserver
 

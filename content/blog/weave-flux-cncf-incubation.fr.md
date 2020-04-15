@@ -11,7 +11,7 @@ lang: fr
 Ce n'est pas l'info de l'année, mais je souhaitais néanmoins le faire
 remarquer, **[Weave Flux](https://github.com/fluxcd/flux) vient d'être accepté dans la Sandbox de la CNCF**. Nous
 avons justement parlé de Flux sur ce blog le mois
-dernier avec [un article montrant une chaine d'intégration et de déploiement
+dernier avec [un article montrant une chaîne d'intégration et de déploiement
 continue sur Kubernetes en utilisant Concourse-CI et Flux
 !](https://blog.alterway.fr/continuous-delivery-avec-weave-flux-et-concourse-ci.html)
 
@@ -76,7 +76,7 @@ Tous les détails peuvent être trouvés [ici](https://github.com/cncf/toc/blob/
 #### La Sandbox pour Flux
 
 Flux intègre donc le premier niveau : la Sandbox. Cela va lui permettre de
-gagner en visibilité, d'augmenter son nombre d'utilisateurs, ce qui entrainera
+gagner en visibilité, d'augmenter son nombre d'utilisateurs, ce qui entraînera
 plus de remontées de bugs, plus de contributions et finalement contribuera à en
 faire un projet plus stable dans le temps !
 

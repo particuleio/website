@@ -16,7 +16,7 @@ précise de ce qui tourne sur votre infrastructure. Avec des systèmes legacy,
 les changements sont peu nombreux au cours du temps, tout est relativement
 fixe. Les VM vont elles bouger plus ou moins régulièrement entre vos hosts, les
 instances de par leur caractère éphémère sont promptes à apparaître et
-disparaitre en fonction de l'autoscalabilité de votre cloud.
+disparaître en fonction de l'autoscalabilité de votre cloud.
 
 Les conteneurs se comportent comme les instances, mais encore plus rapidement.
 Si vos applicatifs sont gérés correctement, ils risquent d'être gérés par une

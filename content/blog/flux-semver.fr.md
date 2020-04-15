@@ -14,7 +14,7 @@ lang: fr
 
 2020 commence, c'est le moment de se lancer dans le GitOps et si vous souhaitez participer au bingo Cloud Natif, pourquoi pas continuer dans le FinOps et AIOps pour finir en NoOps.
 
-Plus sérieusement nous avions déjà couvert le GitOps avec un premier article sur [Flux et Concourse](https://particule.io/blog/cicd-concourse-flux/) que je vous invite à parcourir pour se remettre en tête les définitions. Nous y montrons l'exemple d'une chaine d'intégration continue, du build d'une image jusqu'à son passage en production avec Flux CD, Concourse CI et Kubernetes.
+Plus sérieusement nous avions déjà couvert le GitOps avec un premier article sur [Flux et Concourse](https://particule.io/blog/cicd-concourse-flux/) que je vous invite à parcourir pour se remettre en tête les définitions. Nous y montrons l'exemple d'une chaîne d'intégration continue, du build d'une image jusqu'à son passage en production avec Flux CD, Concourse CI et Kubernetes.
 
 Si vraiment vous passez en coup de vent, globalement le GitOps consiste à mettre tout notre code déclaratif dans Git (dans notre cas, des manifests Kubernetes) et attendre que quelque chose fasse une action quelque part avec tout ce code.
 

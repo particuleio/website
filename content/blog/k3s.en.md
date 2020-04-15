@@ -2,7 +2,7 @@
 Title: k3s, k8s minus 5 !
 Date: 2020-03-02
 Category: Kubernetes
-Summary: Rancher k3s is a Kubernetes distribution, ligthweight, packaged into a 50MB binary file ready to be used for your CI jobs
+Summary: Rancher k3s is a Kubernetes distribution, lightweight, packaged into a 50MB binary file ready to be used for your CI jobs
 Author: Romain Guichard
 image: images/thumbnails/k3s.png
 lang: en
@@ -72,7 +72,7 @@ K3s includes also :
 ### Kubernetes in Docker
 
 What's really interested is that you could easily run k3s inside a Docker
-container. Rancher provides another tool to help us deployd k3s insise a Docker
+container. Rancher provides another tool to help us deploy k3s inside a Docker
 container : [k3d](https://github.com/rancher/k3d).
 
 ```
@@ -100,8 +100,8 @@ It works well, maybe even faster.
 
 For some years, most of CI providers (travis-ci, circle-ci, concourse etc)
 can provide a Docker environment for running your jobs inside containers. They
-provide the Docker daemon, you provide the images. There are many pros doing
-that, fixed dependancies, provider agnosticity, close production and tests
+provide the Docker daemon, you provide the images. There are many pros in doing
+that: fixed dependencies, agnosticism, close production and tests
 environments etc.
 
 But as I said earlier, Kubernetes is the _de facto_ platform, not Docker. You

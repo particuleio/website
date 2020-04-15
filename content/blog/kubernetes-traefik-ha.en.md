@@ -49,7 +49,7 @@ To deploy a Consul Cluster, we are going to use a [*StatefulSet*](https://kubern
 
 A [`Statefulset`](https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) is a Kubernetes Object design to run stateful application with persistent storage.
 
-The storage is backed on AWS EBS which is the block storage service for AWS. With this, if the cluster fail or reboot, Consul pods will recover the data by remounting the volume directly from AWS. The automatic storage provisionning is done with [Kubernetes dynamic storage and EBS driver](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
+The storage is backed on AWS EBS which is the block storage service for AWS. With this, if the cluster fail or reboot, Consul pods will recover the data by remounting the volume directly from AWS. The automatic storage provisioning is done with [Kubernetes dynamic storage and EBS driver](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
 
 Here is the manifest for the StatefulSet:
 
