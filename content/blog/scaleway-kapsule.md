@@ -429,9 +429,9 @@ Et voilà !!
 
 # Conclusion
 
-Kapsule de Scaleway est un Kubernetes managé, comme EKS, GKE ou AKS. Celui ci a la
-mérite de bénéficier de ressources Terraform ce qui n'est pas le cas de celui
-d'OVH par exemple. Ces ressources Terraform nous permettent de piloter notre
+Kapsule de Scaleway est un Kubernetes managé, comme EKS, GKE ou AKS. Celui ci a le
+mérite de bénéficier de ressources Terraform ce qui n'est pas si commun
+lorsqu'on sort du Big Three. Ces ressources Terraform nous permettent de piloter notre
 cluster de façon déclarative grâce à **l'Infra as Code**.
 
 Nous ne sommes pas rentrés dans tous les détails de Kapsule, mais sachez que le
