@@ -104,9 +104,9 @@ output "cluster_url" {
 
 On configure le provider avec la `zone` et la `region`.
 
-Pour la cluster, on prend des valeurs plutôt classiques. Il est extrêmement
+Pour le cluster, on prend des valeurs plutôt classiques. Il est extrêmement
 intéressant de noter que contrairement à **toutes** les autres solutions
-Kubernetes managées que j'ai cité en début d'article, Kapsule propose la toute
+Kubernetes managées que j'ai citées en début d'article, Kapsule propose la toute
 dernière version de Kubernetes, la `1.18.2` sortie il y a seulement quelques
 jours à l'heure où j'écris ces lignes. C'est peut être un détail pour vous,
 mais pour nous ça veut dire beaucoup ;-)
