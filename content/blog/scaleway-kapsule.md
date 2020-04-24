@@ -2,7 +2,7 @@
 Title: Un cluster Kubernetes avec Terraform, Scaleway Kapsule et des GPU
 Date: 2020-04-23
 Category: Kubernetes
-Summary: Déploiement d'un cluster Kubernetes avec Terraform et Scaleway Kapsule et exploitation des GPU Scaleway pour une application de détection de visages
+Summary: Déploiement d'un cluster Kubernetes avec Terraform, Scaleway Kapsule et exploitation des GPU Scaleway pour une application de détection de visages
 Author: Romain Guichard
 image: images/thumbnails/logo-scaleway-elements.png
 lang: fr
@@ -208,7 +208,7 @@ Notre application répond tout va bien !
 
 [La feature intéressante chez Kapsule est la disponibilité des GPU au sein de
 Kubernetes. Les GPU sont des Nvidia
-P100](https://www.scaleway.com/en/?id=33133&preview=19998).
+P100](https://www.scaleway.com/fr/gpu-instances/).
 
 On va déployer un nouveau pool de worker, cette fois des workers qui possèdent
 des GPU, et on va l'ajouter à notre cluster existant. On ajoute ce code
