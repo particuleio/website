@@ -9,6 +9,7 @@ team:
       content : |
         [![cka](/images/badges/logo_cka.png#flex10 "Certified Kubernetes Administrator")](https://www.cncf.io/certification/cka/)
         [![ckad](/images/badges/logo_ckad.png#flex10 "Certified Kubernetes Application Developer")](https://www.cncf.io/certification/ckad/)
+        [![terraform](/images/badges/logo_terraformassociate.png#flex10 "HashiCorp Certified: Terraform Associate")](https://www.hashicorp.com/certification/terraform-associate/)
         [![coa](/images/badges/coa_badge.png#flex10 "Certified OpenStack Administrator")](https://www.openstack.org/coa/)
         [![docker](/images/badges/docker_badge.png#flex10 "Docker Certified Associate")](https://success.docker.com/certification)
       social_Icon :
