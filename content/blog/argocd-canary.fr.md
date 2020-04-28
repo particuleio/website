@@ -11,7 +11,7 @@ lang: fr
 Et oui on va encore parler de GitOps... [Dans notre dernier
 article](https://particule.io/blog/cncf-argo/), nous avons
 brièvement présenté Argo et [sa récente adoption par la
-CNCF]((https://www.cncf.io/projects/)). Pour rappel, Argo est une suite
+CNCF](https://www.cncf.io/projects/). Pour rappel, Argo est une suite
 d'outils de Continuous Delivery :
 
 - ArgoCD
