@@ -29,7 +29,7 @@ Rollout pour montrer comment nous pouvons, à partir d'un simple commit git,
 déployer une mise à jour applicative de façon graduelle, controlée et assortie
 d'un mécanisme de rollback automatique. Tout un programme.
 
-# Notre application et ses releases
+### Notre application et ses releases
 
 Je vais utiliser simple une application qui fournie une API renvoyant un code
 json comme ceci :
@@ -93,7 +93,7 @@ spec:
 ```
 
 
-# ArgoCD
+### ArgoCD
 
 Comme son nom l'indique, ArgoCD gère la partie Continuous Delivery, il permet entre
 autres de déployer des versions spécifiques d'applications et de réconcilier
@@ -139,7 +139,7 @@ jusque là, exactement la même chose.
 
 Passons à un vrai update applicatif.
 
-# Argo Rollout
+### Argo Rollout
 
 Autre composant de la suite Argo : [Argo
 Rollout](https://github.com/argoproj/argo-rollouts). Il augmente les stratégies
@@ -173,7 +173,7 @@ kind: Rollout # Changed from Deployment
 On commit cette modification et on laisse ArgoCD mettre à jour notre
 application. Rien ne devrait changer.
 
-## Rollout strategy
+#### Rollout strategy
 
 La ressource Rollout permet d'augmenter les possibilités offertes par la spec
 `strategy`. C'est ici qu'on va y définir les paramètres de notre Canary.
@@ -365,7 +365,7 @@ NAME                                  KIND         STATUS        AGE    INFO
    └──α colorapi-59b5ddb84f-30        AnalysisRun  ✔ Successful  7m     ✔ 30
 ```
 
-## Analysis Run
+#### Analysis Run
 
 Mais ce qui est intéressant c'est de pouvoir observer notre rolling-update et
 pouvoir prendre une décision le concernant. Si le comportement de notre Canary
@@ -505,7 +505,7 @@ a du être rollback du aux 2 erreurs de notre `AnalysisRun`. Pour repasser en
 Mais ce qui compte c'est que notre rolling-update a bien été arrêté et que nous
 avons empêché une application corrompue d'atterrir en production !
 
-# Conclusion
+### Conclusion
 
 Nous n'avons fait qu'effleurer les possibilités d'Argo, notre métrique n'avait
 pas beaucoup de sens, notre application non plus, mais ces exemples sont
