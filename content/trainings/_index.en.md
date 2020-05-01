@@ -2,5 +2,6 @@
 title: "Training."
 date: 2020-07-02T14:53:13+06:00
 draft: false
-description: "Particule training"
+Summary: "Particule training"
+imgSocialNetwork: "images/logo-dark-horizontal-520px-270px.png"
 ---

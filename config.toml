@@ -82,6 +82,7 @@ unsafe= true
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
+    imgSocialNetwork = "images/logo-dark-horizontal-520px-270px.png"
 
     footerDescription = "Particule vous accompagne dans vos projets Cloud Native avec une expertise pointue sur Kubernetes, Docker, Amazon Web Services et OpenStack"
     footerServiceTitle = "Services"
@@ -148,6 +149,7 @@ unsafe= true
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
+    imgSocialNetwork = "images/logo-dark-horizontal-520px-270px.png"
 
     footerDescription = "Particule helps you get started into the Cloud Native world with a strong expertise on Kubernetes, Docker, Amazon Web Services and OpenStack"
     footerServiceTitle = "Service"
@@ -162,7 +164,7 @@ unsafe= true
         description = "From an application on your developers laptop to a scalable infrastructure, define as code"
         button  = true
         btnText = "Let's scale"
-        btnURL  = "https://themefisher.com/"
+        btnURL  = "#about"
         videoThumb = "images/iaas.png"
         videoURL   = ""
 
