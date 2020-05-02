@@ -35,7 +35,7 @@ Argo is split between sub projects, each one addressing a specific problematic.
 
 #### [Argo Workflow](https://argoproj.github.io/projects/argo)
 
-Native Kubernetes pipeline creation: Pods, jobs , etc as well as orchestration and artifacts handling which can be compare to a classic CI tools.
+Native Kubernetes pipeline creation: Pods, jobs, etc as well as orchestration and artifacts handling which can be compare to a classic CI tools.
 
 #### [Argo CD](https://argoproj.github.io/projects/argo-cd)
 
@@ -45,7 +45,7 @@ As hinted by its name, handles continuous delivery, allowing you to deploy speci
 
 #### [Argo Rollout](https://argoproj.github.io/argo-rollouts/)
 
-Augments Kubernetes rolling update strategies by adding *Canary Deployments* and *Blue/Green Deployments*. Check out our article [here](https://particule.io/en/blog/argocd-canary/)
+Augments Kubernetes rolling update strategies by adding *Canary Deployments* and *Blue/Green Deployments*. [Check out our article here](https://particule.io/en/blog/argocd-canary/)
 
 #### [Argo Event](https://argoproj.github.io/projects/argo-events)
 
@@ -55,11 +55,11 @@ Execute [actions](https://argoproj.github.io/argo-events/concepts/trigger/) that
 
 ### Project roadmap
 
-Those projects are not alone on the market, Argo CD offers similar functionalities as[Flux CD](https://fluxcd.io/).
+Those projects are not alone on the market, Argo CD offers similar functionalities as [Flux CD](https://fluxcd.io/).
 
 For the continuous delivery part, Argo CD and Flux now have a [common project](https://www.weave.works/blog/argo-flux-join-forces): Argo Flux which aim to merge the feature of both under one project.
 
-This will add a feature we love in flux which is the monitoring of Docker registries to automatically deploy new applications release based on [glob and/or semver](https://particule.io/en/blog/flux-semver/). This project will be a joined CNCF project.
+This will add a feature we love in Flux which is the monitoring of Docker registries to automatically deploy new applications release based on [glob and/or semver](https://particule.io/en/blog/flux-semver/). This project will be a joined CNCF project.
 
 Along the same lines, we may see [Weave Flagger and Argo Rollout getting closer](https://www.weave.works/blog/argo-flux-join-forces) as they both offer the same features.
 
