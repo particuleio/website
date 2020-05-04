@@ -429,19 +429,27 @@ Et voilà !!
 
 # Conclusion
 
-Kapsule de Scaleway est un Kubernetes managé, comme EKS, GKE ou AKS. Celui ci a le
-mérite de bénéficier de ressources Terraform ce qui n'est pas si commun
-lorsqu'on sort du Big Three. Ces ressources Terraform nous permettent de piloter notre
-cluster de façon déclarative grâce à **l'Infra as Code**.
+Kubernetes Kapsule de Scaleway est un Kubernetes managé, comme EKS, GKE ou AKS.
+Celui ci a la particularité d'être managé par une entreprise française. Son
+prix est virtuellement gratuit, vous ne payez en effet que les ressources
+associées à vos workers. Comme tout service managé, vous ne payez pas les ressources
+associées au control plane.  C'est une vieille promesse du cloud computing :
+*pay as you go*. Et enfin il a le mérite de bénéficier de ressources Terraform
+ce qui n'est pas si commun lorsqu'on sort du Big Three et méritait d'être
+signalé. Ces ressources Terraform nous permettent de piloter notre cluster de
+façon déclarative grâce à **l'Infra as Code**.
+
 
 Nous ne sommes pas rentrés dans tous les détails de Kapsule, mais sachez que le
 type `LoadBalancer` pour les Services Kubernetes est disponible et permet de
 schéduler automatiquement un Load Balancer sur l'infrastructure de Scaleway.
-Exactement comme avec un ELB/ALB sur Amazon Web Services. Une StorageClass en
+Exactement comme avec un ELB/ALB sur Amazon Web Services. Une `StorageClass` en
 RWO est aussi disponible pour y stocker vos données persistantes.
 
-Et enfin les GPU que nous avons brievement mis en action dans cet article. Ah
-et au fait, ils ne coûtent que 1€/heure ;-)
+Tous ces éléments font de Kubernetes Kapsule un produit complet, efficace qui
+mérite d'être pleinement considéré lorsque l'on souhaite choisir le cloud
+public où déployer son cluster Kubernetes. Enfin les GPU que nous avons
+brievement mis en action dans cet article ne coûtent que 1€/heure ;-)
 
 
 [**Romain Guichard**](https://www.linkedin.com/in/romainguichard)
