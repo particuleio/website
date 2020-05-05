@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Déploiement d'un cluster Kubernetes avec Terraform, Scaleway Kapsule et exploitation des GPU Scaleway pour une application de détection de visages
 Author: Romain Guichard
 image: images/thumbnails/logo-scaleway-elements.png
+imgSocialNetwork: images/thumbnails/logo-scaleway-elements.png
 lang: fr
 ---
 
@@ -15,7 +16,7 @@ API, vous pouvez demander la création d'un cluster Kubernetes. On considère qu
 le control plane est managé car vous n'aurez pas à faire les updates vous
 même, la supervision est souvent déjà configurée etc. Les workers peuveut être
 parfois managés, c'est le cas notamment avec le combo [EKS/Fargate associé par
-Virtual Kubelet donc nous avons parlé sur ce
+Virtual Kubelet dont nous avons parlé sur ce
 blog](https://particule.io/en/blog/virtual-kubelet/), mais généralement ils
 sont à votre charge.
 
@@ -30,7 +31,7 @@ de Kubernetes :
   Service](https://www.ovhcloud.com/fr/public-cloud/kubernetes/) pour OVH
 - [Managed Kubernetes](https://www.digitalocean.com/products/kubernetes/) chez
   DigitalOcean
-- [Kapsule](https://www.scaleway.com/fr/kubernetes-kapsule/) chez Scaleway
+- [Kubernetes Kapsule](https://www.scaleway.com/fr/kubernetes-kapsule/) chez Scaleway
 
 Toutes ces solutions ont en commun d'être [certifiées conformes par la
 CNCF](https://www.cncf.io/certification/software-conformance/).
