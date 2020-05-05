@@ -5,7 +5,7 @@ Category: Kubernetes
 Summary: Déploiement d'un cluster Kubernetes avec Terraform, Scaleway Kapsule et exploitation des GPU Scaleway pour une application de détection de visages
 Author: Romain Guichard
 image: images/thumbnails/logo-scaleway-elements.png
-imgSocialNetwork: images/thumbnails/logo-scaleway-elements.png
+imgSocialNetwork: images/og/kapsule.png
 lang: fr
 ---
 
