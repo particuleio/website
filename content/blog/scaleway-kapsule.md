@@ -15,10 +15,17 @@ vous ne gérez pas le control plane. Généralement via une interface web ou une
 API, vous pouvez demander la création d'un cluster Kubernetes. On considère que
 le control plane est managé car vous n'aurez pas à faire les updates vous
 même, la supervision est souvent déjà configurée etc. Les workers peuvent être
-parfois managés, c'est le cas notamment avec le combo [EKS/Fargate associé par
-Virtual Kubelet dont nous avons parlé sur ce
-blog](https://particule.io/en/blog/virtual-kubelet/), mais généralement ils
-sont à votre charge.
+parfois managés, c'est le cas notamment avec [les managed node groups sur
+EKS](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)
+ou [les node pools sur
+GKE](https://cloud.google.com/kubernetes-engine/docs/concepts/node-pools).
+
+Les workers peuvent parfois être serverless, par exemple avec [EKS/Fargate
+associé par Virtual Kubelet dont nous avons parlé sur ce
+blog](https://particule.io/en/blog/virtual-kubelet/)
+
+Dans les deux cas, les ressources de calcul sont, financièrement, souvent
+à votre charge.
 
 La quasi totalité des cloud public providers fournissent une solution managée
 de Kubernetes :
