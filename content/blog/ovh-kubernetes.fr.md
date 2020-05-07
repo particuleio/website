@@ -50,6 +50,11 @@ Scaleway](https://www.scaleway.com/en/docs/get-started-with-scaleway-kubernetes-
 nous allons aujourd'hui tester le [Kubernetes managé
 d'OVH](https://docs.ovh.com/gb/en/kubernetes/).
 
+### Pricing
+
+Comme beaucoup de fournisseur, le service managé est gratuit et la facuration
+est realisée uniquement sur les noeuds, suivant les types d'instances.
+
 ### Déploiement d'OVH Kubernetes
 
 Il est possible dans un premier temps d'accéder au service Kubernetes managé
