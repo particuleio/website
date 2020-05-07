@@ -9,7 +9,7 @@ lang: en
 ---
 
 Once again, we are going to talk about GitOps... In [our last
-article](https://particule.io/blog/cncf-argo/), we briefly talked about Argo
+article](https://particule.io/en/blog/cncf-argo/), we briefly talked about Argo
 and [its adoption by the CNCF](https://www.cncf.io/projects/). As a reminder,
 Argo is a Continuous Delivery tools suite:
 
@@ -18,9 +18,7 @@ Argo is a Continuous Delivery tools suite:
 - Argo Rollout
 - Argo Event
 
-I would advise you to read or read again our article:
-
-<https://particule.io/en/blog/cncf-argo/>
+I would advise you to read or read again [our article](https://particule.io/en/blog/cncf-argo/).
 
 Introductions have been made, we are now going to practice with ArgoCD and Argo
 Rollout making a full application deployment with a simple git commit. We will
