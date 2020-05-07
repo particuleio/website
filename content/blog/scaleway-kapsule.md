@@ -14,7 +14,7 @@ ceux qui ne le sont pas. Un Kubernetes managé est un cluster Kubernetes dont
 vous ne gérez pas le control plane. Généralement via une interface web ou une
 API, vous pouvez demander la création d'un cluster Kubernetes. On considère que
 le control plane est managé car vous n'aurez pas à faire les updates vous
-même, la supervision est souvent déjà configurée etc. Les workers peuveut être
+même, la supervision est souvent déjà configurée etc. Les workers peuvent être
 parfois managés, c'est le cas notamment avec le combo [EKS/Fargate associé par
 Virtual Kubelet dont nous avons parlé sur ce
 blog](https://particule.io/en/blog/virtual-kubelet/), mais généralement ils
@@ -156,7 +156,7 @@ cluster_url = https://09ddf5f2-a6e5-4785-8d50-8f343e8cad25.api.k8s.fr-par.scw.cl
 
 Première impression, c'est plutôt rapide.
 
-Attention, le control plane est peut etre UP mais votre worker pas encore. Il
+Attention, le control plane est peut être UP mais votre worker pas encore. Il
 faut attendre une petite minute avant de pouvoir fièrement lancer :
 
 ```console
@@ -185,7 +185,7 @@ service/helloworld   NodePort    10.38.244.209   <none>        80:31920/TCP   15
 ```
 
 Le Service est de type NodePort, on peut donc effectuer un curl sur l'IP
-externe de notre noeud et le NodePort du Service.
+externe de notre nœud et le NodePort du Service.
 
 ```console
 $ curl 51.15.139.93:31920
@@ -290,7 +290,7 @@ Notre node est déployé.
 
 Nous allons tout d'abord vérifier si nous avons bel et bien un GPU sur ce
 worker. Tout d'abord il faut qu'une ressource de type `nvidia.com/gpu` existe
-sur notre noeud et il faut que celle ci soit exposée dans notre pod.
+sur notre nœud et il faut que celle ci soit exposée dans notre pod.
 
 Voici un pod de test pour monter un GPU :
 
@@ -443,14 +443,14 @@ façon déclarative grâce à **l'Infra as Code**.
 
 Nous ne sommes pas rentrés dans tous les détails de Kapsule, mais sachez que le
 type `LoadBalancer` pour les Services Kubernetes est disponible et permet de
-schéduler automatiquement un Load Balancer sur l'infrastructure de Scaleway.
+scheduler automatiquement un Load Balancer sur l'infrastructure de Scaleway.
 Exactement comme avec un ELB/ALB sur Amazon Web Services. Une `StorageClass` en
 RWO est aussi disponible pour y stocker vos données persistantes.
 
 Tous ces éléments font de Kubernetes Kapsule un produit complet, efficace qui
 mérite d'être pleinement considéré lorsque l'on souhaite choisir le cloud
 public où déployer son cluster Kubernetes. Enfin les GPU que nous avons
-brievement mis en action dans cet article ne coûtent que 1€/heure ;-)
+brièvement mis en action dans cet article ne coûtent que 1€/heure ;-)
 
 
 [**Romain Guichard**](https://www.linkedin.com/in/romainguichard)
