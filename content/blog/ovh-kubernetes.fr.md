@@ -1,11 +1,11 @@
 ---
-Title: Managed OVH Kubernetes 
+Title: Managed OVH Kubernetes
 Date: 2020-05-07
 Category: Kubernetes
 Summary: On a testé le Kubernetes Managé d'OVH
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
-imgSocialNetwork: images/og/kapsule.png
+imgSocialNetwork: images/og/managed-kube-ovh.png
 lang: fr
 ---
 
@@ -52,7 +52,7 @@ d'OVH](https://docs.ovh.com/gb/en/kubernetes/).
 
 ### Pricing
 
-Comme beaucoup de fournisseur, le service managé est gratuit et la facuration
+Comme beaucoup de fournisseurs, le service managé est gratuit et la facturation
 est realisée uniquement sur les noeuds, suivant les types d'instances.
 
 ### Déploiement d'OVH Kubernetes
@@ -64,7 +64,7 @@ Cloud](https://www.ovh.com/manager/public-cloud).
 ![](/images/ovh/ovh-kubernetes-01.png#center)
 
 Il est ensuite possible de sélectionner la région ainsi que la version du
-cluster. Les version proposées vont de 1.15 à 1.17. Nous allons de déployer un
+cluster. Les versions proposées vont de 1.15 à 1.17. Nous allons déployer un
 cluster en 1.17.
 
 ![](/images/ovh/ovh-kubernetes-02.png#center)
@@ -74,32 +74,33 @@ cluster en 1.17.
 Le cluster est disponible en 5 minutes, il est temps d'ajouter des nœuds. La
 console OVH propose une interface pour gérer le cluster et les nœuds. Les nœuds
 disponibles sont les même instances que celles proposées par le public cloud
-OVH. Pour le moment les nœuds sont rajouté de manière individuel mais le concept
+OVH. Pour le moment les nœuds sont rajoutés de manière individuelle mais le concept
 de node pool et d'autoscaling sera [disponible cette
 année](https://docs.ovh.com/sg/en/kubernetes/available-upcoming-features/).
 
 Pour le moment, pas de GPU avec Kubernetes mais un [OVH lab est en cours
-d'élaboration](https://labs.ovh.com/gpu-baremetal-kubernetes-nodes)qui permettra
-d'ajouter des nœuds bare metal avec des GPUs.
+d'élaboration](https://labs.ovh.com/gpu-baremetal-kubernetes-nodes) qui permettra
+d'ajouter des nœuds bare metal avec des GPU.
 
-Rajouter des nœuds se fait simplement dans l'interface:
+Rajouter des nœuds se fait simplement dans l'interface :
 
 ![](/images/ovh/ovh-kubernetes-04.png#center)
 
 ### Récupération du Kubeconfig
 
-Le Kubeconfig est téléchargeable également depuis l'interface. Il est ensuite possible d'accéder au cluster:
+Le Kubeconfig est téléchargeable également depuis l'interface. Il est ensuite
+possible d'accéder au cluster:
 
-```bash
-export KUBECONFIG=$(pwd)/kubeconfig.yml
+```console
+$ export KUBECONFIG=$(pwd)/kubeconfig.yml
 
-kubectl get nodes -o wide
+$ kubectl get nodes -o wide
 
 NAME          STATUS   ROLES    AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
 particule     Ready    <none>   17m    v1.17.5   51.210.39.198   <none>        Ubuntu 18.04.4 LTS   4.15.0-96-generic   docker://18.6.3
 particule-b   Ready    <none>   109s   v1.17.5   51.210.36.244   <none>        Ubuntu 18.04.4 LTS   4.15.0-96-generic   docker://18.6.3
 
-kubectl get pods -o wide --all-namespaces
+$ kubectl get pods -o wide --all-namespaces
 
 NAMESPACE     NAME                                   READY   STATUS    RESTARTS   AGE     IP              NODE          NOMINATED NODE   READINESS GATES
 kube-system   canal-br6v7                            2/2     Running   0          2m21s   51.210.36.244   particule-b   <none>           <none>
@@ -120,11 +121,11 @@ qui combine
 [flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) et
 [calico](https://docs.projectcalico.org/getting-started/kubernetes/) pour les
 [network
-policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/). 
+policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
 
-Pour l'instant le trafic transit sur le réseau publi d'OVH et est chiffré via la
+Pour l'instant le trafic transit sur le réseau public d'OVH et est chiffré via la
 solution CNI [wormhole](https://github.com/gravitational/wormhole).
-L'integration au vRack et la possibilité de créer des cluster privés sera
+L'integration au vRack et la possibilité de créer des clusters privés sera
 [ajoutée dans
 l'année](https://docs.ovh.com/sg/en/kubernetes/available-upcoming-features/).
 
@@ -143,18 +144,18 @@ propose de piloter les différents services offert par OVH.
 ### Fonctionnalités disponibles
 
 Parmi les fonctionnalités exposées, on notera l'intégration au stockage
-persistant Cinder pour les workload stateful (support du redimensionnement), la gestion de
+persistant Cinder pour les workloads statefuls (support du redimensionnement), la gestion de
 l'autoscaling des pods via
 [HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
-ainsi que l'intégration des loadbalancer.
+ainsi que l'intégration des loadbalancers.
 
 Une liste des différentes fonctionnalités est [disponible
 ici](https://docs.ovh.com/gb/en/kubernetes/).
 
 #### Mini demo
 
-Pour tester les load balancer et les volumes cinder, vous pouvez utiliser ce
-`yaml`:
+Pour tester les loadbalancers et les volumes Cinder, vous pouvez utiliser ce
+`yaml` :
 
 ```yaml
 ---
@@ -217,8 +218,8 @@ spec:
 
 Puis:
 
-```
-k apply -f ovh.yaml
+```console
+$ kubectl apply -f ovh.yaml
 deployment.apps/hello-world created
 service/hello-world created
 persistentvolumeclaim/pv-claim created
@@ -226,23 +227,23 @@ persistentvolumeclaim/pv-claim created
 
 Après quelques minutes, les ressources sont disponibles.
 
-```bash
-kubectl get pods
+```console
+$ kubectl get pods
 
 NAME                           READY   STATUS    RESTARTS   AGE
 hello-world-6cf5f597cb-6jvrj   1/1     Running   0          5m19s
 
-kubectl get pv
+$ kubectl get pv
 
 NAME                                                                     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM              STORAGECLASS            REASON   AGE
 ovh-managed-kubernetes-rq4ajb-pvc-aa2e0e0c-d44b-4210-89f0-293f6ed7f94a   10Gi       RWO            Delete           Bound    default/pv-claim   csi-cinder-high-speed            10m
 
-kubectl get pvc
+$ kubectl get pvc
 
 NAME       STATUS   VOLUME                                                                   CAPACITY   ACCESS MODES   STORAGECLASS            AGE
 pv-claim   Bound    ovh-managed-kubernetes-rq4ajb-pvc-aa2e0e0c-d44b-4210-89f0-293f6ed7f94a   10Gi       RWO            csi-cinder-high-speed   10m
 
-kuebctl get svc
+$ kubectl get svc
 
 NAME          TYPE           CLUSTER-IP   EXTERNAL-IP                         PORT(S)        AGE
 hello-world   LoadBalancer   10.3.46.3    6epat74kjk.lb.c1.gra7.k8s.ovh.net   80:32063/TCP   8m3s
@@ -254,11 +255,10 @@ Notre service est accessible sur l'url <http://6epat74kjk.lb.c1.gra7.k8s.ovh.net
 
 On peut également voir dans le pod notre volume persistant monté dans `/claim`.
 
-```bash
-k exec -it hello-world-6cf5f597cb-6jvrj -- /bin/sh
+```console
+$ kubectl exec -it hello-world-6cf5f597cb-6jvrj -- /bin/sh
 
-df -h
-
+$ df -h
 Filesystem                Size      Used Available Use% Mounted on
 /dev/sdb                  9.8G     36.0M      9.7G   0% /claim
 ```
@@ -266,7 +266,7 @@ Filesystem                Size      Used Available Use% Mounted on
 ### Fonctionnalité prévues
 
 Nous les avons mentionnées en cours d'article mais un petit récapitulatif ne
-fait pas de mal:
+fait pas de mal :
 
 * Intégration au vRack pour les clusters et réseaux privés.
 * Autoscaling des nœuds via la fonction de node groups
