@@ -5,19 +5,23 @@ Category: Kubernetes
 Summary: GitOps avec Concourse comme CI et Flux comme CD !
 Author: Romain Guichard
 image: images/thumbnails/weave.png
+imgSocialNetwork: images/og/concourse-fluxcd.png
 lang: fr
 ---
 
 Nous en avons déjà parlé sur ce blog, DevOps ne désigne pas une série d'outils
 mais bien des pratiques de travail que certains outils, en effet, aident à
-mettre en place. Dans le même ordre d'idée, le terme *GitOps* commence très
-sérieusement à émerger.
+mettre en place. Dans le même ordre d'idée, il n'y a pas d'outils **GitOps**
+mais bien une série de pratiques et de principes qui peuvent être mis en
+application par différents outils. Pour l'histoire, le terme **GitOps** sort
+tout droit de chez Weave, les créateurs du plugin CNI Weave ainsi que de
+Flagger, un opérateur Kubernetes de contiuous delivery.
 
 ### GitOps ?
 
 Pour expliquer la problématique que GitOps tente de résoudre, revenons un peu
 en arrière et parlons d'Infrastructure as Code. Ce concept désigne le fait de
-décrire dans des fichiers texte notre infrastructure. Les avantages sont
+décrire, de manière **déclarative**, dans des fichiers texte notre infrastructure. Les avantages sont
 nombreux :
 
 - lisibilité
@@ -29,21 +33,31 @@ Grâce à Git, nous sommes capables de rapidement revenir à un état antérieur
 blame**) !!
 
 Git devient notre **single source of truth** et permet d'obtenir une
-reproductibilité quasiment parfaite. L'idempotence, elle, dépend de l'outil
-utilisé et de la qualité de votre code. Certains modules Ansible par exemple
-vous indiqueront toujours un **changed** bien qu'aucun changement n'ait lieu.
-Bien entendu, votre infrastructure n'est pas la seule concernée, tout peut, et
-*doit* finir dans votre Git : configuration, dashboards, monitoring etc.
+reproductibilité quasiment parfaite. Bien entendu, votre infrastructure n'est
+pas la seule concernée, tout peut, et **doit** finir dans votre Git :
+configuration, dashboards, monitoring etc. Grâce à des outils comme les Pull
+Requests de GitHub, vous êtes en mesure de contrôler les modifications
+apportées à votre code.
+
+Ce sont là trois des quatre principes de GitOps :
+
+- Votre système est déclarativement décrit
+- L'état désiré de votre système est stocké dans Git
+- Les changements sont contrôlés et appliqués dès leur validation
 
 
-Mais qu'est-ce que GitOps apporte de plus ? Et bien dans le cas que nous avons
-décrit, nous avons une seule source de vérité mais nous n'avons aucun moyen de
-nous assurer que ce qui est décrit dans nos fichiers texte est ce qui réellement
-déployé. Nous nous basons sur ces fichiers pour créer notre infrastructure mais
-nous utilisons directement les API de notre cloud provider pour déployer. Nous
-déployons donc directement des conteneurs (parce que 2019). Avec GitOps, ce ne
-sont pas des conteneurs, mais du code qui est déployé, différence subtile mais
-pas insignifiante.
+Mais qu'est-ce que GitOps apporte de plus ? Et bien des tas de choses. Les
+premiers bénéfices viennent évidemment de Git. Il devient le seul outil que vos
+développeurs ont besoin de connaître, il permet d'obtenir un historique clair
+des modifications effectuées et ses capacités de revert/rollback permettent de
+contrôler facilement, a posteriori, des modifications. GitOps s'applique aussi
+bien à vos applications qu'à votre infrastructure, vous n'avez donc plus qu'un
+seul workflow pour déployer en production. Finalement ce que vous developpez ce
+ne sont pas des conteneurs, c'est du code.
+
+La quatrième principe est qu'une fois l'état désiré déployé, un système doit se
+charger de contrôler que cet état est maintenu et que le système déployé ne
+dérive pas de la source de vérité.
 
 ### Et dans le détail alors ?
 
@@ -53,7 +67,8 @@ utilisez un système de review (Gerrit, PR, MR, etc) pour soumettre des
 modifications sur votre infrastructure. Vous utilisez les fonctions natives de Git pour
 effectuer un _rolling update_ ou un _rollback_. Tout est standard, vous n'avez pas
 à connaître les subtilités de chacune des CLI (kubectl, ctr, awscli, openstack-cli,
-etc) nécessaires à votre projet.
+etc) nécessaires à votre projet. Avec GitOps il y a une claire séparation entre
+la déclaration de votre système et la manière dont cet état est appliqué.
 
 [Weave Flux](https://github.com/weaveworks/flux) s'occupe des fonctions principales :
 
