@@ -28,6 +28,7 @@ team:
         [![ckad](/images/badges/logo_ckad.png#flex10 "Certified Kubernetes Application Developer")](https://www.cncf.io/certification/ckad/)
         [![coa](/images/badges/coa_badge.png#flex10 "Certified OpenStack Administrator")](https://www.openstack.org/coa/)
         [![cca](/images/badges/cca.png#flex10 "Professional Cloud Architect Certified")](https://cloud.google.com/certification/cloud-architect)
+        [![terraform](/images/badges/logo_terraformassociate.png#flex10 "HashiCorp Certified: Terraform Associate")](https://www.hashicorp.com/certification/terraform-associate/)
       social_Icon :
         - icon : ti-twitter-alt # themify icon pack : https://themify.me/themify-icons
           link : "https://twitter.com/archifleks"
