@@ -2,22 +2,23 @@
 Title: Dynamic DNS and LoadBalancing without cloud provider
 Date: 2020-05-14
 Category: Kubernetes
-Summary: How to provide DNS and Load Balancer integration without Cloud Provider on Kubernetes
+Summary: How to provide DNS and Load Balancer integration without a Cloud Provider on Kubernetes
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
+imgSocialNetwork: images/og/kubernetes-without-cloudprovider.png
 lang: en
 ---
 
 We often talk about managed Kubernetes or running Kubernetes in the Cloud but we
 also run Kubernetes on less "cloudy" environment, like VMware or bare metal
-server.
+servers.
 
 You may also hear a lot about how awesome the cloud provider integrations are:
-you can get password less credentials to access managed services, provision
+you can get passwordless credentials to access managed services, provision
 cloud load balancer without manual intervention, create DNS entries
 automatically etc.
 
-These integration are often not available when running on premises except if you
+These integrations are often not available when running on premises except if you
 are using a well supported Cloud provider like
 [OpenStack](https://github.com/kubernetes/cloud-provider-openstack). So how can
 you get the automation benefits of Cloud Native environment when running on bare
@@ -28,15 +29,14 @@ So what do we want we most, let's go feature by feature.
 All the manifests use throughout this article are available
 [here](https://github.com/clusterfrak-dynamics/gitops-template)
 
-### Gitops
+### GitOps
 
-As usual we are using [Gitops](https://www.weave.works/technologies/gitops/)
+As usual we are using [GitOps](https://www.weave.works/technologies/gitops/)
 with [FluxCD](https://fluxcd.io) to deploy our resources into our cluster,
 whether they are on a cloud provider or on premises. You can check out our
-[articles about Flux](https://particule.io/en/blog/weave-flux-cncf-incubation/)
-[here]() and [there]().
+[articles about Flux](https://particule.io/en/blog/weave-flux-cncf-incubation/).
 
-To get started you can use our [gitops
+To get started you can use our [GitOps
 template](https://github.com/clusterfrak-dynamics/gitops-template/) and
 customize it to your needs. You can also deploy directly the manifests with
 `kubectl` if this is more suitable.
@@ -61,8 +61,8 @@ virtual load balancer in two modes:
 The latter is simpler because it works on almost any layer 2 network without
 further configuration.
 
-In ARP mode, metal lb is quite simple to configure. You just have to give it a
-bunch of IP it can use and you are good to go.
+In ARP mode, metallb is quite simple to configure. You just have to give it a
+bunch of IPs it can use and you are good to go.
 
 The manifests are available
 [here](https://github.com/clusterfrak-dynamics/gitops-template/blob/master/flux/resources/metallb-system/metallb.yaml)
@@ -93,14 +93,14 @@ you can use [this
 script](https://github.com/clusterfrak-dynamics/gitops-template/blob/master/flux/resources/metallb-system/generate-secret.sh)
 to generate the Kubernetes secret yaml:
 
-```bash
+```console
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" -o yaml --dry-run=client > metallb-secret.yaml
 ```
 
 Once everything is deployed you should see your pods inside the `metallb-system`
 namespace:
 
-```bash
+```console
 NAME                          READY   STATUS    RESTARTS   AGE
 controller-57f648cb96-tvr9q   1/1     Running   0          2d1h
 speaker-7rd8p                 1/1     Running   0          2d1h
@@ -123,11 +123,11 @@ next topic.
 When running on Cloud Provider, in addition of the classic layer 4 load
 balancer, you sometime can get a Layer 7 load balancer, on GCP and AWS (with the
 application load balancer for example). But these have limited feature and are
-not really cost efficient et you often want/need an ingress controller ton
+not really cost efficient and you often want/need an ingress controller to
 manager your traffic from you Kubernetes cluster.
 
 This ingress controller is often published on the outside with a service type
-`LoadBalancer`. That's why our previous metal lb deployment will come in handy.
+`LoadBalancer`. That's why our previous metallb deployment will come in handy.
 
 One of the first and most used ingress controller is the [nginx-ingress
 one](https://github.com/kubernetes/ingress-nginx) which can [easily be deployed
@@ -173,31 +173,31 @@ and the default is to use a service type `LoadBalancer`.
 
 If we check our newly deployed release:
 
-```bash
-k -n nginx-ingress get helmreleases.helm.fluxcd.io
+```console
+$ kubectl -n nginx-ingress get helmreleases.helm.fluxcd.io
 NAME            RELEASE         PHASE       STATUS     MESSAGE                                                                       AGE
 nginx-ingress   nginx-ingress   Succeeded   deployed   Release was successful for Helm release 'nginx-ingress' in 'nginx-ingress'.   2d1h
 
-or 
+or
 
-helm -n nginx-ingress ls
+$ helm -n nginx-ingress ls
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
 nginx-ingress   nginx-ingress   2               2020-05-12 15:06:25.832403094 +0000 UTC deployed        nginx-ingress-1.36.3    0.30.0
 
-k -n nginx-ingress get svc
+$ kubectl -n nginx-ingress get svc
 NAME                            TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)                      AGE
 nginx-ingress-controller        LoadBalancer   10.108.113.212   10.10.39.200   80:31465/TCP,443:30976/TCP   2d1h
 nginx-ingress-default-backend   ClusterIP      10.102.217.148   <none>         80/TCP                       2d1h
 ```
 
 We can see that our service is of type `LoadBalancer` and that the external IP
-is one that we defined inside our previous *ConfigMap* for MetalLB.
+is one that we defined inside our previous *ConfigMap* for metallb.
 
 Let's create a `demo` namespace and check the behavior when we create an ingress
 object:
 
-```bash
-kubectl create ns demo
+```console
+$ kubectl create namespace demo
 ```
 
 ```yaml
@@ -257,8 +257,8 @@ spec:
 `nginx-ingress` is able to publish the service by default which mean it can
 report the load balancer IP address into the ingress object:
 
-```bash
-k -n demo get ingress
+```console
+$ kubectl -n demo get ingress
 
 NAME    CLASS    HOSTS            ADDRESS        PORTS     AGE
 nginx   <none>   nginx.test.org   10.10.39.200   80, 443   47h
@@ -302,10 +302,10 @@ our active directory to our CoreDNS server running inside Kubernetes.
 
 #### Caveats
 
-It sounds quite simple but when diving into the [external-dns / CoreDNS part](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/coredns.md) we noticed that the only supported backend for CoreDNS that works with External DNS is Etcd. So yes, we need an Etcd cluster :/. You may also notice that the [readme](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/coredns.md) relies on [`etcd-operator`](https://github.com/coreos/etcd-operator) which is now archived and deprecated, and that it also does not encrypt communication with Etcd.
+It sounds quite simple but when diving into the [external-dns / CoreDNS part](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/coredns.md) we noticed that the only supported backend for CoreDNS that works with External DNS is Etcd. So yes, we need an Etcd cluster. You may also notice that the [readme](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/coredns.md) relies on [`etcd-operator`](https://github.com/coreos/etcd-operator) which is now archived and deprecated, and that it also does not encrypt communication with Etcd.
 
 We made an up to date guide to make up for those caveats, first we are going to
-use cilium's fork of [`etcd-operator`](https://github.com/cilium/cilium-etcd-operator) that will take care of provisioning a 3 nodes etcd cluster and generate TLS assets.
+use Cilium's fork of [`etcd-operator`](https://github.com/cilium/cilium-etcd-operator) that will take care of provisioning a 3 nodes etcd cluster and generate TLS assets.
 
 The manifests are [available here](https://github.com/clusterfrak-dynamics/gitops-template/tree/master/flux/resources/external-dns).
 
@@ -315,6 +315,7 @@ The manifests are [available here](https://github.com/clusterfrak-dynamics/gitop
 First we apply the etcd [Custom Resource Definition](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/):
 
 ```yaml
+---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
@@ -345,12 +346,12 @@ spec:
     storage: true
 ```
 
-Then we can deploy the [etcd operator](https://raw.githubusercontent.com/clusterfrak-dynamics/gitops-template/master/flux/resources/external-dns/cilium-etcd-operator.yaml).
+Then we can deploy the [Etcd operator](https://raw.githubusercontent.com/clusterfrak-dynamics/gitops-template/master/flux/resources/external-dns/cilium-etcd-operator.yaml).
 
 Soon after we should end up with etcd pods and secrets:
 
-```bash
-k -n external-dns get pods
+```console
+$ kubectl -n external-dns get pods
 
 NAME                                    READY   STATUS    RESTARTS   AGE
 cilium-etcd-mnphzk2tjl                  1/1     Running   0          2d1h
@@ -359,7 +360,7 @@ cilium-etcd-tsxm5rsckj                  1/1     Running   0          2d1h
 cilium-etcd-wtnqt22ssg                  1/1     Running   0          2d1h
 etcd-operator-6c57fff6f5-g92pc          1/1     Running   0          2d1h
 
-k -n external-dns get secrets
+$ kubectl -n external-dns get secrets
 NAME                                 TYPE                                  DATA   AGE
 cilium-etcd-client-tls               Opaque                                3      2d1h
 cilium-etcd-operator-token-zmjcl     kubernetes.io/service-account-token   3      2d1h
@@ -482,15 +483,15 @@ assets to secure communication and we are enabling the coredns provider.
 
 So here is our final `external-dns` namespace:
 
-```bash
-k -n external-dns get svc
+```console
+$ kubectl -n external-dns get svc
 NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                     AGE
 cilium-etcd          ClusterIP   None           <none>        2379/TCP,2380/TCP           2d2h
 cilium-etcd-client   ClusterIP   10.105.37.25   <none>        2379/TCP                    2d2h
 coredns-coredns      NodePort    10.99.62.135   <none>        53:31071/UDP,53:30396/TCP   2d1h
 external-dns         ClusterIP   10.103.88.97   <none>        7979/TCP                    2d1h
 
-k -n external-dns get pods
+$ kubectl -n external-dns get pods
 NAME                                    READY   STATUS    RESTARTS   AGE
 cilium-etcd-mnphzk2tjl                  1/1     Running   0          2d2h
 cilium-etcd-operator-55d89bbff7-cw8rc   1/1     Running   0          2d2h
@@ -523,8 +524,8 @@ spec:
           servicePort: 80
 ```
 
-```bash
-k -n demo get ingress
+```console
+$ kubectl -n demo get ingress
 
 NAME    CLASS    HOSTS            ADDRESS        PORTS     AGE
 nginx   <none>   nginx.test.org   10.10.39.200   80, 443   2d
@@ -533,8 +534,8 @@ nginx   <none>   nginx.test.org   10.10.39.200   80, 443   2d
 Let's check that this ingress has been picked up and inserted into etcd by
 external dns:
 
-```bash
-k -n external-dns logs -f external-dns-96d9fbc64-j22pf
+```console
+$ kubectl -n external-dns logs -f external-dns-96d9fbc64-j22pf
 time="2020-05-12T15:23:52Z" level=info msg="Add/set key /skydns/org/test/nginx/4781436c to Host=10.10.39.200, Text=\"heritage=external-dns,external-dns/owner=default,external-dns/resource=ingress/demo/nginx\", TTL=0"
 ```
 
@@ -545,15 +546,15 @@ etcd server.
 CoreDNS is listening with a `NodePort` service which mean we can query any nodes
 on the service `NodePort`:
 
-```bash
-k -n external-dns get svc coredns-coredns
+```console
+$ kubectl -n external-dns get svc coredns-coredns
 NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                     AGE
 coredns-coredns      NodePort    10.99.62.135   <none>        53:31071/UDP,53:30396/TCP   2d1h
 ```
 
-The 53 UDP port is mapped to port 31071. Let's pick a random node:
+The 53/UDP port is mapped to port 31071/UDP. Let's pick a random node:
 
-```bash
+```console
 NAME STATUS   ROLES    AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
 m1   Ready    master   15d   v1.18.2   10.10.40.10    <none>        Ubuntu 18.04.3 LTS   4.15.0-99-generic   containerd://1.3.4
 n1   Ready    <none>   15d   v1.18.2   10.10.40.110   <none>        Ubuntu 18.04.3 LTS   4.15.0-99-generic   containerd://1.3.4
@@ -562,7 +563,7 @@ n2   Ready    <none>   15d   v1.18.2   10.10.40.120   <none>        Ubuntu 18.04
 
 And try to make a DNS query with `dig`:
 
-```bash
+```console
 root@inf-k8s-epi-m5:~# dig -p 31071 nginx.test.org @10.10.40.120
 
 ; <<>> DiG 9.11.3-1ubuntu1.11-Ubuntu <<>> -p 31071 nginx.test.org @10.10.40.120
@@ -587,14 +588,15 @@ nginx.test.org.         30      IN      A       10.10.39.200
 ;; MSG SIZE  rcvd: 85
 ```
 
-We can see that CoreDNS is replying with our Metal Lb load balancer IP.
+We can see that CoreDNS is replying with our MetalLB load balancer IP.
 
 ### Quickly get up and running
 
-Throughout this guide, we set up CoreDNS, External DNS, Nginx Ingress and Metal
-LB, to provide a dynamics experience like the one provided with Cloud
+Throughout this guide, we set up CoreDNS, External DNS, Nginx Ingress and MetalLB,
+to provide a dynamics experience like the one provided with Cloud
 architecture. If you want to get started quickly, [check out our Flux repository
 with all the manifest used for this demo and
 more](https://github.com/clusterfrak-dynamics/gitops-template/tree/master/flux).
+
 
 [**Kevin Lefevre**](https://www.linkedin.com/in/kevinlefevre/)
