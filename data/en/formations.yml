@@ -40,6 +40,21 @@ item  :
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
 
+  - name        : Terraform
+    price       : 3 days
+    description : Understand Terraform concepts and learn HCL language
+    featurelist :
+      - item: Infrastructure as Code concepts
+      - item: Understand what problems Terraform tackles down
+      - item: Deploy and architecture a Terraform project
+      - item: Manipulate and use a Terraform State
+      - item: Learn how to write idempotential Terraform HCL code
+      - item: Use Terragrunt in a multi-envionement
+      - item: Prepare [Hashicorp Certified Terraform exam](https://www.hashicorp.com/certification/terraform-associate/)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : terraform
+
   - name        : OpenStack User
     price       : 3 days
     description : Getting started with the API and designing Cloud Ready Application
