@@ -53,7 +53,7 @@ item  :
       - item: Manipuler un Terraform State
       - item: Savoir écrire du code Terraform HCL idempotent
       - item: Utiliser Terragrunt dans le cas d'un multi-environement
-      - item: Prepare [Hashicorp Certified Terraform exam](https://www.hashicorp.com/certification/terraform-associate/)
+      - item: Préparation certification [Hashicorp Certified Terraform Associate](https://www.hashicorp.com/certification/terraform-associate/)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : terraform
