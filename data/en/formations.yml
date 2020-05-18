@@ -48,11 +48,11 @@ item  :
       - item: Understand what problems Terraform tackles down
       - item: Deploy and architecture a Terraform project
       - item: Manipulate and use a Terraform State
-      - item: Learn how to write idempotential Terraform HCL code
+      - item: Learn how to write idempotent Terraform HCL code
       - item: Use Terragrunt in a multi-envionement
       - item: Prepare [Hashicorp Certified Terraform exam](https://www.hashicorp.com/certification/terraform-associate/)
-    btnText     : Nous contacter
-    btnURL      : "https://particule.io#contact"
+    btnText     : Contact us
+    btnURL      : "https://particule.io/en#contact"
     color       : terraform
 
   - name        : OpenStack User
