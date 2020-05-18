@@ -12,7 +12,7 @@ item  :
       - item: Les principaux objets de l'API
       - item: Concevoir et déployer des applications
       - item: Bonnes pratiques
-      - item: Préparation [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Préparation certification [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-user.fr.html)/[PDF](https://particule.io/formations/kubernetes-user.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -26,7 +26,7 @@ item  :
       - item: Les différents outils de déploiements
       - item: Opérer et sécuriser un cluster
       - item: Les principaux objets admin de l'API
-      - item: Préparation [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+      - item: Préparation certification [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ops.fr.html)/[PDF](https://particule.io/formations/kubernetes-ops.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -42,6 +42,21 @@ item  :
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : kubernetes
+
+  - name        : Terraform
+    price       : 3 jours
+    description : Comprendre les concepts de Terraform et le langage HCL
+    featurelist :
+      - item: Concepts de l’Infrastructure as Code
+      - item: Comprendre le besoin comblé par Terraform
+      - item: Déployer et architecturer un projet Terraform
+      - item: Manipuler un Terraform State
+      - item: Savoir écrire du code Terraform HCL idempotent
+      - item: Utiliser Terragrunt dans le cas d'un multi-environement
+      - item: Prepare [Hashicorp Certified Terraform exam](https://www.hashicorp.com/certification/terraform-associate/)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
+    color       : terraform
 
   - name        : OpenStack Utilisateur
     price       : 3 jours
