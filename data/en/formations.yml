@@ -1,5 +1,5 @@
 enable  : true
-topTitle: 
+topTitle:
 title   : trainings.
 subtitle : Through our training courses, we help you comprehend the landscape of Cloud Native technologies. Our courses are all [Open Source](https://github.com/particuleio/formations).
 
@@ -44,10 +44,10 @@ item  :
     price       : 3 days
     description : Getting started with the API and designing Cloud Ready Application
     featurelist :
-      - item: Discover OpenStack and its several services
-      - item: Learn how to the project works and how to contribute
-      - item: Use the API (Application Programming Interface), CLI (Command Line Interface) and Dashboard
-      - item: Define, deploy and maintain a Cloud native infrastructure
+      - item: Discover OpenStack and its services
+      - item: Learn how the project works and how to contribute
+      - item: Use the API (Application Programming Interface), CLI (Command Line Interface) and Horizon Dashboard
+      - item: Define, deploy and maintain a Cloud Native infrastructure
       - item: Orchestrate resources on an OpenStack Cloud
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
@@ -58,7 +58,7 @@ item  :
     description : Deploy OpenStack with OpenStack-Ansible
     featurelist :
       - item: Reference architecture
-      - item: Discover OpenStack and its several services
+      - item: Discover OpenStack and its services
       - item: Best practices for OpenStack deployment
       - item: Getting started with OpenStack-Ansible (OSA)
       - item: Configure OSA to get a highly available control plane

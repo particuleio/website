@@ -1,5 +1,5 @@
 enable  : true
-topTitle: 
+topTitle:
 title   : formations.
 subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations).
 
@@ -22,11 +22,11 @@ item  :
     price       : 3 jours
     description : Déployer et administrer un cluster Kubernetes
     featurelist :
-      - item: Ou déployer ? Comment ?
+      - item: Où déployer ? Comment ?
       - item: Les différents outils de déploiements
       - item: Opérer et sécuriser un cluster
-      - item: Les principaux objet admin de l'API
-      - item: Preparation [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+      - item: Les principaux objets admin de l'API
+      - item: Préparation [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ops.fr.html)/[PDF](https://particule.io/formations/kubernetes-ops.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -37,7 +37,7 @@ item  :
     description : "All in one : formations utilisateur et opérateur"
     featurelist :
       - item: Combine la formation utilisateur et opérateur
-      - item: Prepare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -49,7 +49,7 @@ item  :
     featurelist :
       - item: Découvrir OpenStack et manipuler les différents services
       - item: Connaître le fonctionnement du projet OpenStack et ses possibilités
-      - item: Manipuler l'API (Application Programming Interface), la CLI (Command Line Interface) et le Dashboard
+      - item: Manipuler l'API (Application Programming Interface), la CLI (Command Line Interface) et le Dashboard Horizon
       - item: Être capable de définir, déployer et maintenir une infrastructure OpenStack
       - item: Être capable de manipuler et orchestrer des ressources sur un cloud OpenStack
       - item: Support de cours [HTML](https://particule.io/formations/openstack-user.fr.html)/[PDF](https://particule.io/formations/openstack-user.fr.html?print-pdf)
