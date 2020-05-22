@@ -1,10 +1,11 @@
 ---
-Title: "Kubernetes: semantic release avec flux CD"
+Title: "Kubernetes: semantic release avec Flux CD"
 Date: 2020-02-21T11:00:00+02:00
 Category: Kubernetes
 Summary: Utiliser Semantic Versioning pour gérer proprement vos déploiements continus avec Flux CD
 Author: Kevin Lefevre
 image: images/thumbnails/flux-horizontal-color.png
+imgSocialNetwork: images/og/flux-semver.png
 lang: fr
 ---
 
@@ -14,7 +15,7 @@ lang: fr
 
 2020 commence, c'est le moment de se lancer dans le GitOps et si vous souhaitez participer au bingo Cloud Natif, pourquoi pas continuer dans le FinOps et AIOps pour finir en NoOps.
 
-Plus sérieusement nous avions déjà couvert le GitOps avec un premier article sur [Flux et Concourse](https://particule.io/blog/cicd-concourse-flux/) que je vous invite à parcourir pour se remettre en tête les définitions. Nous y montrons l'exemple d'une chaîne d'intégration continue, du build d'une image jusqu'à son passage en production avec Flux CD, Concourse CI et Kubernetes.
+Plus sérieusement nous avions déjà couvert le GitOps avec un premier article sur [Flux et Concourse](https://particule.io/blog/cicd-concourse-flux/) que je vous invite à parcourir pour se remettre en tête les définitions. Nous y montrons l'exemple d'une chaîne d'intégration continue, du build d'une image jusqu'à son passage en production avec Flux CD, Concourse CI et Kubernetes. Tout ceci avec un unique commit.
 
 Si vraiment vous passez en coup de vent, globalement le GitOps consiste à mettre tout notre code déclaratif dans Git (dans notre cas, des manifests Kubernetes) et attendre que quelque chose fasse une action quelque part avec tout ce code.
 
@@ -35,7 +36,7 @@ Flux va permettre deux choses :
 * `kubectl`
 * `helm >= v3.0.0`
 
-### Déploiement de flux avec Helm v3
+### Déploiement de Flux avec Helm v3
 
 2020, exit tiller et Helm v2, nous allons rester edgy et déployer Flux avec Helm version 3.
 
@@ -53,8 +54,8 @@ registry:
 
 Nous allons ensuite déployer le chart :
 
-```bash
-kubectl create namespace flux
+```console
+$ kubectl create namespace flux
 helm repo add fluxcd https://charts.fluxcd.io
 helm repo update
 helm upgrade -i flux fluxcd/flux --namespace flux --values values.yaml
@@ -62,8 +63,8 @@ helm upgrade -i flux fluxcd/flux --namespace flux --values values.yaml
 
 Si vous regardez les logs de Flux :
 
-```bash
-k -n flux logs -f flux-77c7d965d-w8sql
+```console
+$ kubectl -n flux logs -f flux-77c7d965d-w8sql
 
 ts=2020-02-21T14:59:54.403665249Z caller=loop.go:107 component=sync-loop err="git repo not ready: git clone --mirror: fatal: Could not read from remote repository., full output:\n Cloning into bare repository '/tmp/flux-gitclone795667632'...\ngit@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
 ```
@@ -72,8 +73,8 @@ Il faut donner à Flux les droits d'accès au dépot git qui va contenir nos man
 
 Pour cela, il faut récupérer la clé publique générée par Flux :
 
-```bash
-kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
+```console
+$ kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2OEG/277kY2Q+/p9NoYYfWvncDQUbgwwhHPKCWvjFiVwewcMQooSHw+egr4nTSWZPsMfwrwLTRD6BXTnofLa8MrhNKjXdp1YR+lrLlBYmL7EPFjxvAhFu1aA77odSMQzLJQNl5/2Ef+m+VnfNFKrB+m6VjELAA5VNvQ2qni3jcYbYrr9mjxQkZnDlkZNz9iIwbw/GSUaAH9gYtUNcClFZaZR0POp96C5L5Jc0tyO41Zzj77UlpLYDlUUK8iX9U507/HgHNsA9fvJDt+lGfa+0xgHCN3gzdxsgNFVAF1A/RRW0/d/QnQ8g7PE4oNiYwMyWUuAHZMtLZqI0xdUQ8SVPtNFtDeyOkrm3vpYlQE2S8cBof96oLR8wDyPzAU6QYdS2QPxWNumdi2fK0iQbcEs+qLIY5+pD0f+60OV5YVz8QsVejp/rtrGPb39o9tAuDdwGYeRs0Agn6DnyZzcafk16uxzJ4DANZ6N6YX0IbVESFIQf0qYXz7azyOq0ill+CMM= root@flux-77c7d965d-w8sql
 ```
@@ -89,7 +90,7 @@ Le principe reste le même pour les autres solutions Git en SaaS telle que Gitla
 
 Une fois la clé rajoutée, regardez les logs de Flux :
 
-```bash
+```console
 ts=2020-02-21T15:09:48.522015918Z caller=loop.go:133 component=sync-loop event=refreshed url=ssh://git@github.com/particuleio/gitops-demo.git branch=master HEAD=ef677068fc473c3310bae58663ec3f02b5bb3652
 ```
 
@@ -99,9 +100,9 @@ Le repository utilisé pour l'exemple est disponible [ici](https://github.com/pa
 
 ### Gérer son déploiement automatisé avec Flux
 
-[Semver](https://semver.org/) est une bonne pratique pour gérer les versions d'applications. Dans [notre article précédent](https://particule.io/blog/cicd-concourse-flux/) nous avons traité de cas simple pour déployer des applications en respectant un tag donné. Si vous êtes toujours aussi pressés qu'en début d'article, en resumé, Flux peut automatiser le déploiement de nouvelles images Docker lorsque celle ci sont poussées sur une registry Docker. Pour cela, de simples labels sur un Deployment suffisent :
+[Semver](https://semver.org/) est une bonne pratique pour gérer les versions d'applications. Dans [notre article précédent](https://particule.io/blog/cicd-concourse-flux/) nous avons traité des cas simples pour déployer des applications en respectant un tag donné. Si vous êtes toujours aussi pressés qu'en début d'article, en resumé, Flux peut automatiser le déploiement de nouvelles images Docker lorsque celles ci sont poussées sur une registry Docker. Pour cela, de simples labels sur un Deployment suffisent :
 
-```
+```yaml
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -132,9 +133,9 @@ spec:
 
 Par exemple `semver:~1.0` qui va déployer toutes les images Docker avec un tag `>= 1.0, < 1.1` donc toutes les images en `1.0.X`. C'est globalement l'example donné dans la [documentation officielle](https://docs.fluxcd.io/en/1.18.0/references/automated-image-update.html).
 
-Pour cet article j'ai créé un [repository Docker public](https://hub.docker.com/r/particule/test-flux/tags) avec des tags aléatoires disponible pour des tests.
+Pour cet article j'ai créé un [repository Docker public](https://hub.docker.com/r/particule/test-flux/tags) avec des tags aléatoires disponibles pour des tests.
 
-```
+```console
 docker images
 REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
 particule/test-flux   v1.0.0              2073e0bcb60e        2 weeks ago         127MB
@@ -168,7 +169,7 @@ Il n'y pas si longtemps on m'a demandé de déployer uniquement les images en `1
 image: particule/test-flux:v1.0.0-rc.1
 ```
 
-Une fois le ficher `commit` et `push`, le pods est déployé en `v1.0.0-rc.1` puis lorsque Flux scan les nouvelles images sur le Docker Hub, la nouvelle images déployée est `1.0.2` qui ne répond pas au besoin.
+Une fois le ficher `commit` et `push`, le pod est déployé en `v1.0.0-rc.1` puis lorsque Flux scan les nouvelles images sur le Docker Hub, la nouvelle image déployée est `1.0.2` qui ne répond pas au besoin.
 
 Autre option :
 
@@ -187,7 +188,7 @@ La révélation, et vraiment la raison pour laquelle j'écris ces quelques dizai
 
 Dans notre cas précédent, il est donc possible de tester avec le couple suivant :
 
-```
+```yaml
 ...
   annotations:
     flux.weave.works/automated: "true"
