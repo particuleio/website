@@ -2,6 +2,7 @@ enable  : true
 topTitle:
 title   : formations.
 subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations).
+imgSocialNetwork: images/og/container-runtime.png
 
 item  :
   - name        : Kubernetes Utilisateur

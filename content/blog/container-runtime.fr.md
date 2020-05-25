@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Docker, containerd, runc, CRI, Kata Containers... faisons le point !
 Author: Romain Guichard
 image: images/thumbnails/kubernetes.png
+imgSocialNetwork: images/og/container-runtime.png
 lang: fr
 ---
 

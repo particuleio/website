@@ -82,7 +82,7 @@ unsafe= true
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
-    imgSocialNetwork = "images/logo-dark-horizontal-520px-270px.png"
+    imgSocialNetwork = "images/og/particule-presentation.png"
 
     footerDescription = "Particule vous accompagne dans vos projets Cloud Native avec une expertise pointue sur Kubernetes, Docker, Amazon Web Services et OpenStack"
     footerServiceTitle = "Services"
@@ -149,7 +149,7 @@ unsafe= true
     logo = "images/logo.png"
     logopreload = "images/logos/logopreload.png"
     menufixed = false
-    imgSocialNetwork = "images/logo-dark-horizontal-520px-270px.png"
+    imgSocialNetwork = "images/og/particule-presentation.en.png"
 
     footerDescription = "Particule helps you get started into the Cloud Native world with a strong expertise on Kubernetes, Docker, Amazon Web Services and OpenStack"
     footerServiceTitle = "Service"
