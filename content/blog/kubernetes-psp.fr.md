@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Comprendre en détails les PSP  ainsi que leur fonctionnement
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
+imgSocialNetwork: images/og/psp.png
 lang: fr
 ---
 
