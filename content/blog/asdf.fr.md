@@ -1,10 +1,11 @@
 ---
-Title: Gerer votre boite à outil Cloud Native avec asdf
+Title: Gérer votre boite à outils Cloud Native avec asdf
 Date: 2020-06-01
 Category: Random
-Summary: Gérer vos versions d'application par projets avec asdf
+Summary: Gérer vos versions d'application par projets avec asdf, à chaque client sa version de kubectl et sa version de Terraform !
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
+imgSocialNetwork: images/og/asdf.png
 lang: fr
 ---
 
@@ -12,21 +13,21 @@ Aujourd'hui, nous vous proposons un article un petit peu diffèrent puisque nous
 n'allons parler ni de Cloud provider, ni de Kubernetes, ni de GitOps, enfin si
 mais nous allons nous concentrer sur notre machine locale.
 
-Pour être honnête nous allons quand même parler de technologie Cloud Native, mais
-notamment d'outils clients. Prenons un exemple avec `kubectl`, le CLI de
-Kubernetes: suivant les versions de Kubernetes déployées, `kubectl` [supporte une
+Pour être honnête nous allons quand même parler de technologies Cloud Native, mais
+surtout d'outils clients. Prenons un exemple avec `kubectl`, la CLI de
+Kubernetes : suivant les versions de Kubernetes déployées, `kubectl` [supporte une
 ou deux versions de décalage mais pas plus]
 (https://kubernetes.io/docs/setup/release/version-skew-policy/). Si vous managez
 plusieurs clusters, avec des versions différentes, gérer `kubectl` localement
 devient vite impossible et vous vous retrouvez rapidement à `curl -LO
 https://storage.googleapis.com/kubernetes-release/release/`$VOTRE_VERSION`/bin/linux/amd64/kubectl`
-un peu n'importe ou. Nous l'avons tous fait. C'est un problème aussi vieux que
-les paquets des système et les langages de programmation (Hello `pip` et
+un peu n'importe où. Nous l'avons tous fait. C'est un problème aussi vieux que
+les paquets des systèmes et les langages de programmation (Hello `pip` et
 `virtualenv`, `rvm`, etc.).
 
-Aujourd'hui étant donnés le nombre d'outils Cloud Native distribués en Go avec
-des releases tous les 4 jours, cela devient également un enfer pour les Devops
-de gérer leur toolbox, par exemple pour ne citer que ces outils:
+Aujourd'hui étant donné le nombre d'outils Cloud Native distribués en Go avec
+des releases tous les 4 jours, cela devient également un enfer pour les DevOps
+de gérer leur toolbox, par exemple pour ne citer que ces outils :
 
 * Les versions de `Terraform`
 * Les versions de `Terragrunt`
@@ -36,7 +37,7 @@ de gérer leur toolbox, par exemple pour ne citer que ces outils:
 
 C'est ici qu'intervient [`asdf`](https://asdf-vm.com/#/).
 
-ASDF permet de gérer simplement des versions de composants de deux façons:
+ASDF permet de gérer simplement des versions de composants de deux façons :
 
 * de manière global
 * de manière locale
@@ -51,13 +52,13 @@ plugins](https://github.com/asdf-vm/asdf-plugins/tree/master/plugins) et peut
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.8
 ```
 
-Puis ajoutez dans votre shell `rc` et rechargez votre session:
+Puis ajoutez dans votre shell `rc` et rechargez votre session :
 
 ```console
 . $HOME/.asdf/asdf.sh
 ```
 
-`asdf` est ensuite disponible dans votre shell:
+`asdf` est ensuite disponible dans votre shell :
 
 ```console
 version: v0.7.8-4a3e3d6
@@ -103,7 +104,7 @@ UTILS
 ### Gestion des plugins
 
 Pour utiliser `asdf` il faut ensuite rajouter les plugins souhaités. Pour notre
-exemple nous allons rajouter:
+exemple nous allons rajouter :
 
 * `terraform`
 * `helm`
@@ -118,7 +119,7 @@ asdf plugin add kubectl
 ### Installation de composants globaux
 
 Une fois les plugins installés nous pouvons installer des versions spécifiques
-ou les `latest` puis ensuite set les versions utilisées globalement:
+ou les `latest` puis ensuite set les versions utilisées globalement :
 
 ```console
 asdf install terraform 0.12.26
@@ -130,7 +131,7 @@ asdf global kubectl 1.18.0
 asdf global helm 3.2.1
 ```
 
-La commande `asdf global` vous permets de définir les version utilisées par
+La commande `asdf global` vous permet de définir les versions utilisées par
 défaut. Techniquement ces informations sont stockées dans `~/.tool-versions`.
 
 ```
@@ -150,16 +151,16 @@ aws-iam-authenticator 0.5.0
 pulumi 2.2.1
 ```
 
-### Gestions de versions locale
+### Gestion de versions locales
 
-Nous arrivons maintenant a la partie qui nous intéresse, la gestions des
+Nous arrivons maintenant à la partie qui nous intéresse, la gestion des
 versions par projets. En plus de la commande `asdf global` il existe la commande
 `asdf local` qui permet de générer un fichier `.tool-versions` dans un
-répertoire arbitraire. Il est également possible de générer la fichier
+répertoire arbitraire. Il est également possible de générer le fichier
 `.tool-versions` directement.
 
 Prenons un exemple de différents projets / clients avec la structure de fichiers
-suivante:
+suivante :
 
 ```
     .
@@ -175,7 +176,7 @@ suivante:
 Les sous dossiers sont purement fictifs et sont la pour montrer la récursivité du
 fichier `.tool-versions`.
 
-Par exemple dans le fichier `.tool-versions` du `clientA`:
+Par exemple dans le fichier `.tool-versions` du `clientA` :
 
 ```console
 terraform 0.11.14
@@ -211,8 +212,8 @@ Creating terraform bin directory
 Extracting terraform archive
 ```
 
-Ensuite depuis n'importe quel dossier du dossier `clientA`, vérifier les version
-de logiciels:
+Ensuite depuis n'importe quel dossier du dossier `clientA`, vérifier les versions
+de logiciels :
 
 ```console
 terraform -version
@@ -227,13 +228,14 @@ Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.0", GitCommi
 
 ### Conclusion
 
-Ce petit outils nous est vite devenu indispensable pour gérer les environnement
+Ce petit outil nous est vite devenu indispensable pour gérer les
+environnements
 des nos différents clients chez Particule. Une liste assez [conséquente de
-plugins est déjà supportée](https://github.com/asdf-vm/asdf-plugins).
+plugins est déjà supportés](https://github.com/asdf-vm/asdf-plugins).
 
-Même sans gérer les versions localement, cela reste un outils très utile pour
+Même sans gérer les versions localement, cela reste un outil très utile pour
 gérer vos versions de logiciels globales indépendamment des paquets du système
-d'exploitations.
+d'exploitation.
 
 Pour aller plus loin, je vous invite à vous [référer à la documentation
 officielle](https://asdf-vm.com/#/core-manage-asdf-vm).
