@@ -6,6 +6,7 @@ Title: Manage multiple Kubernetes clusters on GKE with Terragrunt
 Summary: Terragrunt is a thin wrapper around Terraform to keep your infrastructure DRY, let's see how this can be applied to GKE clusters and multiple environments
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes.png
+imgSocialNetwork: images/og/terragrunt.png
 ---
 
 [Terragrunt](https://github.com/gruntwork-io/terragrunt) is a thin wrapper around [Terraform](https://terraform.io) to easily manage multiple environments without repeating yourself (DRY) and prevent code duplication. Let's see how we can use it to manage multiple [GKE clusters](https://cloud.google.com/kubernetes-engine/), for example, a production one and another for preproduction.
