@@ -2,9 +2,10 @@
 Title: Utilisation de Kustomize avec Flux CD
 Date: 2020-06-10
 Category: Kubernetes
-Summary: Profiter de Gitops intégré a Kustomize pour appliquer vos YAML Kubernetes a la volée sur de multiples environnements.
+Summary: Profiter de Kustomize intégré à Flux CD pour appliquer vos YAML Kubernetes à la volée sur de multiples environnements en respectant les principes GitOps.
 Author: Kevin Lefevre
 image: images/thumbnails/flux-horizontal-color.png
+imgSocialNetwork: images/og/kustomize-flux.png
 lang: fr
 ---
 
@@ -13,32 +14,33 @@ semaine : [GitOps](https://www.weave.works/technologies/gitops/), et un dont
 nous n'avons jamais parlé :
 [Kustomize](https://github.com/kubernetes-sigs/kustomize).
 
-Nous sommes depuis un petit moment de fervent utilisateurs de
+Nous sommes depuis un petit moment de fervents utilisateurs de
 [Helm](https://helm.sh/). Helm est une solution de templating pour manifestes
 Kubernetes se basant sur [Go template](https://golang.org/pkg/text/template/).
-C'est un petit peu la référence en terme de "packaging" Kubernetes. Vous pouvez
+C'est un petit peu la référence en terme de "packaging" d'application Kubernetes.
+Vous pouvez
 trouvez des Helm Charts officiels et communautaires pour la plupart de vos
-middleware, par exemple
+middlewares, par exemple
 [rabbitmq](https://github.com/helm/charts/tree/master/stable/rabbitmq) ou encore
 [Kong](https://github.com/Kong/charts). Ces Charts sont notamment centralisés
 sur le [Helm Hub](https://hub.helm.sh/).
 
 Certains Charts sont très complets et cela vous évite de réinventer la roue et
-de profiter de l'avancement de la communauté lorsque que vous souhaitez utilisez
+de profiter de l'avancement de la communauté lorsque que vous souhaitez utiliser
 des solutions communément déployées.
 
-Sauf qu'arrive ensuite le moment ou vous devez packager vos propre application.
-Dans ce cas, pas de Helm Charts officiel.
+Sauf qu'arrive ensuite le moment où vous devez packager vos propres application.
+Dans ce cas, pas de Helm Chart officiel.
 
-La première solution serait de rester natif a Kubernetes et d'écrire ses propres
-fichiers YAMLs et de les dupliquer par environnement. C'est un peu la première
-étape de réflexion. Dans un cas de multi environnement, par exemple avec le
+La première solution serait de rester natif à Kubernetes et d'écrire ses propres
+fichiers YAML et de les dupliquer par environnement. C'est un peu la première
+étape de réflexion. Dans un cas de multi environnements, par exemple avec le
 classique `staging`, `preprod`, `prod`, vous allez vite vous retrouvez à
 dupliquer vos fichiers YAML, et comme d'habitude en ce qui concerne la
-duplication de code : fastidieux et source d'erreur.
+duplication de code : fastidieux et source d'erreurs.
 
-C'est la qu'interviennent les outils de templating, il en existe légion avec
-chacun leur caractéristiques. Pour ne citer qu'eux:
+C'est là qu'interviennent les outils de templating, il en existe légion avec
+chacun leur caractéristiques. Pour ne citer qu'eux :
 
 * [Helm](https://helm.sh/)
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
@@ -50,7 +52,7 @@ chacune est un peu philosophiquement différente. Nous allons surtout nous
 concentrer sur [Kustomize](https://github.com/kubernetes-sigs/kustomize).
 
 Helm est clairement l'outil le plus connu et le plus utilisé. Mais lorsque l'on
-débute avec les manifestes Kubernetes, la marche d'entrée peut être assez haute:
+débute avec les manifestes Kubernetes, la marche peut être assez haute :
 il faut en plus d'être à l'aise avec l'API Kubernetes, apprendre un nouveau
 système de templating (Go Template) ainsi que les [best practices liées a
 Helm](https://helm.sh/docs/chart_best_practices/).
@@ -58,13 +60,13 @@ Helm](https://helm.sh/docs/chart_best_practices/).
 ### Démarrer avec Kustomize
 
 C'est ici qu'intervient
-[Kustomize](https://github.com/kubernetes-sigs/kustomize), qui était a la base
-un outils standalone mais qui est maintenant [intégré a
+[Kustomize](https://github.com/kubernetes-sigs/kustomize), qui était à la base
+un outil standalone mais qui est maintenant [intégré à
 `kubectl`](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/)
 depuis Kubernetes v1.14.0.
 
-L'avantage de Kustomize en plus d'être natif à Kubernetes, est qu'il ne
-nécessite pas de notion de templating avancée. Kustomize se base sur la notion
+L'avantage de Kustomize, en plus d'être natif à Kubernetes, est qu'il ne
+nécessite pas de notions de templating avancées. Kustomize se base sur la notion
 de patch, si vous avez déjà utilisé la commande `kubectl patch` afin de mettre à
 jour une ressource, le fonctionnement est un peu équivalent, nous allons voir
 cela par la suite.
@@ -75,14 +77,14 @@ Kubernetes.
 
 Nous allons créer deux `namespaces`:
 
-```bash
+```console
 kubectl create ns preprod
 kubectl create ns prod
 ```
 
-La structure du dossier `kustomize` est la suivante:
+La structure du dossier `kustomize` est la suivante :
 
-```bash
+```console
 .
 ├── base
 │   ├── helloworld-de.yaml
@@ -157,7 +159,7 @@ spec:
 On remarque que nos ressources ne spécifient pas de `namespace`. Ces manifestes
 ne seront techniquement jamais déployés mais serviront de base pour nos futurs
 déploiements dans leurs `namespaces` respectifs. En plus, notre dossier base
-contient un fichier `kustomization.yaml` listant les YAML gérés par Kustomize:
+contient un fichier `kustomization.yaml` listant les YAML gérés par Kustomize :
 
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -168,10 +170,10 @@ resources:
 - helloworld-hpa.yaml
 ```
 
-Notre prochaine objectif est de générer automatiquement les YAML pour nos deux
+Notre prochain objectif est de générer automatiquement les YAML pour nos deux
 environnements de `preprod` et `prod`. Commençons par la `preprod`.
 
-Dans le dossier `preprod` nous avons uniquement un fichier `kustomization.yaml`:
+Dans le dossier `preprod` nous avons uniquement un fichier `kustomization.yaml` :
 
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -188,7 +190,7 @@ les manifestes présents dans le dossier `base`. Ensuite nous allons appliquer u
 ressources par le nom du `namespace`, ici `preprod-`.
 
 Observons le résultat. Comme nous le disions en début d'article, Kustomize est
-intégré a `kubectl`, pas besoin d'outils supplémentaires. Pour générer nos YAML
+intégré à `kubectl`, pas besoin d'outils supplémentaires. Pour générer nos YAML
 de `preprod` :
 
 ```yaml
@@ -267,7 +269,7 @@ patchesStrategicMerge:
 ```
 
 Nous rajoutons un préfix ainsi que le `namespace`. Mais, pour corser un peu, nous
-allons en plus patcher une des ressource. L'`Horizontal Pod Autoscaler` a part
+allons en plus patcher une des ressource. L'`Horizontal Pod Autoscaler` a par
 défaut un nombre de replicas minimum fixé à `1` dans `base`. En `prod` nous
 souhaitons en avoir un minimum de `2` et un maximum de `4`.
 
@@ -284,7 +286,7 @@ spec:
   maxReplicas: 4
 ```
 
-Ici, pas le peine de définir toutes les spécifications de la ressources,
+Ici, pas le peine de définir toutes les spécifications de la ressource,
 Kustomize va réaliser un patch de la ressource de `base` en remplaçant les
 valeurs souhaitées.
 
@@ -347,12 +349,12 @@ spec:
     name: prod-helloworld
 ```
 
-Remarquez les `maxReplicas` et `minReplicas` respectivement a `4` et `2` au
+Remarquez les `maxReplicas` et `minReplicas` respectivement à `4` et `2` au
 lieu de `2` et `1`.
 
-Nous pouvons maintenant appliquer nos deux environnements:
+Nous pouvons maintenant appliquer nos deux environnements :
 
-```bash
+```console
 kubectl apply -k prod/
 service/prod-helloworld created
 deployment.apps/prod-helloworld created
@@ -364,9 +366,9 @@ deployment.apps/preprod-helloworld created
 horizontalpodautoscaler.autoscaling/preprod-helloworld created
 ```
 
-Vérifions nos ressources sur le cluster:
+Vérifions nos ressources sur le cluster :
 
-```bash
+```console
 kubectl -n preprod get hpa,deployments,services
 
 NAME                                                     REFERENCE                       TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
@@ -379,7 +381,7 @@ NAME                         TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)     
 service/preprod-helloworld   NodePort   10.103.2.95   <none>        80:30339/TCP   38m
 ```
 
-```bash
+```console
 kubectl -n prod get hpa,deployments,services
 
 NAME                                                  REFERENCE                    TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
@@ -392,12 +394,12 @@ NAME                      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)      
 service/prod-helloworld   NodePort   10.107.91.161   <none>        80:31145/TCP   36m
 ```
 
-Kustomize permets simplement de surcharger des manifestes YAML sans aucune
-connaissance préalable niveau templating. Pour aller plus loin, la références
-des [possibilités est disponible
+Kustomize permet simplement de surcharger des manifestes YAML sans aucune
+connaissance préalable niveau templating. Pour aller plus loin, [la référence
+des possibilités est disponible
 ici](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html)
 
-### Pour aller plus loin
+### Déployer des templates Kustomize avec Flux CD
 
 Maintenant que nous arrivons à générer nos manifestes pour nos deux
 environnements, comment pouvons nous intégrer ce processus dans une logique
@@ -406,8 +408,8 @@ GitOps ?
 Nous avons déjà beaucoup parlé de [Flux CD](https://fluxcd.io/)
 [ici](https://particule.io/blog/cicd-concourse-flux/) et
 [la](https://particule.io/blog/weave-flux-cncf-incubation/) et nous allons
-encore en parler aujourd'hui puisque flux permet la génération de manifestes
-Kubernetes avec Kustomize. En theorie flux [permet la génération de manifeste
+encore en parler aujourd'hui puisque Flux permet la génération de manifestes
+Kubernetes avec Kustomize. En theorie Flux [permet la génération de manifestes
 via n'importe quelle commande de
 templating](https://docs.fluxcd.io/en/1.19.0/references/fluxyaml-config-files/#generator-configuration)
 mais nous allons ici nous concentrer sur la partie Kustomize.
@@ -417,9 +419,9 @@ dossier
 [`kustomize-flux`](https://github.com/particuleio/gitops-demo/tree/master/kustomize-flux)
 basé sur notre dossier `kustomize`.
 
-La structure est la suivante:
+La structure est la suivante :
 
-```bash
+```console
 .
 ├── .flux.yaml
 ├── base
@@ -440,10 +442,10 @@ La structure est la suivante:
 
 Voyons ensemble les fichiers supplémentaires.
 
-#### Déploiement de flux
+#### Déploiement de Flux
 
 Dans un premier temps nous avons deux fichiers de `values` Helm qui vont nous
-servir à déployer deux instances de flux sur notre cluster:
+servir à déployer deux instances de Flux sur notre cluster :
 
 * `flux-prod`
 
@@ -479,24 +481,24 @@ additionalArgs:
 
 Cette instance de flux pointe sur le dossier `prod`
 
-Nous pouvons ensuite déployer flux via les commandes suivantes:
+Nous pouvons ensuite déployer Flux via les commandes suivantes :
 
-```bash
+```console
 helm upgrade -i flux-prod fluxcd/flux --namespace prod --values values-flux-prod.yaml
 
 helm upgrade -i flux-preprod fluxcd/flux --namespace preprod --values values-flux-preprod.yaml
 ```
 
-Vérifions que flux est bien déployé:
+Vérifions que Flux est bien déployé :
 
-```bash
+```console
 kubectl -n prod get pods
 NAME                                   READY   STATUS    RESTARTS   AGE
 flux-prod-588b66bb64-fsw5q             1/1     Running   0          31m
 flux-prod-memcached-546c87f4d4-8rwtw   1/1     Running   0          34m
 ```
 
-```bash
+```console
 kubectl -n preprod get pods
 NAME                                      READY   STATUS    RESTARTS   AGE
 flux-preprod-6bdc5dfb6-thqx9              1/1     Running   0          32m
@@ -506,7 +508,7 @@ flux-preprod-memcached-59f5454c6f-ldl25   1/1     Running   0          34m
 #### Le fichier `.flux.yaml`
 
 Un autre fichier additionnel est le fichier `.flux.yaml`, c'est lui qui va
-indiquer à flux comment générer les manifestes:
+indiquer à Flux comment générer les manifestes :
 
 ```yaml
 version: 1
@@ -516,12 +518,12 @@ patchUpdated:
   patchFile: flux-patch.yaml
 ```
 
-Ici nous utilisons la même commande que celle utilisé pour générer les
+Ici nous utilisons la même commande que celle utilisée pour générer les
 manifestes manuellement.
 
-En plus de cela, nous indiquons a flux on se trouvent les patch spécifiques à
-flux qui seront utilisés par flux (par exemple dans le cas d'une release
-automatisée, ou encore pour activer des paramètre spécifiques à flux que nous
+En plus de cela, nous indiquons à Flux où se trouvent les patchs spécifiques à
+Flux qui seront utilisés (par exemple dans le cas d'une release
+automatisée, ou encore pour activer des paramètres spécifiques à Flux que nous
 allons voir par la suite).
 
 
@@ -529,9 +531,9 @@ allons voir par la suite).
 
 Si vous avez déjà parcouru nos [différents
 articles](https://particule.io/blog/flux-semver/) [sur
-flux](https://particule.io/blog/cicd-concourse-flux/), vous savez que flux
+Flux](https://particule.io/blog/cicd-concourse-flux/), vous savez qu'il
 permet, en plus d'appliquer les fichiers YAML sur un cluster, de gérer le
-déploiement automatisé des nouvelles images en fonctions de différentes règles
+déploiement automatisé des nouvelles images Docker en fonction de différentes règles
 et notamment le [`semver`](https://semver.org/).
 
 Cette fonctionnalité est gérée via des annotations sur les `deployments`, ces
@@ -539,7 +541,7 @@ annotations peuvent être différentes suivant les environnements, par exemple
 dans notre cas nous allons interdire le déploiement automatisé en `prod` mais
 nous allons l'activer en `preprod`.
 
-Par exemple en `prod`, le fichier `flux-patch.yaml`:
+Par exemple en `prod`, le fichier `flux-patch.yaml` :
 
 * `prod/flux.yaml`
 
@@ -556,7 +558,7 @@ metadata:
   namespace: prod
 ```
 
-En `preprod` nous allons déployer toute les versions `~1.X.X`:
+En `preprod` nous allons déployer toutes les versions `~1.X.X` :
 
 * `preprod/flux-patch.yaml`
 
@@ -572,11 +574,11 @@ metadata:
   namespace: preprod
 ```
 
-Une fois que tout est prêt dans notre dépôt, nous pouvons activer flux sur le
-dépôt git, pour cela il nous faut récupérer la clé publique de chaque flux et
-l'ajouter sur Github dans Settings -> Deploy Keys.
+Une fois que tout est prêt dans notre dépôt, nous pouvons activer Flux sur le
+dépôt git, pour cela il nous faut récupérer la clé publique de chaque instance
+de Flux et l'ajouter sur Github dans Settings -> Deploy Keys.
 
-```bash
+```console
 kubectl -n preprod logs flux-pod | head
 
 ts=2020-06-10T14:35:43.197547567Z caller=main.go:493 component=cluster identity.pub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNYjo5gddG6fXJg75L3gf2mXNBV+DKd9LPz9ZqK2phhwD0fI7J2LajxKnTQGtxj72VBqU+lweEP8YV15auswyjraIYLgnLEE5POb6H8Cjz0vfVX61j3fcLnH77n48GQDKWo0rYQ9hxSmSthi/E1FGy41thxOYRm/IIErN8whKC0+YWDeKlwLNZatSSs/3XA4Q3eCpdPWwAot8sEWDOexUeno/GyaDhBiHm7gxjKkMPsnW8lj9ovtCzjt2H+vLV57neIcx4hx/bhWr3z+wVxkbnDv8zIfXaziXfy5Ueuz0e9sQ3pE1lbrTkeumQN0ekHNAdRjpIa89RRok6KTfBFN7w8iXoLvuSR1NZe9/aunZwqG0ZDGXQjmE8/AHy00QhXmDQT+1VJX00uq/0Jx87v6yiHV+I3LyA1Rn946S4qpxsvFAqDVyKrxFy6WwDSDhd4GHAlI/gFE6dPn8FXqQtL9NVWUxTqFs6svHTLNq6orQ92oKELcsTPHvUyvflj+5JW6k= root@flux-preprod-865d6d9666-6w4x7"
@@ -585,47 +587,47 @@ ts=2020-06-10T14:35:43.197547567Z caller=main.go:493 component=cluster identity.
 Une fois les clés rajoutées, Flux commencera à déployer les ressources via
 Kustomize.
 
-```bash
+```console
 kubectl -n preprod logs -f flux-pod
 
 ts=2020-06-10T14:11:29.602531682Z caller=sync.go:539 method=Sync cmd=apply args= count=3
 ts=2020-06-10T14:11:29.98907821Z caller=sync.go:605 method=Sync cmd="kubectl apply -f -" took=386.489628ms err=null output="service/preprod-helloworld unchanged\ndeployment.apps/preprod-helloworld unchanged\nhorizontalpodautoscaler.autoscaling/preprod-helloworld unchanged"
 ```
 
-```bash
+```console
 kubectl -n preprod logs -f flux-pod
 
 ts=2020-06-10T14:13:58.283012811Z caller=sync.go:539 method=Sync cmd=apply args= count=3
 ts=2020-06-10T14:13:58.684738069Z caller=sync.go:605 method=Sync cmd="kubectl apply -f -" took=401.666475ms err=null output="service/prod-helloworld unchanged\ndeployment.apps/prod-helloworld unchanged\nhorizontalpodautoscaler.autoscaling/prod-helloworld unchanged"
 ```
 
-Nos ressources sont bien appliquées sur le cluster via flux.
+Nos ressources sont bien appliquées sur le cluster via Flux.
 
 #### Test déploiement automatisé
 
 Nous allons maintenant pousser sur le Docker Hub une nouvelle version `1.1` de
-notre image Docker `helloworld` et voir si flux met à jour notre déploiement
+notre image Docker `helloworld` et voir si Flux met à jour notre déploiement
 automatiquement ainsi que l'impact sur notre dépôt git.
 
-```bash
+```console
 docker push particule/helloworld:1.1
 ```
 
-Environ 5 minutes après (le polling interval par defaut de flux). Flux devrait
-commit sur git la mise a jour de l'image:
+Environ 5 minutes après (le polling interval par defaut de Flux). Flux devrait
+commit sur git la mise à jour de l'image :
 
 ![](/images/flux/flux-update.png#center)
 
 #### Détail sur le workflow
 
-Que se passe t-il réellement sur le cluster ? Le workflow de déploiement de flux
-est le suivant dans le cadre du déploiement initial:
+Que se passe t-il réellement sur le cluster ? Le workflow de déploiement de Flux
+est le suivant dans le cadre du déploiement initial :
 
 * Flux génère les YAML via Kustomize
 * Flux applique les `flux-patch.yaml`
 * Flux applique les manifestes sur le cluster
 
-Dans le cas d'une mise a jour d'images:
+Dans le cas d'une mise à jour d'images :
 
 * Flux scan les registry Docker
 * Flux détecte la nouvelle image
@@ -634,28 +636,28 @@ Dans le cas d'une mise a jour d'images:
 
 #### Aller encore plus loin
 
-Cette article à été inspiré par la [communauté
+Cet article a été inspiré par la [communauté
 flux](https://github.com/fluxcd/flux-kustomize-example) qui propose des dépôts
 git d'exemple afin de [déployer facilement des manifestes avec
 Kustomize](https://github.com/fluxcd/multi-tenancy-team1) dans le cas de
-[cluster multi-tenant](https://github.com/fluxcd/multi-tenancy).
+[cluster multi-tenants](https://github.com/fluxcd/multi-tenancy).
 
 La documentation officielle de cette fonctionnalité est également disponible
 [ici](https://docs.fluxcd.io/en/latest/references/fluxyaml-config-files/)
 
 ### Conclusion
 
-Nous vous avions déjà présenté flux à maintes reprises. C'est un outils bourré
+Nous vous avions déjà présenté Flux à maintes reprises. C'est un outils bourré
 de fonctionnalités, du déploiement automatisé d'images au déploiement de Helm
 Chart via [Helm Operator](https://github.com/fluxcd/helm-operator) en passant
-par la génération de manifeste via Kustomize que nous avons couvert aujourd'hui.
+par la génération de manifestes via Kustomize que nous l'avons couvert aujourd'hui.
 
 Flux permet de centraliser vos manifestes Kubernetes et d'utiliser un workflow
-Gitops tout en gardant la souplesse du choix de technologie, que ce soit via des
-manifeste Kubernetes statique, des Helm charts ou du Kustomize par exemple.
+GitOps tout en gardant la souplesse du choix de technologie, que ce soit via des
+manifestes Kubernetes statiques, des Helm charts ou du Kustomize.
 
-Nous verrons dans un prochain article comment gérer ce depot Git hétérogène
-composés de multiple technologies ainsi que l'intégration avec [Github
+Nous verrons dans un prochain article comment gérer ce dépot Git hétérogène
+composé de multiples technologies ainsi que l'intégration avec [Github
 Action](https://github.com/features/actions) via
 [`kubernetes-toolset`](https://github.com/marketplace/actions/kubernetes-toolset)
 
