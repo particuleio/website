@@ -1,10 +1,11 @@
 ---
-Title: Automatiser le déploiement de cluster Kubernetes EKS avec Github Action
+Title: Automatiser le déploiement de clusters Kubernetes EKS avec Github Action
 Date: 2020-06-29
 Category: Kubernetes
 Summary: Comment utiliser Github Action pour déployer du code Terraform/Terragrunt ?
 Author: Kevin Lefevre
 image: images/thumbnails/github-actions.png
+imgSocialNetwork: images/og/terraform-githubaction.png
 lang: fr
 ---
 
@@ -17,13 +18,13 @@ Nous allons voir aujourd'hui comment connecter cette partie Terraform/Terragrunt
 à [Github Action](https://github.com/features/actions), l'outil de CI/CD de
 Github.
 
-Le depot de code [tEKS](https://github.com/clusterfrak-dynamics/teks) présente
+Le dépôt de code [tEKS](https://github.com/clusterfrak-dynamics/teks) présente
 un squelette que vous pouvez réutiliser en tant que [template
-Github](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-template-repository):
+Github](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-template-repository) :
 
 ![github_template](/images/github-actions/github-template.png)
 
-La structure de fichier est la suivante:
+La structure de fichier est la suivante :
 
 ```console
 .
@@ -47,22 +48,22 @@ La structure de fichier est la suivante:
 ```
 
 Chaque dossier dans `eu-west-3` représente un module Terraform donné, nous
-allons préparer la pipeline suivante pour chaque dossier dans `live`:
+allons préparer la pipeline suivante pour chaque dossier dans `live` :
 
 1. Installation des prérequis
 2. Déploiement des modules par ordres de dépendance
-3. Vérification du bon déploiements des pods
+3. Vérification du bon déploiement des pods
 4. Destruction des modules dans l'ordre inverse de dépendance.
 
 ### Déclaration des secrets Github
 
-Dans un premier temps nous avons besoin de déclarer des secrets pour accéder a
+Dans un premier temps nous avons besoin de déclarer des secrets pour accéder à
 AWS, pour cela dans la console Github dans les paramètres du repository ou de
-l'organisation:
+l'organisation :
 
 ![secret_repo](/images/github-actions/secret-repo.png)
 
-Il faut déclarer les variables d'environnement AWS suivantes:
+Il faut déclarer les variables d'environnement AWS suivantes :
 
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`
@@ -71,7 +72,7 @@ Il faut déclarer les variables d'environnement AWS suivantes:
 
 Dans le dossier `demo`, si vous souhaitez tester en live sur un compte AWS, il
 faudra adapter les valeurs présentes dans `common_values.yaml` afin de
-représenter votre configuration:
+représenter votre configuration :
 
 ```yaml
 ---
@@ -86,7 +87,7 @@ remplir ici vous permettra d'accéder au monitoring du cluster out *of the box*.
 
 Dans le dépôt, dans `.github/workflows` le fichier `demo.yml` défini la
 pipeline pour le dossier `terraform/live/demo/*`. Tous les changements dans ce
-dossier déclencherons cette pipeline:
+dossier déclencherons cette pipeline :
 
 ```yaml
 name: 'terragrunt:env:demo'
@@ -102,7 +103,7 @@ on:
 
 Ensuite nous allons installer les prérequis, cette partie installe les
 différents outils nécessaire tels que Terraform, Helm, Terragrunt, etc ainsi que
-de préparer les variables d'environnement AWS:
+de préparer les variables d'environnement AWS :
 
 ```yaml
 jobs:
@@ -136,7 +137,7 @@ jobs:
 ```
 
 Puis, pour chaque module nous allons `terraform init`, `terraform fmt`  et
-`terraform validate` puis `terraform apply`:
+`terraform validate` puis `terraform apply` :
 
 ```yaml
  - name: 'terragrunt:init:vpc'
@@ -215,7 +216,7 @@ Nous allons attendre que tous les pods soient `Ready` :
       working-directory: terraform/live/demo/eu-west-3/eks
 ```
 
-Et finalement détruire l'infrastructure dans l'ordre inverse de dépendance:
+Et finalement détruire l'infrastructure dans l'ordre inverse de dépendance :
 
 ```yaml
     - name: 'terragrunt:destroy:eks-addons'
@@ -244,21 +245,20 @@ Et finalement détruire l'infrastructure dans l'ordre inverse de dépendance:
 ```
 
 Ici, la partie `if: "!contains(github.event.head_commit.message, 'ci keep')"`
-permet de garder l'infra et de ne pas la détruire dans le cas ou le message de
+permet de garder l'infra et de ne pas la détruire dans le cas où le message de
 commit contient la chaine de caractère `ci keep`.
 
-Une fois le code push, la pipeline s'exécute dans la console Github:
+Une fois le code push, la pipeline s'exécute dans la console Github :
 
 ![demo_deploy](/images/github-actions/demo-deploy.png)
 
 Cette pipeline n'est pas parfaite, c'est un premier jet qui peut être amélioré
-au fur et à mesure des évolutions de Github Action:
+au fur et à mesure des évolutions de Github Action :
 
-* Pour le moment pas d'approval manuel comme c'est le cas sur Gitlab Impossible
-* d'empêcher l'exécution en parallèle de deux pipelines (2 Pull
+* Pour le moment pas d'approval manuel comme c'est le cas sur Gitlab
+* Impossible d'empêcher l'exécution en parallèle de deux pipelines (2 Pull
     request en même temps bloqueront le state terraform)
-* Pas de possibilité de force trigger une pipeline ([sauf avec des
-* hack](https://github.community/t/github-actions-manual-trigger-approvals/16233/32)
+* Pas de possibilité de force trigger une pipeline ([sauf avec des hack](https://github.community/t/github-actions-manual-trigger-approvals/16233/32)
 
 Pour le moment, cette pipeline est faite pour tester une infrastructure
 éphémère.
@@ -272,7 +272,7 @@ l'environnement de `demo` en `prod`.
 cp -ar demo/prod
 ```
 
-Il faut ensuite changer les valeurs de `common_tags` et `common_values`:
+Il faut ensuite changer les valeurs de `common_tags` et `common_values` :
 
 ```yaml
 ---
@@ -291,7 +291,7 @@ default_domain_name: clusterfrak-dynamics.io
 
 Reprenons la même pipeline en enlevant la partie destruction et en remplaçant
 `demo` par `prod` dans `.github/workflows/prod.yml` et supprimons le build sur
-les `pull-requests`:
+les `pull-requests` :
 
 ```yaml
 name: 'terragrunt:env:prod'
@@ -397,20 +397,20 @@ jobs:
       working-directory: terraform/live/prod/eu-west-3/eks
 ```
 
-Une fois tous le code pushé, le workflow de prod démarre:
+Une fois tous le code pushé, le workflow de prod démarre :
 
 ![prod_workflow](/images/github-actions/prod-workflow.png)
 
 Une fois le run terminé, le fichier
 [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-est récupérable dans la partie `Artifacts`:
+est récupérable dans la partie `Artifacts` :
 
 ![kubeconfig_artifact](/images/github-actions/kubeconfig-artifact.png)
 
-Avec le compte AWS correspondant correctement configurer sur votre machine:
+Avec le compte AWS correspondant correctement configurer sur votre machine :
 
 ```console
-kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig get nodes
+$ kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig get nodes
 NAME                                       STATUS   ROLES    AGE   VERSION
 ip-10-0-1-126.eu-west-3.compute.internal   Ready    <none>   19m   v1.16.8-eks-e16311
 ip-10-0-2-150.eu-west-3.compute.internal   Ready    <none>   19m   v1.16.8-eks-e16311
@@ -419,28 +419,28 @@ ip-10-0-3-224.eu-west-3.compute.internal   Ready    <none>   19m   v1.16.8-eks-e
 
 Si vous aviez déjà une zone route53 configurée sur votre compte et que vous
 l'avez renseignée dans `common_values.yaml`, vous pouvez accéder directement à
-[Grafana](https://grafana.com/):
+[Grafana](https://grafana.com/) :
 
 ```console
-kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig -n monitoring get ingress
+$ kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig -n monitoring get ingress
 
 NAME                          HOSTS                                 ADDRESS                                                                  PORTS     AGE
 karma                         karma.clusterfrak-dynamics.io   ad8315d46de3c416694732864d785dfc-463529602.eu-west-3.elb.amazonaws.com   80, 443   16m
 prometheus-operator-grafana   grafana.clusterfrak-dynamics.io       ad8315d46de3c416694732864d785dfc-463529602.eu-west-3.elb.amazonaws.com   80, 443   17m
 
-kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig -n monitoring get secrets/prometheus-operator-grafana -o json | jq -r '.data."admin-password"' | base64 -d
+$ kubectl --kubeconfig=/home/klefevre/Downloads/kubeconfig -n monitoring get secrets/prometheus-operator-grafana -o json | jq -r '.data."admin-password"' | base64 -d
 gTj5cmPwqBh0Ojye%
 ```
 
 Vous pouvez vous authentifier sur `grafana.$VOTRE_DOMAINE` (sans `%` a la fin du
-mot de passe):
+mot de passe) :
 
 ![grafana](/images/github-actions/grafana.png)
 
 ### Conclusion
 
-Cette méthode, que ce soit via Github action ou un autre outils de CI/CD permet
-de tendre vers le principe [Gitops](https://www.weave.works/technologies/gitops/) pour l'infrastructure, bien sur elle n'est pas
+Cette méthode, que ce soit via Github action ou un autre outil de CI/CD permet
+de tendre vers le principe [GitOps](https://www.weave.works/technologies/gitops/) pour l'infrastructure, bien sur elle n'est pas
 parfaite et nous la feront évoluer au fur et à mesure de nos et cela dépend bien
 évidemment des différents use case que vous pourriez avoir.
 
