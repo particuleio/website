@@ -1,6 +1,6 @@
 ---
 Title: Kubernetes Kustomize with Flux CD
-Date: 2020-11-07
+Date: 2020-25-07
 Category: Kubernetes
 Summary: Enjoy Kustomize, integrated to Flux CD, to deploy your Kubernete YAML on multiple environments. All-in with the GitOps way.
 Author: Kevin Lefevre
