@@ -447,7 +447,7 @@ Voyons ensemble les fichiers supplémentaires.
 Dans un premier temps nous avons deux fichiers de `values` Helm qui vont nous
 servir à déployer deux instances de Flux sur notre cluster :
 
-* `flux-prod`
+* `flux-preprod`
 
 ```yaml
 git:
@@ -459,12 +459,12 @@ syncGarbageCollection:
   enabled: true
 manifestGeneration: true
 additionalArgs:
--  --git-sync-tag=flux-sync-prod
+-  --git-sync-tag=flux-sync-preprod
 ```
 
 Cette instance de flux pointe sur le dossier `preprod`
 
-* `flux-preprod`
+* `flux-prod`
 
 ```yaml
 git:
