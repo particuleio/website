@@ -13,7 +13,7 @@ item  :
       - item: Les principaux objets de l'API
       - item: Concevoir et déployer des applications
       - item: Bonnes pratiques
-      - item: Préparation certification [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Préparation certification [CKAD](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-user.fr.html)/[PDF](https://particule.io/formations/kubernetes-user.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -27,7 +27,7 @@ item  :
       - item: Les différents outils de déploiements
       - item: Opérer et sécuriser un cluster
       - item: Les principaux objets admin de l'API
-      - item: Préparation certification [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+      - item: Préparation certification [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ops.fr.html)/[PDF](https://particule.io/formations/kubernetes-ops.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
@@ -38,7 +38,7 @@ item  :
     description : "All in one : formations utilisateur et opérateur"
     featurelist :
       - item: Combine la formation utilisateur et opérateur
-      - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
       - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"

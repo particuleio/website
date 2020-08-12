@@ -12,7 +12,7 @@ item  :
       - item: Main API objects
       - item: Design and deploy applications
       - item: Best practices
-      - item: Prepare [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Prepare [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
@@ -25,7 +25,7 @@ item  :
       - item: Deployment tools
       - item: Cluster operation and hardening
       - item: Main admin API objects
-      - item: Prepare [CKA exam](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf)
+      - item: Prepare [CKA exam](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
@@ -35,7 +35,7 @@ item  :
     description : "All in one : operator and user trainings"
     featurelist :
       - item: User and operator training
-      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.17.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.17.pdf)
+      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
