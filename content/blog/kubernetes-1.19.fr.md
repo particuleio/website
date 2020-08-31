@@ -14,7 +14,7 @@ nouveautés.
 
 En réalité cette release arrive 5 mois après la précédente (la 1.18 étant
 sortie le 25 Mars 2020. La communauté souhaitant se laisser un peu plus de temps
-pour accpeter des feature et patch en raison du COVID-19 ainsi que des
+pour accepter des feature et patch en raison du COVID-19 ainsi que des
 évènements Black Live Matter.
 
 Le [changelog est consequent](https://relnotes.k8s.io/?releaseVersions=1.19.0)
@@ -44,7 +44,7 @@ utilisez sera au moins supportée 12 mois après sa sortie avant de devenir
 
 Il existe une règle dans la communauté comme quoi une fonctionnalité ne peut rester
 dans la même version pendant plus de 9 mois. A la fin de ce temps, elle doit
-soit être abandonnée soit passer en `v1`.
+soit être abandonnée soit passée en `v1`.
 
 Une exception a été faite pour les *Ingress* qui sont majoritairement utilisée
 et tous les *Ingress Controller* reposent sur elles. Il est donc plus prudent de
@@ -59,7 +59,7 @@ même cas. Le discussion est disponible
 [ici](https://github.com/kubernetes/enhancements/issues/5). Il n'existe pour le
 moment aucune solution viable de remplacement et selon les règles, les PSP
 devrait sortir définitivement de Kubernetes à la version 1.22. A suivre pour
-voir ce qu'il sera décidé d'ici la.
+voir ce qu'il sera décidé d'ici là.
 
 <https://github.com/kubernetes/enhancements/issues/1453>
 
@@ -75,7 +75,7 @@ grands et causer une charge importante sur le control plane.
 Les *EndpointSlices*  permettent de découper ces *Endpoints* en sous objets, qui
 regroupent chacun par défaut 100 endpoints (extensible à 1000).
 
-Cette fonctionnalité sera maintenant activé par defaut pour les nouveaux cluster
+Cette fonctionnalité sera maintenant activée par défaut pour les nouveaux cluster
 en 1.19 et devrait réduire considérablement les problèmes de scalabilité liés au
 nombre de pods.
 
