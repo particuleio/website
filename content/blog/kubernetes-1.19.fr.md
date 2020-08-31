@@ -8,8 +8,6 @@ image: images/thumbnails/kubernetes-1.19.png
 lang: fr
 ---
 
-## Kubernetes 1.18
-
 C'est la rentrée et comme tous les trois mois, une nouvelle version de Kubernetes sort. La 1.19 est
 sortie il y a quelques jours et c'est l'occasion pour nous de revenir sur les
 nouveautés.
