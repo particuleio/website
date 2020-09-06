@@ -1,9 +1,9 @@
 ---
 Title: Kubernetes Kustomize with Flux CD
-Date: 2020-25-07
+Date: 2020-09-06
 Category: Kubernetes
 Summary: Enjoy Kustomize, integrated to Flux CD, to deploy your Kubernete YAML on multiple environments. All-in with the GitOps way.
-Author: Kevin Lefevre
+Author: Romain Guichard
 image: images/thumbnails/flux-horizontal-color.png
 imgSocialNetwork: images/og/kustomize-flux.png
 lang: en
@@ -13,7 +13,7 @@ Today, we are going to take about two subjects, the first one is kind of the
 leitmotiv of this blog: [GitOps](https://www.weave.works/technologies/gitops/),
 the other one is the new here: [Kustomize](https://github.com/kubernetes-sigs/kustomize).
 
-We are long time user of [Helm](https://helm.sh/). Helm is a templating
+We are long time users of [Helm](https://helm.sh/). Helm is a templating
 solution for Kubernetes based on [Go
 template](https://golang.org/pkg/text/template/). It's kind of the _de facto_
 standart for Kubernetes application packaging. You can find official Helm
@@ -22,12 +22,12 @@ think of.
 
 Some of them are very thorough and they will keep you from reinvente the wheel
 each time you want to deploy a Nginx server for example. But some time, we
-have to package your own application and let's face it, create and maintain,
-efficiently, a Helm package is not that easy. And no official Chart to help
-you.
+have to package your own application and let's face it, creating and
+maintaining, efficiently, a Helm package is not that easy. And no official Chart to help
+you here.
 
 
-First thing that can come in mind is to not use Helm Chart and stay with the
+First thing that comes to mind is to not use Helm Chart and stay with the
 native YAML manifests. You shall have one manifest per environment. The main
 con is the invevitable code duplication that will occur if you have many
 environments. Code duplication is time consuming and the source of many human
@@ -41,8 +41,8 @@ with their own features :
 * [kpt](https://github.com/GoogleContainerTools/kpt)
 * [k14's ytt](https://get-ytt.io/)
 
-This article is not about making a benchmark of those solutions, they are
-actually quite different and at the end will achieve the same purpose. We will
+This article is not about benchmarking these solutions, they are
+actually quite different and in the end will achieve the same purpose. We will
 focus on [Kustomize](https://github.com/kubernetes-sigs/kustomize).
 
 Helm is clearly the most used but, imo, it's not the simplest to use. When
@@ -59,7 +59,7 @@ since Kubernetes v1.14.
 
 Kustomize is *Kubernetes native* and doesn't need advanced templating
 knowledge. Like the command `kubectl patch`, Kustomize use an equivalent
-principle to create complexe Kubernetes manifests/
+principle to create complexe Kubernetes manifests.
 
 Let's start with this
 [git repository](https://github.com/particuleio/gitops-demo/kustomize)
@@ -90,7 +90,7 @@ The directory structure is as follow:
 
 Let's take a look at our `base` directory. It contains our YAML manifests, they
 are just Kubernetes manifests, nothing more, a `Deployment`, a `Service` and
-a `HorizontalPodAutoscaler`.
+an `HorizontalPodAutoscaler`.
 
 ```yaml
 ---
@@ -175,7 +175,7 @@ namespace: preprod
 namePrefix: preprod-
 ```
 
-What does that mean ? In the first time, we are going to load every manifests
+What does that mean ? First, we are going to load every manifests
 from `base` directory. Then we are going to *patch* the namespace of those
 manifests, and finally we will prefix our resources name with `preprod-`.
 
@@ -276,7 +276,7 @@ spec:
   maxReplicas: 4
 ```
 
-It's just a patch, you don't need to redefine every spec, juste the ones you
+It's just a patch, you don't need to redefine every spec, just the ones you
 want to change.
 
 After generation:
@@ -382,7 +382,7 @@ NAME                      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)      
 service/prod-helloworld   NodePort   10.107.91.161   <none>        80:31145/TCP   36m
 ```
 
-Kustomize allow you to, easily, override YAML manifests without any templating
+Kustomize allows you to easily override YAML manifests without any templating
 knowledge. [To go further](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html).
 
 ### Deploy Kustomize template with Flux CD
@@ -430,7 +430,7 @@ What's new ?
 
 #### Flux deployment
 
-In this first time, we have two `values` Helm files which will help us to
+First, we have two `values` Helm files which will help us to
 deploy two Flux instances into our cluster. Yes we use Helm to deploy Flux.
 
 * `flux-preprod`
@@ -550,7 +550,7 @@ metadata:
   namespace: preprod
 ```
 
-Once every thing is ready in our git repository, we can activate Flux for this
+Once everything is ready in our git repository, we can activate Flux for this
 git repository and allow Flux to pull/push from/to it. To achieve that, you
 just need to fetch de public key of each Flux instances and add it on your
 GitHub account (*Settings -> Deploy Keys*).
@@ -561,7 +561,7 @@ kubectl -n preprod logs flux-pod | head
 ts=2020-06-10T14:35:43.197547567Z caller=main.go:493 component=cluster identity.pub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNYjo5gddG6fXJg75L3gf2mXNBV+DKd9LPz9ZqK2phhwD0fI7J2LajxKnTQGtxj72VBqU+lweEP8YV15auswyjraIYLgnLEE5POb6H8Cjz0vfVX61j3fcLnH77n48GQDKWo0rYQ9hxSmSthi/E1FGy41thxOYRm/IIErN8whKC0+YWDeKlwLNZatSSs/3XA4Q3eCpdPWwAot8sEWDOexUeno/GyaDhBiHm7gxjKkMPsnW8lj9ovtCzjt2H+vLV57neIcx4hx/bhWr3z+wVxkbnDv8zIfXaziXfy5Ueuz0e9sQ3pE1lbrTkeumQN0ekHNAdRjpIa89RRok6KTfBFN7w8iXoLvuSR1NZe9/aunZwqG0ZDGXQjmE8/AHy00QhXmDQT+1VJX00uq/0Jx87v6yiHV+I3LyA1Rn946S4qpxsvFAqDVyKrxFy6WwDSDhd4GHAlI/gFE6dPn8FXqQtL9NVWUxTqFs6svHTLNq6orQ92oKELcsTPHvUyvflj+5JW6k= root@flux-preprod-865d6d9666-6w4x7"
 ```
 
-Once your keys are added, Flux will start deploy resources with Kustomize.
+Once your keys are added, Flux will start deploying resources with Kustomize.
 
 ```console
 kubectl -n preprod logs -f flux-pod
@@ -589,7 +589,7 @@ docker push particule/helloworld:1.1
 ```
 
 Flux polls the Docker Registry every 5 minutes. Flux will detect the new image
-ad will update our git repository :
+and will update our git repository :
 
 ![](/images/flux/flux-update.png#center)
 
@@ -626,4 +626,5 @@ that can acheive great things with a small amout of times.
 Flux can centralize your Kubernetes manifests and use a GitOps workflow while
 keeping flexibility with your templating tools.
 
-[**Kevin Lefevre**](https://www.linkedin.com/in/kevinlefevre/)
+* [**Kevin Lefevre**](https://www.linkedin.com/in/kevinlefevre/)
+* [**Romain Guichard**](https://www.linkedin.com/in/romainguichard/)
