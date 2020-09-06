@@ -1,6 +1,6 @@
 ---
 Title: Automatic build with Github Actions and Github Container Registry
-Date: 2020-09-03
+Date: 2020-09-06
 Category: Github
 Summary: With Github Actions/Registry you can have one tool to store your code, build it and push it into a Docker Registry
 Author: Romain Guichard
@@ -9,9 +9,10 @@ imgSocialNetwork: images/og/terraform-githubaction.png
 lang: en
 ---
 
-Today, September 3rd, is released Github Container Registry, a new Container
-Registry service hosted by Github. A few months ago, Github released Github
-Actions to fill the gap with Gitlab-CI, this gap is less and less wide with the
+Today, September 3rd, Github Container Registry is released. It's a new Container
+Registry service hosted by Github and a competitor to <quay.io>,
+<hub.docker.com> or <gcr.io>. A few months ago, Github released Github
+Actions to fill the gap with Gitlab-CI, this gap is closing with the
 official integration of that Registry.
 
 Github has been the corner stone for the OSS comunity for a very long time. But
@@ -92,8 +93,7 @@ times before, a single web page application.
 ### Github secrets
 
 Our pipeline will need the permission to push our Docker image into Github
-Registry. We need to give it our Personal Access Token
-Dans un premier temps nous avons besoin de déclarer des secrets pour accéder à
+Registry. We need to pass on our Personal Access Token.
 
 [!secret_repo](/images/github-registry/gh-secret.png)
 
