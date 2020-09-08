@@ -2,10 +2,10 @@
 Title: Automatic build with Github Actions and Github Container Registry
 Date: 2020-09-06
 Category: Github
-Summary: With Github Actions/Registry you can have one tool to store your code, build it and push it into a Docker Registry
+Summary: With Github, you have one tool to store your code, build it and push it into a Docker Registry
 Author: Romain Guichard
 image: images/thumbnails/github-actions.png
-imgSocialNetwork: images/og/terraform-githubaction.png
+imgSocialNetwork: images/og/github-registry-actions.png
 lang: en
 ---
 
@@ -95,7 +95,7 @@ times before, a single web page application.
 Our pipeline will need the permission to push our Docker image into Github
 Registry. We need to pass on our Personal Access Token.
 
-[!secret_repo](/images/github-registry/gh-secret.png)
+[!secret repo](/images/github-registry/gh-secret.png)
 
 ### A simple pipeline
 
