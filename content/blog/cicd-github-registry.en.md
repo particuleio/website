@@ -10,16 +10,19 @@ lang: en
 ---
 
 Today, September 3rd, Github Container Registry is released. It's a new Container
-Registry service hosted by Github and a competitor to <quay.io>,
-<hub.docker.com> or <gcr.io>. A few months ago, Github released Github
+Registry service hosted by Github and a competitor to [Quay](https://quay.io),
+[Docker Hub](https://hub.docker.com) or
+[Google Cloud Registry](https://cloud.google.com/container-registry?hl=fr).
+A few months ago, Github released Github
 Actions to fill the gap with Gitlab-CI, this gap is closing with the
 official integration of that Registry.
 
 Github has been the corner stone for the OSS comunity for a very long time. But
 lately, some competitors had disturbed the establishment. Gitlab has more and
 more features, including a CI tool, a Container Registry and a deep integration
-with Kubernetes. The hegemony of Github was disputed and after Microsoft took
-over, it needs to change and evolve.
+with Kubernetes. The hegemony of Github was disputed and after [Microsoft took
+over](https://en.wikipedia.org/wiki/GitHub#Acquisition_by_Microsoft)
+, it needs to change and evolve.
 
 Github Actions, a few months ago, and Github Registry, now, are the response.
 
@@ -95,7 +98,7 @@ times before, a single web page application.
 Our pipeline will need the permission to push our Docker image into Github
 Registry. We need to pass on our Personal Access Token.
 
-[!secret repo](/images/github-registry/gh-secret.png)
+![secret repo](/images/github-registry/gh-secret.png)
 
 ### A simple pipeline
 
@@ -135,8 +138,9 @@ authenticate to the official Docker registry.
 ### Conclusion
 
 A Container Registry is a simple tool. You just build, tag and push. Docker Hub
-has been the undisputed leader for some time now. <quay.io> and <gcr.io> are
-more and more used, espcially by the cloud native ecosystem. It's always good
+has been the undisputed leader for some time now. [Quay](https://quay.io) and
+[Google Cloud Registry](https://cloud.google.com/container-registry?hl=fr) are
+more and more used, especially by the cloud native ecosystem. It's always good
 when a new participant comes into play. Will you migrate your Docker images
 from Docker Hub to Github Registry ?
 
