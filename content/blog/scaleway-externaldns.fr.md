@@ -2,7 +2,7 @@
 Title: Utiliser External-DNS avec Kubernetes Kapsule de Scaleway
 Date: 2020-09-10
 Category: Kubernetes
-Summary: External-DNS permet d'automatiquement créer des enregistrements DNS pour vos pods déployés sur Kubernetes. On vous explique comment mettre ceci en place avec Kubernetes Kapsule de Scaleway
+Summary: External-DNS permet d'automatiquement créer des enregistrements DNS pour vos Services et Ingress déployés sur Kubernetes. On vous explique comment mettre ceci en place avec Kubernetes Kapsule de Scaleway
 Author: Romain Guichard
 image: images/thumbnails/logo-scaleway-elements.png
 imgSocialNetwork: images/og/kapsule-externaldns.png
