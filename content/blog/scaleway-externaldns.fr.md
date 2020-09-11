@@ -17,43 +17,43 @@ le provider Terraform permettant de déployer et de manager, entièrement en
 infrastructure as code, nos clusters Kubernetes.
 
 Nous avons aussi abordé l'utilisation des PodSecurityPolicy sur Kapsule, nous
-vous laissez [(re)découvrir cet article si vous le
+vous laissons [(re)découvrir cet article si vous le
 souhaitez](https://particule.io/blog/scaleway-psp/).
 
 Quelle est notre problématique ici ?
 
 Au sein de Kubernetes, le système DNS interne (assuré par CoreDNS par défaut)
 assure en permanence la création, modification et suppression d'enregistrements
-DNS pour les pods et les services. Ainsi tous vos services se voient attribuer
+DNS pour les pods et les Services. Ainsi tous vos Services se voient attribuer
 un nom dns de la forme : `mon-service.mon-namespace.svc.cluster.local`,
-pointant sur la ClusterIP du service. Pareil pour les pods, ceux ci ont un
+pointant sur la ClusterIP du Service. Pareil pour les pods, ceux ci ont un
 enregistrement DNS de la forme
 `adresse-ip-du-pod.mon-namespace.pod.cluster.local`. Moins utile vu qu'il faut
 connaître l'IP du pod alors qu'il s'agit de l'information justement recherchée
 au moyen du DNS.
 
-Quoi qu'il en soit, l'utilisation du DNS pour les services est omniprésente et
+Quoi qu'il en soit, l'utilisation du DNS pour les Services est omniprésente et
 il s'agit du moyen que vous devriez utiliser pour faire communiquer vos
 applications à l'intérieur de Kubernetes.
 
-En interne cela fonctionne bien. Le problème apparait quand ces services sont
+En interne cela fonctionne bien. Le problème apparait quand ces Services sont
 exposés à l'extérieur du cluster notamment avec le type `LoadBalancer` qui va
 générer des IP publiques. Kubernetes n'a, nativement, aucun moyen de faire
 matcher votre application masuperapp.particule.io avec l'IP publique générée
-par votre service de type `LoadBalancer`. Et c'est ce que External-DNS résout.
+par votre Service de type `LoadBalancer`. Et c'est ce que External-DNS résout.
 
 ### External-DNS
 
 External-DNS est un addon à Kubernetes extrêmement populaire permettant de
-synchroniser les services et ingress exposés avec un provider DNS.
+synchroniser les Services et Ingress exposés avec un provider DNS.
 Contrairement à CoreDNS, le composant DNS interne de Kubernetes, External-DNS
 n'est pas un serveur DNS, il ne fait
 qu'enregistrer les informations récupérées depuis l'API Server vers un provider
 DNS. External-DNS permet donc de dynamiquement configurer vos enregistrements DNS
 en vous concentrant uniquement sur Kubernetes.
 
-Et ce qui nous intéressant ici c'est le provider **Scaleway** disponible pour
-External-DNS.
+Et ce qui nous intéressant ici c'est [le provider **Scaleway** disponible pour
+External-DNS](https://github.com/kubernetes-sigs/external-dns/pull/1643).
 
 ![scaleway](https://upload.wikimedia.org/wikipedia/fr/thumb/b/b0/Scaleway_logo_2018.svg/langfr-560px-Scaleway_logo_2018.svg.png)
 
@@ -137,18 +137,26 @@ scw-particule-commonpool-b0b52be520ed4d8bbc170   Ready    <none>   16m   v1.19.0
 Notre cluster est prêt.
 
 
-Le service DNS as a Service de Scaleway est encore en Beta mais il est
-fonctionne et nous n'avons qu'à y configurer un domaine.
+Le DNS as a Service de Scaleway est sorti en juin 2020 mais est toujours en
+Beta.
 
-![dns](/images/externaldns/dns.png)
+[![scw-dns](/images/externaldns/scw-dns.jpg)](https://twitter.com/Scaleway/status/1275044780330770432)
+
+Peu importe, les fonctions de base de l'API sont fonctionnelles
+n'avons qu'à y configurer un domaine.
 
 Vous allez devoir valider la possession de ce domaine en renseignant un
-enregistrement TXT là où est géré votre domaine. Cela dépendra de chacun. Une
-fois effectué votre domaine sera activé chez Scaleway et il faudra faire
-pointer les NS de votre domaines vers ceux de Scaleway :
+enregistrement TXT là où est géré actuellement votre domaine. Cela dépendra de
+chacun d'entre vous. Une
+fois la validation effectuée (celle ci est quasi instantannée) votre domaine
+sera activé chez Scaleway et il faudra faire
+pointer les NS de votre domaine vers ceux de Scaleway pour qu'une résolution
+complète fonctionne.
 
 - ns0.dom.scw.cloud.
 - ns1.dom.scw.cloud.
+
+![dns](/images/externaldns/dns.png)
 
 
 ### Déploiement de External-DNS
@@ -168,7 +176,7 @@ $ make build.docker
 ```
 Vous devriez récupérer une image
 `us.gcr.io/k8s-artifacts-prod/external-dns/external-dns:v0.7.3-106-g0947994d`.
-Je vais retag cette image et à la pousser sur mon Docker Hub pour que mon
+Je vais retag cette image et la pousser sur Docker Hub pour que mon
 cluster Kubernetes puisse facilement y accéder.
 
 ```
@@ -177,11 +185,11 @@ $ docker push particule/external-dns:scaleway
 ```
 
 C'est donc cette dernière image que nous utiliserons pour notre déploiement.
-Afin que External-DNS puisse synchroniser notre DNS avec nos services et nos
+Afin que External-DNS puisse synchroniser notre DNS avec nos Services et nos
 ingress, il faut lui donner les droits correspondants. Nous créeons donc un
-ServiceAccount pour porter ces droits et nous le donner à notre pod
+ServiceAccount pour porter ces droits et nous le donnons à notre pod
 external-dns. Pour une question de simplicitié je ne vais surveiller que les
-services avec `--source=service`.
+Services avec `--source=service`.
 
 ```
 ---
@@ -343,11 +351,12 @@ $ dig @ns0.dom.scw.cloud. helloworld.particule.cloud +short
 ### Conclusion
 
 External-DNS fait parti de nos addons préférés. Associé à la quasi totalité des
-cloud provider, cela fait des miracles avec très peu de choses à faire au
+cloud provider, celui ci fait des miracles avec très peu de choses à faire au
 préalable. L'effet obtenu est généralement extrêmement apprécié puisqu'il
 permet avec un simple `kubectl apply` de déployer une application accessible
 via un nom de domaine sans aucune autre intervention manuelle. Couplez ça à
-Let's Encrypt et vous avez votre certificats TLS à la volée.
+Let's Encrypt et vous avez votre application accessible publiquement, via un
+nom de domaine et via un canal sécurisé avec TLS.
 
 Il est d'ailleurs aussi possible d'utiliser External-DNS en dehors d'un cloud
 provider, [Kevin Lefevre](https://linkedin.com/in/kevinlefevre) en parle dans
