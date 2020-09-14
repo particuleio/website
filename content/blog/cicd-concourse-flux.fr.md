@@ -1,10 +1,10 @@
 ---
-Title: Continuous delivery avec Weave Flux et Concourse-CI
+Title: Continuous delivery avec Flux CD et Concourse-CI
 Date: 2019-06-26T11:00:00+02:00
 Category: Kubernetes
-Summary: GitOps avec Concourse comme CI et Flux comme CD !
+Summary: The GitOps way avec Concourse comme CI et Flux comme CD !
 Author: Romain Guichard
-image: images/thumbnails/weave.png
+image: images/thumbnails/flux-horizontal-color.png
 imgSocialNetwork: images/og/concourse-fluxcd.png
 lang: fr
 ---
@@ -15,14 +15,14 @@ mettre en place. Dans le même ordre d'idée, il n'y a pas d'outils **GitOps**
 mais bien une série de pratiques et de principes qui peuvent être mis en
 application par différents outils. Pour l'histoire, le terme **GitOps** sort
 tout droit de chez Weave, les créateurs du plugin CNI Weave ainsi que de
-Flagger, un opérateur Kubernetes de contiuous delivery.
+Flagger, un opérateur Kubernetes de continuous delivery.
 
 ### GitOps ?
 
 Pour expliquer la problématique que GitOps tente de résoudre, revenons un peu
 en arrière et parlons d'Infrastructure as Code. Ce concept désigne le fait de
 décrire, de manière **déclarative**, dans des fichiers texte notre infrastructure. Les avantages sont
-nombreux :
+nombreux mais on notera principalement :
 
 - lisibilité
 - versionnement dans Git
