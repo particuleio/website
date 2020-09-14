@@ -14,6 +14,8 @@ other = "formations."
 other = "legal."
 [legalnotice]
 other = "Mentions Légales"
+[join-us]
+other = "Nous rejoindre"
 
 [graphicdesign]
 other = "FR Graphic Design"

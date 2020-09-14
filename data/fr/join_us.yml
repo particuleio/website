@@ -1,0 +1,31 @@
+enable    : true
+topTitle  :
+title     : Rejoins nous !
+subtitle  :
+tabItem   :
+  - id        : philosophy
+    title     :
+    heading   : Qu'est ce qu'on va faire ?
+    content   : >
+      Nous recrutons peu. Tout simplement car nous avons crée Particule pour s'y sentir chez nous, et cela implique d'être sélectif. Nous recherchons néanmoins toujour à nous agrandir, à te faire bénéficier de nos compétences et à apprendre des tiennes. Nous souhaitons intégrer des personnes impliquées dans Particule, non cela ne veut pas dire faire 70h par semaine ni bosser le week-end, nous ne sommes pas des Fabieng, tu ne seras pas un Corenting. Rédiger sur le blog, contribuer à des projets opensource, proposer des talks à des évènements font parti du travail et on veut que ce ne soit pas une corvée pour toi.
+    image     : images/banner3.png
+
+  - id        : mission
+    title     :
+    heading   : Compétences
+    content   : >
+      Une seule technologie est absolument obligatoire : **Kubernetes**, en tant qu'utilisateur et en tant qu'opérateur. Pour le reste c'est assez facile :
+
+        - Terraform
+        - Au moins un cloud provider
+        - Toutes les technos du [CNCF landscape](https://landscape.cncf.io)
+
+      N'hésite pas à nous dire où tu te sens à l'aise, ça nous intéresse sûrement. Sauf si c'est Windows, là nous intéresse sûrement pas.
+    image     : images/banner2.png
+
+  - id        : vision
+    title     :
+    heading   : C'est au moins 28k j'espère ?
+    content   : >
+      Chez Particule, nous payons aux **compétences** et non pas à l'expérience. C'est ta matière grise qui nous intéresse, pas ton âge. Nous voyageons au moins **2 fois par an** (sauf en période COVID évidemment...) pour assiter à des conférences (Berlin, Vancouver, Boston, Barcelone etc), c'est tous frais payés et tu as le choix des conférences évidemment. Tu as le droit à **25 jours** de congés payés, c'est de la folie, on sait, c'est cadeau. Tu choisis bien évidemment ton PC et ton téléphone.
+    image     : images/banner1.png
