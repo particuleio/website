@@ -5,7 +5,7 @@ Category: Kubernetes
 Summary: Enjoy Kustomize, integrated to Flux CD, to deploy your Kubernete YAML on multiple environments. All-in with the GitOps way.
 Author: Romain Guichard
 image: images/thumbnails/flux-horizontal-color.png
-imgSocialNetwork: images/og/kustomize-flux.png
+imgSocialNetwork: images/og/kustomize-flux.en.png
 lang: en
 ---
 
