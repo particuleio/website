@@ -94,7 +94,7 @@ Bonjour Amazon S3.
 
 ### Simple Storage Service
 
-![Amazon S3](images/services/AmazonS3.png)
+![Amazon S3](/images/amazons3.png)
 
 Amazon S3 est un service d'object storage attaquable via une API HTTP. S3
 fournit nativement un service de "website" permettant au travers d'une URL S3
@@ -138,7 +138,7 @@ Mais on peut faire mieux encore !
 
 ### CloudFront
 
-![Amazon CloudFront](images/services/amazon-cloudfront.png)
+![Amazon CloudFront](/images/amazon-cloudfront.png)
 
 CloudFront est le service CDN d'AWS.
 
@@ -171,7 +171,7 @@ généralement) pour que notre distribution soit créée.
 
 ### CI avec Travis
 
-![Travis CI](images/travis_logo.png)
+![Travis CI](/images/travis_logo.png)
 
 On a donc maintenant :
 
