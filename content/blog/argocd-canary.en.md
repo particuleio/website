@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Introduction to ArgoCD and Argo-Rollout, Canary Deployment, rollback, everything *as code* !
 Author: Romain Guichard
 image: images/argo/argo-logo.png
+imgSocialNetwork: images/og/argocd-canary.en.png
 lang: en
 ---
 
