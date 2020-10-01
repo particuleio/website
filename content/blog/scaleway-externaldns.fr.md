@@ -9,6 +9,8 @@ imgSocialNetwork: images/og/kapsule-externaldns.png
 lang: fr
 ---
 
+**[Update 01/10/2020]** La version `0.7.4` de External-DNS est released.
+
 Kubernetes Kapsule est le service de Kubernetes managé de Scaleway. Nous avons
 déjà traité la présentation du service dans un
 [précédent article](https://particule.io/blog/scaleway-kapsule/). Nous avions
@@ -168,6 +170,10 @@ ici sous forme d'un Deployment.
 Le support de Scaleway par External-DNS est extrêmement récent (quelques
 semaines) et aucune release n'existe actuellement. Nous allons donc devoir
 builder notre propre image d'External-DNS depuis la branch master.
+
+**[Update]** Depuis le 01/10/2020, la release `0.7.4` de External-DNS supporte
+Scaleway DNS. Vous n'êtes pas obligé de builder vous même l'image et vous pouvez donc directement utiliser l'image officielle
+`k8s.gcr.io/external-dns/external-dns:v0.7.4`
 
 ```
 $ git clone https://github.com/kubernetes-sigs/external-dns
