@@ -4,7 +4,7 @@ Date: 2020-10-26
 Category: Kubernetes
 Summary: Comment déléguer la création de namespace dans Kubernetes ?
 Author: Kevin Lefevre
-image: images/thumbnails/kubernetes-generic.png
+image: images/thumbnails/kubernetes.png
 imgSocialNetwork: images/og/hnc.png
 lang: fr
 ---
