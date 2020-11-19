@@ -4,7 +4,7 @@ item    :
     image : images/about/wheel_logo.png
     title : No matter where
     description : >
-      We are infrastructure agnostic. That's why we work on the platforms that suit your projects, should it be in your datacenter our in a public cloud. If there are APIs, we will know how to benefit from them, whether it means building an <strong>OpenStack</strong> cluster, deploying <strong>Kubernetes</strong> clusters on <strong>Amazon Web Service</strong> or building scalable infrastructure on <strong>Google Cloud Platform</strong>.
+      We are infrastructure agnostic. That's why we work on the platforms that suit your projects, should it be in your datacenter or in a public cloud. If there are APIs, we will know how to benefit from them, whether it means building an <strong>OpenStack</strong> cluster, deploying <strong>Kubernetes</strong> clusters on <strong>Amazon Web Service</strong> or building scalable infrastructure on <strong>Google Cloud Platform</strong>.
 
   - positionRight : true
     image : images/about/codedry.png
