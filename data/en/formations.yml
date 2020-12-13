@@ -4,41 +4,38 @@ title   : trainings.
 subtitle : Through our training courses, we help you comprehend the landscape of Cloud Native technologies. Our courses are all [Open Source](https://github.com/particuleio/formations).
 
 item  :
-  - name        : Kubernetes User
+  - name        : Kubernetes
     price       : 3 days
-    description : Getting started with the API and prepare CKAD exam
+    description : "Kubernetes training for Kubernetes administors and users"
     featurelist :
       - item: Kubernetes concepts
       - item: Main API objects
       - item: Design and deploy applications
-      - item: Best practices
-      - item: Prepare [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
-    btnText     : Contact Us
-    btnURL      : "https://particule.io/en#contact"
-    color       : kubernetes
-
-  - name        : Kubernetes Operator
-    price       : 3 days
-    description : Deploy and manage Kubernetes clusters
-    featurelist :
       - item: Where to deploy and how ?
+      - item: Network
+      - item: Storage
       - item: Deployment tools
       - item: Cluster operation and hardening
       - item: Main admin API objects
-      - item: Prepare [CKA exam](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
+      - item: User and operator training
+      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.19.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.19.pdf)
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
 
-  - name        : Kubernetes - AIO
-    price       : 5 days
-    description : "All in one : operator and user trainings"
+  - name        : Kubernetes Security
+    price       : 2 jours
+    description : Build and operate Kubernetes with security concerns in mind
     featurelist :
-      - item: User and operator training
-      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
-    btnText     : Contact Us
-    btnURL      : "https://particule.io/en#contact"
-    color       : kubernetes
+      - item: "Prerequisite : Kubernetes course"
+      - item: Container Runtime
+      - item: RBAC management
+      - item: PKI Kubernetes
+      - item: Network security
+      - item: Pods security
+      - item: Prepare [CKS](https://github.com/cncf/curriculum/blob/master/CKS_Curriculum_%20v1.19.pdf)
+    btnText     : Nous contacter
+    btnURL      : "https://particule.io#contact"
 
   - name        : Terraform
     price       : 3 days
