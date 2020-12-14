@@ -51,3 +51,6 @@ other = "Envoyer"
 other = "Sujet"
 [message]
 other = "Message"
+
+[rss]
+other = "rss."
