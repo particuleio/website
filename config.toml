@@ -1,7 +1,7 @@
 baseURL = "https://particule.io"
 languageCode = "en-us"
 title = "particule."
-theme = "navigator-hugo"
+theme = ["navigator-hugo"]
 summaryLength = 10
 
 # Build robots.txt file
@@ -75,7 +75,7 @@ unsafe= true
     [Languages.fr]
     weight = 1
     languageCode = "fr-fr"
-    title = "Particule | Cloud Native Infrastructure"
+    title = "particule. | Cloud Native | GitOps | Infra as Code"
     dateFormat = "2 January 2006"
 
     home = "home."
@@ -104,7 +104,7 @@ unsafe= true
     # About 2 Section
     [Languages.fr.params.aboutSm]
         enable  = true
-        title   = "Particule, l'expertise Cloud Native"
+        title   = "particule, l'expertise Cloud Native"
         description = "Les fondations de Particule reposent sur les concepts du DevOps et du Cloud avec l'ambition de vous aider à naviguer dans un écosystème toujours plus grand et plus complexe. Nous mettons notre expertise à votre disposition pour vos projets."
 
     # Blog Section On Homepage
@@ -142,7 +142,7 @@ unsafe= true
     [Languages.en]
     weight = 2
     languageCode = "en-us"
-    title = "Particule | Cloud Native Infrastructure"
+    title = "particule. | Cloud Native | GitOps | Infra as Code"
     dateFormat = "January 2, 2006"
 
     home = "home."
@@ -175,7 +175,7 @@ unsafe= true
     # About 2 Section
     [Languages.en.params.aboutSm]
         enable  = true
-        title   = "Particule, Cloud Native experts"
+        title   = "particule, Cloud Native experts"
         description = "Particule is built with DevOps principle at its core. Our mission is to help you navigate the growing Cloud Native ecosystem. Our skills as a service for your projects."
 
     # Blog Section On Homepage
@@ -222,3 +222,7 @@ unsafe= true
         name    = "formations"
         url     = "trainings"
         weight  = 2
+    [[menu.nav]]
+        name    = "rss"
+        url     = "index.xml"
+        weight  = 3
