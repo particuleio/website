@@ -16,7 +16,7 @@
     <webfeeds:logo>http://particule.io/images/logo-light-horizontal.svg</webfeeds:logo>
     <webfeeds:accentColor>057D9F</webfeeds:accentColor>
     <webfeeds:related layout="card" target="browser"/>
-    <webfeeds:analytics id="UA-155283440-1" engine="GoogleAnalytics"/>
+    <webfeeds:analytics id="{{ .Site.GoogleAnalytics }}" engine="GoogleAnalytics"/>
     <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
     <description>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}</description>
