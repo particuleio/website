@@ -75,7 +75,7 @@ unsafe= true
     [Languages.fr]
     weight = 1
     languageCode = "fr-fr"
-    title = "particule. | Cloud Native | GitOps | Infra as Code"
+    title = "particule. | Cloud Native - GitOps - Infra as Code"
     dateFormat = "2 January 2006"
 
     home = "home."
@@ -142,7 +142,7 @@ unsafe= true
     [Languages.en]
     weight = 2
     languageCode = "en-us"
-    title = "particule. | Cloud Native | GitOps | Infra as Code"
+    title = "particule. | Cloud Native - GitOps - Infra as Code"
     dateFormat = "January 2, 2006"
 
     home = "home."
@@ -222,7 +222,3 @@ unsafe= true
         name    = "formations"
         url     = "trainings"
         weight  = 2
-    [[menu.nav]]
-        name    = "rss"
-        url     = "index.xml"
-        weight  = 3
