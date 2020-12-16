@@ -3,24 +3,44 @@ include {
 }
 
 terraform {
-  source = "github.com/clusterfrak-dynamics/terraform-aws-s3-cloudfront//website?ref=v1.4.0"
+  source = "github.com/particuleio/terraform-aws-s3-cloudfront//modules/website?ref=v2.0.0"
 }
 
 locals {
-  env         = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("common_tags.yaml")}"))["Env"]
+  env         = yamldecode(file("${find_in_parent_folders("common_tags.yaml")}"))["Env"]
   aws_region  = "eu-west-3"
   project     = "frontend"
   prefix      = "particule"
-  custom_tags = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("common_tags.yaml")}"))
+  custom_tags = yamldecode(file("${find_in_parent_folders("common_tags.yaml")}"))
   referer     = jsondecode(run_cmd("--terragrunt-quiet", "bash", "-c", " aws --profile particule ssm get-parameter --name /cloudfront/default/referer --with-decryption | jq .Parameter.Value"))
 }
 
 dependency "acm" {
-  config_path = "../acm"
+  config_path = "../acm-particule.io"
 
   mock_outputs = {
-    certificate_arn = "arn:aws:acm:us-east-1:000000000000:certificate/00000000-0000-0000-0000-000000000000"
+    this_acm_certificate_arn = "arn:aws:acm:us-east-1:000000000000:certificate/00000000-0000-0000-0000-000000000000"
   }
+}
+
+generate "provider" {
+  path      = "provider.tf"
+  if_exists = "overwrite"
+  contents  = <<-EOF
+    provider "aws" {
+      region = "${local.aws_region}"
+    }
+  EOF
+}
+
+generate "backend" {
+  path      = "backend.tf"
+  if_exists = "overwrite"
+  contents  = <<-EOF
+    terraform {
+      backend "s3" {}
+    }
+  EOF
 }
 
 inputs = {
@@ -48,9 +68,9 @@ inputs = {
     log_bucket_expiration_days     = 365
     s3_origin_id                   = "s3-particule-frontend-static-site"
     origin_access_identity_comment = "Origin Access Identity for particule website"
-    aliases                        = ["particule.io","www.particule.io"]
+    aliases                        = ["particule.io", "www.particule.io"]
     cloudfront_price_class         = "PriceClass_100"
-    acm_arn                        = dependency.acm.outputs.certificate_arn
+    acm_arn                        = dependency.acm.outputs.this_acm_certificate_arn
     minimum_protocol_version       = "TLSv1.1_2016"
     ssl_support_method             = "sni-only"
     wait_for_deployment            = "false"
@@ -62,19 +82,19 @@ inputs = {
 
   dynamic_custom_origin_config = [
     {
-      domain_name              = "particule-training.s3-website.eu-west-3.amazonaws.com"
-      origin_id                = "s3-particule-training"
-      origin_path              = ""
-      http_port                = 80
-      https_port               = 443
-      origin_protocol_policy   = "http-only"
-      origin_ssl_protocols     = ["TLSv1", "TLSv1.1" , "TLSv1.2"]
-      custom_headers           = [
-      {
-        name = "Referer"
-        value = local.referer
-      }
-    ]
+      domain_name            = "particule-training.s3-website.eu-west-3.amazonaws.com"
+      origin_id              = "s3-particule-training"
+      origin_path            = ""
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+      custom_headers = [
+        {
+          name  = "Referer"
+          value = local.referer
+        }
+      ]
     },
   ]
 
