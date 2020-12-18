@@ -1,45 +1,41 @@
 enable  : true
 topTitle:
 title   : formations.
-subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations).
+subtitle : Nous vous aidons, au travers de nos formations, à appréhender les technologies Cloud Native. Nos supports de formations sont entièrement [Open Source](https://github.com/particuleio/formations). Toutes nos formations peuvent faire l'objet d'une personnalisation selon vos besoins et vos attentes.
 imgSocialNetwork: images/og/container-runtime.png
 
 item  :
-  - name        : Kubernetes Utilisateur
+  - name        : Kubernetes
     price       : 3 jours
-    description : Se familiariser avec les API et préparer le CKAD
+    description : "Formation Kubernetes abordant les aspects d'administration et d'utilisation"
     featurelist :
       - item: Découverte des concepts
-      - item: Les principaux objets de l'API
+      - item: Les principaux objets de l’API
       - item: Concevoir et déployer des applications
-      - item: Bonnes pratiques
-      - item: Préparation certification [CKAD](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
-      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-user.fr.html)/[PDF](https://particule.io/formations/kubernetes-user.fr.html?print-pdf)
-    btnText     : Nous contacter
-    btnURL      : "https://particule.io#contact"
-    color       : kubernetes
-
-  - name        : Kubernetes Opérateur
-    price       : 3 jours
-    description : Déployer et administrer un cluster Kubernetes
-    featurelist :
+      - item: Le stockage
+      - item: Le réseau
       - item: Où déployer ? Comment ?
       - item: Les différents outils de déploiements
-      - item: Opérer et sécuriser un cluster
-      - item: Les principaux objets admin de l'API
-      - item: Préparation certification [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf)
-      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ops.fr.html)/[PDF](https://particule.io/formations/kubernetes-ops.fr.html?print-pdf)
+      - item: Opérer un cluster
+      - item: Les principaux objets admin de l’API
+      - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.19.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.19.pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : kubernetes
 
-  - name        : Kubernetes - AIO
-    price       : 5 jours
-    description : "All in one : formations utilisateur et opérateur"
+  - name        : Kubernetes Sécurité
+    price       : 2 jours
+    description : Formation Kubernetes avancé sur les aspects de sécurité
     featurelist :
-      - item: Combine la formation utilisateur et opérateur
-      - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_V1.18.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.18.pdf)
-      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
+      - item: "Prérequis : formation Kubernetes"
+      - item: Container Runtime
+      - item: Gestion des RBAC
+      - item: PKI Kubernetes
+      - item: Sécurité du réseau
+      - item: Sécurité des pods
+      - item: Prépare au [CKS](https://github.com/cncf/curriculum/blob/master/CKS_Curriculum_%20v1.19.pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-security.fr.html)/[PDF](https://particule.io/formations/kubernetes-security.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : kubernetes
