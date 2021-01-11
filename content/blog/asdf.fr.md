@@ -16,11 +16,10 @@ mais nous allons nous concentrer sur notre machine locale.
 Pour être honnête nous allons quand même parler de technologies Cloud Native, mais
 surtout d'outils clients. Prenons un exemple avec `kubectl`, la CLI de
 Kubernetes : suivant les versions de Kubernetes déployées, `kubectl` [supporte une
-ou deux versions de décalage mais pas plus]
-(https://kubernetes.io/docs/setup/release/version-skew-policy/). Si vous managez
-plusieurs clusters, avec des versions différentes, gérer `kubectl` localement
+ou deux versions de décalage mais pas plus](https://kubernetes.io/docs/setup/release/version-skew-policy/).
+Si vous managez plusieurs clusters, avec des versions différentes, gérer `kubectl` localement
 devient vite impossible et vous vous retrouvez rapidement à `curl -LO
-https://storage.googleapis.com/kubernetes-release/release/`$VOTRE_VERSION`/bin/linux/amd64/kubectl`
+https://storage.googleapis.com/kubernetes-release/release/$VOTRE_VERSION/bin/linux/amd64/kubectl`
 un peu n'importe où. Nous l'avons tous fait. C'est un problème aussi vieux que
 les paquets des systèmes et les langages de programmation (Hello `pip` et
 `virtualenv`, `rvm`, etc.).
