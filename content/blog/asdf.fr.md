@@ -123,7 +123,7 @@ ou les `latest` puis ensuite set les versions utilisées globalement :
 ```console
 asdf install terraform 0.12.26
 asdf install kubectl 1.18.0
-asdf install helm l 3.2.1
+asdf install helm 3.2.1
 
 asdf global terraform 0.12.26
 asdf global kubectl 1.18.0
