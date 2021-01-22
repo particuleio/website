@@ -4,7 +4,8 @@ Date: 2021-01-21
 Category: Amazon Web Services
 Summary: Deploy federated Kubernetes Clusters on AWS using their Federated EKS Clusters solution
 Author: Theo "Bob" Massard
-image: images/thumbnails/amazon-eks.png
+image: images/thumbnails/eks.png
+imgSocialNetwork: images/og/kubefed-eks.png
 lang: en
 ---
 
@@ -96,7 +97,7 @@ $ eksfedctl create --regions us-east-1 us-east-2
 - Configuring the EKS Clusters to join the federated cluster
 
 This might take a while, as it involves quite a few operations. Each child
-CloudFormation stack is available in its own region. 
+CloudFormation stack is available in its own region.
 
 Upon succesful termination of the eksfedctl command, we can observe our
 freshly created clusters by running:
