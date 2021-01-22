@@ -46,9 +46,9 @@ entre un pod et son host.
 
 Il y a plusieurs raisons qui ont poussé la communauté à faire ce choix.
 
-Tout d'abord, où en sont les PSP aujourd'hui ? Et bien elles sont en beta.
+Tout d'abord, où en sont les PSP aujourd'hui ? Eh bien elles sont en beta.
 Depuis la version `1.8`. Cela fait donc 3 ans qu'elles n'ont pas bougé. En
-"temps Kubernetes" c'est énorme et cela peut démontrer (et c'est le cas ici)
+"temps Kubernetes" c'est énorme et cela peut démontrer (c'est le cas ici)
 une incapacité de la communauté à les faire évoluer simplement et proprement.
 
 Les PSP sont des composantes optionnelles non activées par défaut, c'est donc à
