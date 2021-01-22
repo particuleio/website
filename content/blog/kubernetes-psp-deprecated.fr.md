@@ -3,7 +3,7 @@ Title: Kubernetes va déprécier les PodSecurityPolicy
 Date: 2021-01-20
 Category: Kubernetes
 Summary: "Kubernetes va déprécier, à partir de la `1.21`, les PSP, ces
-composants permettant d'assurer la sécurité au niveau du pod. Pourquoi ? Quelles
+composantes permettant d'assurer la sécurité au niveau du pod. Pourquoi ? Quelles
 alternatives ?"
 Author: Romain Guichard
 image: images/thumbnails/kubernetes.png
@@ -51,11 +51,11 @@ Depuis la version `1.8`. Cela fait donc 3 ans qu'elles n'ont pas bougé. En
 "temps Kubernetes" c'est énorme et cela peut démontrer (et c'est le cas ici)
 une incapacité de la communauté à les faire évoluer simplement et proprement.
 
-Les PSP sont des composants optionnelles non activées par défaut, c'est donc à
+Les PSP sont des composantes optionnelles non activées par défaut, c'est donc à
 l'administrateur de les activer, de créer les règles puis de les associer. Nous
 faisions d'ailleurs remarquer dans notre article qu'activer les PSP "juste pour
 voir" finissait souvent en drâme avec un cluster cassé. En effet, à leur
-activiation, aucune règle n'est probablement disponible et l'apiserver refusera
+activation, aucune règle n'est probablement disponible et l'apiserver refusera
 donc tous les pods soumis. Tous. Un peu touchy à mettre en place donc. On ne
 peut pas vraiment considérer cela comme une sécurité par défaut.
 
@@ -77,16 +77,16 @@ les problèmes cités plus haut.
 
 La seconde est d'implémenter un mécanisme built-in et par défaut dans
 Kubernetes avec le strict minimum pour faire fonctionner un équivalent des PSP.
-Cela impliquerait d'hardcoder une règle "allow-all" par défaut et manquerait de
+Cela impliquerait de coder en dur une règle "allow-all" par défaut et manquerait de
 customisations pour les utilisateurs avancés.
 
 La dernière solution consiste à sortir la fonctionnalité de Kubernetes et
-la déléguer à des solutions tiers. Cela aurait pour avantage d'être
-totalement souple dans le développement des solutions tiers puisqu'elle se
+la déléguer à des solutions tierces. Cela aurait pour avantage d'être
+totalement souple dans le développement des solutions tierces puisqu'elle se
 baserait sur le principe des admission webhook et leur capacité quasi
 illimitée. A l'inverse, cela veut dire dire adieu à une fonctionnalité
 out-of-the-box et donc un cluster pas (totalement) sécurisé par défaut. Des
-solutions tiers, bien qu'encourageant la diversité et la concurrence, risquent
+solutions tierces, bien qu'encourageant la diversité et la concurrence, risquent
 de morceller l'écosystème. Une alternative à cette solution serait de définir
 une norme afin d'éviter la fragmentation, peut être une future **Container Policy
 Interface** ?
