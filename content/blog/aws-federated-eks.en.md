@@ -175,6 +175,254 @@ FederatedDeployments and applying weight to different clusters, but also
 [7]: https://github.com/kubernetes-sigs/kubefed/blob/master/docs/userguide.md#multi-cluster-ingress-dns
 [8]: https://github.com/kubernetes-sigs/kubefed/blob/master/docs/userguide.md#multi-cluster-service-dns
 
+### deploying an application
+
+We will deploy a Hello World application using our freshly created Federated cluster.
+A `Deployment` is registered under the default API-group, therefore the `FederatedDeployment`
+is available without further configuration.
+
+```yaml
+---
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedDeployment
+metadata:
+  name: test-hello-world
+  namespace: federate-me
+spec:
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: hello-world
+      template:
+        metadata:
+          labels:
+            app: hello-world
+        spec:
+          tolerations:
+            - effect: NoExecute
+              key: node.kubernetes.io/unreachable
+              operator: Exists
+              tolerationSeconds: 30
+            - effect: NoExecute
+              key: node.kubernetes.io/not-ready
+              operator: Exists
+              tolerationSeconds: 30
+          containers:
+            - image: particule/helloworld
+              name: helloworld
+  placement:
+    clusterSelector: {}
+```
+_Deploy a hello-world application using FederatedDeployment_
+
+This `FederatedDeployment` will create a Deployment with a single container
+named helloworld based on the image particule/helloworld. The 3 replicas
+requested will be split amongst the two registered federated clusters. We can increase
+the replica count accross the clusters using a `ReplicaSchedulingPreference`
+with the same namespace/name as our FederatedDeployment and by setting
+the `.spec.totalReplicas` count with the the new value of 7.
+
+```yaml
+---
+apiVersion: scheduling.kubefed.io/v1alpha1
+kind: ReplicaSchedulingPreference
+metadata:
+  name: test-hello-world
+  namespace: federate-me
+spec:
+  targetKind: FederatedDeployment
+  totalReplicas: 7
+  rebalance: true
+```
+_Edit the number of replicas accross clusters_
+
+It might take a few moments to propagate the new deployment but after a while, the
+federated clusters will have the required number of replicas for our hello-world app.
+
+```console
+$ kubectl get pods -lapp=hello-world -n federate-me -o wide --context=federated-eks-1
+NAME                               READY   STATUS    RESTARTS   AGE     IP              NODE
+test-hello-world-d6d58457b-bkbl5   1/1     Running   0          4m46s   172.21.79.120   ip-172-21-87-11.eu-west-1.compute.internal
+test-hello-world-d6d58457b-mz9d5   1/1     Running   0          4m46s   172.21.86.18    ip-172-21-87-11.eu-west-1.compute.internal
+test-hello-world-d6d58457b-ndfrr   1/1     Running   0          4m46s   172.21.90.117   ip-172-21-87-11.eu-west-1.compute.internal
+$ kubectl get pods -lapp=hello-world -n federate-me -o wide --context=federated-eks-2
+NAME                               READY   STATUS    RESTARTS   AGE     IP              NODE
+test-hello-world-d6d58457b-5nwdt   1/1     Running   0          4m35s   172.22.91.188   ip-172-22-92-176.eu-west-2.compute.internal
+test-hello-world-d6d58457b-fh59n   1/1     Running   0          4m35s   172.22.66.58    ip-172-22-92-176.eu-west-2.compute.internal
+test-hello-world-d6d58457b-tqvvm   1/1     Running   0          4m35s   172.22.65.158   ip-172-22-92-176.eu-west-2.compute.internal
+test-hello-world-d6d58457b-xh4x6   1/1     Running   0          105s    172.22.77.219   ip-172-22-92-176.eu-west-2.compute.internal
+```
+_Example output from ReplicaSchedulingPreference with replicas=7_
+
+As for the Deployment resource kind, the `Service` resource does not requires
+any additional configuration to be configured using a `FederatedService`.
+This will ensure that both our clusters can expose our applications through their own Service.
+
+```yaml
+---
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedService
+metadata:
+  name: hello-world-svc
+  namespace: federate-me
+spec:
+  template:
+    spec:
+      selector:
+        app: hello-world
+      type: NodePort
+      ports:
+        - name: http
+          port: 80
+  placement:
+    clusters: {}
+```
+_Create a FederatedService targeting app=hello-world_
+
+We can now try to access our app using the Service's DNS in each cluster:
+```console
+$ kubectl run -it -n federate-me --image=busybox svc-eks-1 --context=federated-eks-1 -- sh
+/ # wget -O- -q hello-world-svc
+<html>
+  <head>
+    <title>Hello world!</title>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+body {
+  background-color: #2989A4;
+  text-align: center;
+  padding: 50px;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: white;
+}
+
+#logo {
+  margin-bottom: 40px;
+}
+    </style>
+  </head>
+  <body>
+    <img id="logo" src="logo.png" />
+    <h1>Hello world!</h1>
+    <h3>My hostname is test-hello-world-d6d58457b-bkbl5</h3>
+    <h3>Links found</h3>
+    <b>KUBERNETES</b> listening in 443 available at tcp://10.100.0.1:443<br />
+  </body>
+</html>
+$ kubectl run -it -n federate-me --image=busybox svc-eks-2 --context=federated-eks-2 -- sh
+/ # wget -O- -q hello-world-svc
+<html>
+  <head>
+    <title>Hello world!</title>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+body {
+  background-color: #2989A4;
+  text-align: center;
+  padding: 50px;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: white;
+}
+
+#logo {
+  margin-bottom: 40px;
+}
+    </style>
+  </head>
+  <body>
+    <img id="logo" src="logo.png" />
+    <h1>Hello world!</h1>
+    <h3>My hostname is test-hello-world-d6d58457b-fh59n</h3>
+    <h3>Links found</h3>
+    <b>KUBERNETES</b> listening in 443 available at tcp://10.100.0.1:443<br />
+  </body>
+</html>
+```
+_Validate federated service in the federated clusters_
+
+### custom CRDs
+
+example using Prometheus-Operator
+
+- wget release
+prom: https://github.com/prometheus-operator/prometheus-operator/archive/v0.45.0.tar.gz
+- extract bundle
+tar xvf v0.45.0.tar.gz
+- apply to cluster-1 et cluster-2
+```console
+$ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks-1
+$ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks-2
+```
+
+- enabled federated resource
+
+``` console
+$ kubefedctl enable Prometheus --federated-group monitoring.coreos.com
+customresourcedefinition.apiextensions.k8s.io/federatedprometheuses.monitoring.coreos.com created
+federatedtypeconfig.core.kubefed.io/prometheuses.monitoring.coreos.com created in namespace kube-federation-system
+```
+_Create and enable the FederatedPrometheus resource_
+
+```
+$ kubectl patch clusterrole kubefed-role --type='json' -p='[{"op": "add", "path": "/rules/1", "value": {
+            "apiGroups": [
+                "monitoring.coreos.com"
+            ],
+            "resources": [
+                "*"
+            ],
+            "verbs": [
+                "get",
+                "watch",
+                "list",
+                "update"
+            ]
+        }
+}]'
+clusterrole.rbac.authorization.k8s.io/kubefed-role patched
+```
+_Allow the kubefed to federate resources from "monitoring.coreos.com"_
+
+- deploy federated resource
+```yaml
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  serviceAccountName: prometheus
+  resources:
+    requests:
+      memory: 400Mi
+  enableAdminAPI: true
+```
+
+- federate resource
+```console
+$ kubefedctl -n federate-me federate prometheus prometheus
+I0125 13:41:33.361770    4855 federate.go:501] Successfully created FederatedPrometheus "federate-me/prometheus" from Prometheus
+```
+- check propagation
+```console
+$ kubectl get prometheus -n federate-me
+NAME         VERSION   REPLICAS   AGE
+prometheus                        80s
+$ kubectl get prometheus -n federate-me --context=federated-eks-2
+NAME         VERSION   REPLICAS   AGE
+prometheus                        40s
+$ kubectl get federatedprometheus -n federate-me
+NAME         AGE
+prometheus   26s
+```
+_Ensure prometheus get replicated from kubefedctl federate_
+
+
 #### delete the clusters
 
 When creating federated clusters using `eksfedctl`, an env file based on the stack name is created
