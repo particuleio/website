@@ -345,21 +345,23 @@ body {
 ```
 _Validate federated service in the federated clusters_
 
-### custom CRDs
+### deploying CRDs
 
 example using Prometheus-Operator
+Kubefed also can also federate [custom resource definitions][9] but requires some configuration.
+We will deploy the Prometheus-Operator ([prometheus-operator/prometheus-operator][10]) in our
+Federated Cluster and see which additionel steps are involved.
 
-- wget release
-prom: https://github.com/prometheus-operator/prometheus-operator/archive/v0.45.0.tar.gz
-- extract bundle
-tar xvf v0.45.0.tar.gz
-- apply to cluster-1 et cluster-2
+[9]: https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
+[10]: https://github.com/prometheus-operator/prometheus-operator/
+
 ```console
+$ wget -O archive.tar.gz https://github.com/prometheus-operator/prometheus-operator/archive/v0.45.0.tar.gz
+$ tar xvf archive.tar.gz
 $ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks-1
 $ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks-2
 ```
-
-- enabled federated resource
+_Install Prometheus-Operator CRDs in both clusters._
 
 ``` console
 $ kubefedctl enable Prometheus --federated-group monitoring.coreos.com
