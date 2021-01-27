@@ -65,7 +65,7 @@ _Federated Amazon EKS Cluster architecture - © Credits AWS_
 ### let's try it out
 
 _Pre-requisite: Make sure you have the sufficient permissions to create the resources mentioned above.
-A user policy example is available in the [awslabs/federated-amazon-eks-clusters] repository._
+A user policy example is available in the [awslabs/federated-amazon-eks-clusters][5] repository._
 
 [5]: https://raw.githubusercontent.com/awslabs/federated-amazon-eks-clusters-on-aws/master/source/solution-user-policy.json
 
@@ -99,7 +99,7 @@ $ eksfedctl create --regions us-east-1 us-east-2
 This might take a while, as it involves quite a few operations. Each child
 CloudFormation stack is available in its own region.
 
-Upon succesful termination of the eksfedctl command, we can observe our
+Upon succesful termination of the `eksfedctl` command, we can observe our
 freshly created clusters by running:
 
 ```console
@@ -221,10 +221,10 @@ spec:
 _Deploy a hello-world application using FederatedDeployment_
 
 This `FederatedDeployment` will create a Deployment with a single container
-named helloworld based on the image particule/helloworld. The 3 replicas
+named helloworld based on the image `particule/helloworld`. The 3 replicas
 requested will be split amongst the two registered federated clusters. We can increase
 the replica count accross the clusters using a `ReplicaSchedulingPreference`
-with the same namespace/name as our FederatedDeployment and by setting
+with the same namespace/name as our `FederatedDeployment` and by setting
 the `.spec.totalReplicas` count with the the new value of 7.
 
 ```yaml
@@ -259,7 +259,7 @@ test-hello-world-d6d58457b-xh4x6   1/1     Running   0          105s    172.22.7
 ```
 _Example output from ReplicaSchedulingPreference with replicas=7_
 
-As for the Deployment resource kind, the `Service` resource does not requires
+As for the Deployment resource kind, the `Service` resource does not require
 any additional configuration to be configured using a `FederatedService`.
 This will ensure that both our clusters can expose our applications through their own Service.
 
@@ -323,7 +323,7 @@ _Validate federated service in the federated clusters_
 
 Kubefed also can also federate [custom resource definitions][9] but requires some configuration.
 We will deploy the Prometheus-Operator ([prometheus-operator/prometheus-operator][10]) in our
-Federated Cluster and see which additionel steps are involved.
+Federated Cluster and see which additional steps are involved.
 
 [9]: https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 [10]: https://github.com/prometheus-operator/prometheus-operator/
