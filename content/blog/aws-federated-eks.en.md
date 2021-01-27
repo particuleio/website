@@ -167,7 +167,7 @@ Events:
 ```
 _example output from a federated resource description_
 
-As previously mentionned, federated clusters go way beyong "simply" sharing configs and secrets.
+As previously mentionned, federated clusters go way beyond "simply" sharing configs and secrets.
 This setup allows you to leverage the power `ReplicaSchedulingPreference` by targeting
 FederatedDeployments and applying weight to different clusters, but also
 [Multi-Cluster Ingress DNS][7] and [Multi-Cluster Service DNS][8].
@@ -291,20 +291,7 @@ $ kubectl run -it -n federate-me --image=busybox svc-eks-1 --context=federated-e
 <html>
   <head>
     <title>Hello world!</title>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <style>
-body {
-  background-color: #2989A4;
-  text-align: center;
-  padding: 50px;
-  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: white;
-}
-
-#logo {
-  margin-bottom: 40px;
-}
-    </style>
+    <!-- ... -->
   </head>
   <body>
     <img id="logo" src="logo.png" />
@@ -319,20 +306,7 @@ $ kubectl run -it -n federate-me --image=busybox svc-eks-2 --context=federated-e
 <html>
   <head>
     <title>Hello world!</title>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <style>
-body {
-  background-color: #2989A4;
-  text-align: center;
-  padding: 50px;
-  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: white;
-}
-
-#logo {
-  margin-bottom: 40px;
-}
-    </style>
+    <!-- ... -->
   </head>
   <body>
     <img id="logo" src="logo.png" />
@@ -347,7 +321,6 @@ _Validate federated service in the federated clusters_
 
 ### deploying CRDs
 
-example using Prometheus-Operator
 Kubefed also can also federate [custom resource definitions][9] but requires some configuration.
 We will deploy the Prometheus-Operator ([prometheus-operator/prometheus-operator][10]) in our
 Federated Cluster and see which additionel steps are involved.
@@ -362,6 +335,9 @@ $ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks
 $ kubectl apply -f prometheus-operator-0.45.0/bundle.yml --context=federated-eks-2
 ```
 _Install Prometheus-Operator CRDs in both clusters._
+
+We can now propagate Prometheus CRD by enabling it through kubefedctl and by patching
+the kubefed-role ClusterRole.
 
 ``` console
 $ kubefedctl enable Prometheus --federated-group monitoring.coreos.com
@@ -390,7 +366,11 @@ clusterrole.rbac.authorization.k8s.io/kubefed-role patched
 ```
 _Allow the kubefed to federate resources from "monitoring.coreos.com"_
 
-- deploy federated resource
+Kubefed can now propagate the resources to both EKS clusters, as both of them have knowledge
+of the Prometheus-Operator CRDs and kubefed can observe them.
+To ensure everything is working as expected regarding CRD-federated resources, we create
+a simple Prometheus resource:
+
 ```yaml
 ---
 apiVersion: monitoring.coreos.com/v1
@@ -405,13 +385,12 @@ spec:
   enableAdminAPI: true
 ```
 
-- federate resource
+After registering the resource using `kubectl apply` we can federate the freshly created
+Prometheus through the federated-eks-1 and observe propagation to the federated-eks-2.
+
 ```console
 $ kubefedctl -n federate-me federate prometheus prometheus
 I0125 13:41:33.361770    4855 federate.go:501] Successfully created FederatedPrometheus "federate-me/prometheus" from Prometheus
-```
-- check propagation
-```console
 $ kubectl get prometheus -n federate-me
 NAME         VERSION   REPLICAS   AGE
 prometheus                        80s
@@ -424,6 +403,8 @@ prometheus   26s
 ```
 _Ensure prometheus get replicated from kubefedctl federate_
 
+The `FederatedPrometheus` has been created through the federate command in the "federate-me"
+namespace and a new Prometheus object appeared in the other cluster.
 
 #### delete the clusters
 
