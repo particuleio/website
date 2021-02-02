@@ -107,6 +107,11 @@ unsafe= true
         title   = "particule, l'expertise Cloud Native"
         description = "Les fondations de Particule reposent sur les concepts du DevOps et du Cloud avec l'ambition de vous aider à naviguer dans un écosystème toujours plus grand et plus complexe. Nous mettons notre expertise à votre disposition pour vos projets."
 
+    [Languages.fr.params.kubernetesAboutSm]
+        enable  = true
+        title   = "particule, au coeur de Kubernetes"
+        description = "Kubernetes est le nouveau standard pour construire vos infrastructures Cloud Native et pour y déployer vos applications. Vous avez besoin d'experts, faîtes nous confiance pour tous vos projets gravitant autour de Kubernetes."
+
     # Blog Section On Homepage
     [Languages.fr.params.blog]
         enable  = true
@@ -185,6 +190,12 @@ unsafe= true
         title   = "Blog."
         subtitle= ""
 
+    # Kubernetes Section On Homepage
+    [Languages.en.params.kubernetesAboutSm]
+        enable  = true
+        title   = "particule, Kubernetes at the core"
+        description = "Kubernetes is the new standard to build your Cloud Native infrastructure and to deploy your applications. We made a bet on Kubernetes years ago, and now it's paying off. You need experts, trust us for all your projects involving Kubernetes."
+
     # Contact Section
     [Languages.en.params.contact]
         enable  = true
@@ -219,6 +230,10 @@ unsafe= true
         url     = "blog"
         weight  = 1
     [[menu.nav]]
+        name    = "kubernetes"
+        url     = "kubernetes"
+        weight  = 2
+    [[menu.nav]]
         name    = "formations"
         url     = "trainings"
-        weight  = 2
+        weight  = 3

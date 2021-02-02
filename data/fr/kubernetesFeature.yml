@@ -1,0 +1,16 @@
+enable  : true
+item  :
+  - image  : images/wheel-publiccloud.png
+    title : Cloud Public
+    description : >
+      Nous vous accompagnons pour déployer et manager votre cluster Kubernetes sur les principaux Cloud Publics et leurs solutions managées (EKS, GKE, AKS, Kapsule, etc)
+
+  - image  : images/logos/logo-openstack-vmware.png
+    title : Cloud Privé
+    description : >
+      Grâce à nos compétences OpenStack et VMware, nous sommes capable de déployer from scratch un environnement Kubernetes complet, complètement en Infra as Code, sur votre Cloud Privé
+
+  - image  : https://raw.githubusercontent.com/particuleio/symplegma/main/images/logo.png
+    title : Baremetal
+    description : >
+      Notre solution [Symplegma](https://landscape.cncf.io/?selected=symplegma), installeur Kubernetes certifié, permet de disposer du même niveau de qualité que n'importe quel cluster Kubernetes disponible sur un Cloud Privé/Public

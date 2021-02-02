@@ -14,6 +14,8 @@ other = "trainings."
 other = "legal."
 [legalnotice]
 other = "Legal Notice"
+[kubernetes]
+other = "kubernetes."
 
 [graphicdesign]
 other = "EN Graphic Design"
