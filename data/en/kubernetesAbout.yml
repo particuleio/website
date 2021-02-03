@@ -1,0 +1,46 @@
+enable  : true
+item    :
+  - positionRight : false
+    image : images/about/kubernetes-certifications.png
+    title : We are Kubernetes certified experts
+    description : >
+      At Particule, everyone is a Kubernetes certified expert. We are deeply committed to this technology we have been working with since the beginning. These certifications are the proof of our up-to-date knowledge.
+
+  - positionRight : true
+    image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
+    title : Gitops all the way
+    description : >
+      Gitops is the new standard to deploy application on Kubernetes. Git
+      and CI/CD (FluxCD, ArgoCD, Concourse-CI, Github Actions) will become the
+      cornerstone of all your application stack. Deploying a new component will
+      be as simple as committing to Git. In order to deliver you the best possible experience, we use Gitops tools each time they are required. Which is everytime. We help you choose the right tool for you, setting it up and train your team to be operational on their Gitops journey
+
+  - positionRight : false
+    image : images/about/symplegma-certified.png
+    title : Symplegma, our certified Kubernetes installer
+    description : >
+      [Symplegma](https://github.com/particuleio/symplegma) (from greek σύμπλεγμα) is a simple set of Ansible playbooks to
+      deploy Kubernetes with Kubeadm. It is heavily inspired
+      by Kubespray and OpenStack Ansible. Its main goal is to be minimalist,
+      fast with sensible defaults.
+      [Symplegma is, continuously, certified](https://github.com/cncf/k8s-conformance/tree/master/v1.20/symplegma)
+      since Kubernetes `v1.12`.
+
+  - positionRight : true
+    image : images/about/k8s-terraform-particule-helm.png
+    title : Terraform <i class="fas fa-heart"></i> Kubernetes
+    description : >
+      Public Clouds are among the most suitable environments to host your Kubernetes
+      Cluster, especially since every major Public Cloud provide a
+      managed Kubernetes solution. But even if your Kubernetes
+      is managed by your Cloud provider, you still
+      need to deploy all the components on top of it. Particule develops and
+      maintains a set of tools based on **Terraform** to deploy your managed
+      Kubernetes cluster and all the main Kubernetes addons as well :
+
+      - **[Terraform EKS](https://github.com/particuleio/teks)**
+
+      - **[Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
+
+      - **[Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
+

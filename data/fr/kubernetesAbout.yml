@@ -1,0 +1,56 @@
+enable  : true
+item    :
+  - positionRight : false
+    image : images/about/kubernetes-certifications.png
+    title : Des experts Kubernetes certifiés
+    description : >
+      Chez Particule, nous sommes tous des experts Kubernetes certifiés. Nous
+      sommes impliqués dans cette technologie avec laquelle nous travaillons
+      depuis toujours. Ces certifications sont la preuve de notre engagement
+      à maintenir notre niveau technique à la hauteur de vos projets.
+
+  - positionRight : true
+    image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
+    title : Génération Gitops
+    description : >
+      Gitops est le nouveau standard pour déployer des applications sur
+      Kubernetes. Git et votre CI/CD (FluxCD, ArgoCD, Concourse-CI,
+      Github Actions) constituent la pierre angulaire de la logique de
+      déploiement applicative. Déployer un nouveau composant devient aussi
+      simple que de commit sur Git. Dans le but de vous proposer la meilleure
+      expérience possible, nous utilisons les outils et la méthodologie Gitops
+      à chaque fois que cela est requis. C'est à dire tout le temps. Nous
+      vous aidons à choisir le bon outil, à le mettre en production et à
+      former vos équipes pour qu'elles aient une longueur d'avance sur vos
+      concurrents.
+
+  - positionRight : false
+    image : images/about/symplegma-certified.png
+    title : Symplegma, installateur Kubernetes certifié
+    description : >
+      [Symplegma](https://github.com/particuleio/symplegma) (from greek σύμπλεγμα)
+      est un outil permettant d'installer Kubernetes grâce à des playbooks Ansible
+      et à Kubeadm. Il est fortement inspiré de Kubespray et d'OpenStack-Ansible.
+      Son principal but est d'être un outil minimaliste, rapide et configuré avec
+      des valeurs par défaut production-ready
+      [Symplegma est, continuellement, certifié](https://github.com/cncf/k8s-conformance/tree/master/v1.20/symplegma)
+      depuis Kubernetes `v1.12`.
+
+  - positionRight : true
+    image : images/about/k8s-terraform-particule-helm.png
+    title : Terraform <i class="fas fa-heart"></i> Kubernetes
+    description : >
+      Les Cloud Public sont les environnements les plus à même d'héberger votre cluster
+      Kubernetes surtout depuis que la majorité des grands acteurs disposent d'un
+      service Kubernetes managé. Mais même si votre Kubernetes est managé, il est
+      toujours nécessaire de déployer les composants nécessaires à tout cluster
+      de production. Particule développe et maintient une série d'outils basés sur
+      **Terraform** permettant de gérer le cycle de vie de votre cluster ainsi que celui
+      de tous les principaux addons afin rendre votre cluster Kubernetes production-compliant.
+
+      - **[Terraform EKS](https://github.com/particuleio/teks)**
+
+      - **[Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
+
+      - **[Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
+
