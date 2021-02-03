@@ -193,7 +193,7 @@ unsafe= true
     # Kubernetes Section On Homepage
     [Languages.en.params.kubernetesAboutSm]
         enable  = true
-        title   = "particule, Kubernetes at the core"
+        title   = "particule, Kubernetes at its core"
         description = "Kubernetes is the new standard to build your Cloud Native infrastructure and to deploy your applications. We made a bet on Kubernetes years ago, and now it's paying off. You need experts, trust us for all your projects involving Kubernetes."
 
     # Contact Section
