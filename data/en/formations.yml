@@ -6,7 +6,7 @@ subtitle : Through our training courses, we help you comprehend the landscape of
 item  :
   - name        : Kubernetes
     price       : 3 days
-    description : "Kubernetes training for Kubernetes administors and users"
+    description : "Kubernetes training for Kubernetes administrators and users"
     featurelist :
       - item: Kubernetes concepts
       - item: Main API objects
@@ -18,7 +18,7 @@ item  :
       - item: Cluster operation and hardening
       - item: Main admin API objects
       - item: User and operator training
-      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.19.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.19.pdf)
+      - item: Prepare [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.20.pdf) et [CKAD exam](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.20.pdf)
     btnText     : Contact Us
     btnURL      : "https://particule.io/en#contact"
     color       : kubernetes
@@ -33,9 +33,11 @@ item  :
       - item: PKI Kubernetes
       - item: Network security
       - item: Pods security
-      - item: Prepare [CKS](https://github.com/cncf/curriculum/blob/master/CKS_Curriculum_%20v1.19.pdf)
-    btnText     : Nous contacter
+      - item: Supply chain security
+      - item: Prepare [CKS](https://github.com/cncf/curriculum/blob/master/CKS_Curriculum_%20v1.20.pdf)
+    btnText     : Contact Us
     btnURL      : "https://particule.io#contact"
+    color       : kubernetes
 
   - name        : Terraform
     price       : 3 days
