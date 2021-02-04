@@ -1,9 +1,9 @@
 ---
-Title: Automatique image update in Git with FluxCD
+Title: Automatic image update in Git with FluxCD
 Date: 2021-02-03
 Category: Kubernetes
 Summary: "This feature had disappeared from FluxCD since the v2 but it's back
-now and allow you to automatically track image updates !"
+now and allows you to automatically track image updates !"
 Author: Romain Guichard
 image: images/thumbnails/flux-horizontal-color.png
 imgSocialNetwork: images/og/flux-image-update.png
