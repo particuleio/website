@@ -4,7 +4,7 @@ item    :
     image : images/about/kubernetes-certifications.png
     title : Kubernetes Certified Service Provider
     description : >
-      Particule is an official [**Kubernetes Certified Service Provier**](https://www.cncf.io/certification/kcsp/), a recognition by the [CNCF](https://cncf.io) of our deep Kubernetes expertise. We are deeply committed to this technology we have been working with since the beginning. We are all Kubernetes certified experts and these certifications are the proof of our up-to-date knowledge.
+      Particule is an official [**Kubernetes Certified Service Provider**](https://www.cncf.io/certification/kcsp/), a recognition by the [CNCF](https://cncf.io) of our deep Kubernetes expertise. We are deeply committed to this technology we have been working with since the beginning. We are all Kubernetes certified experts and these certifications are the proof of our up-to-date knowledge.
 
   - positionRight : true
     image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
