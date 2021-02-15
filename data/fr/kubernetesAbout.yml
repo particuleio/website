@@ -2,11 +2,13 @@ enable  : true
 item    :
   - positionRight : false
     image : images/about/kubernetes-certifications.png
-    title : Des experts Kubernetes certifiés
+    title : Kubernetes Certified Service Provider
     description : >
-      Chez Particule, nous sommes tous des experts Kubernetes certifiés. Nous
+      Particule fait partie du cercle restreint des
+      [**Kubernetes Certified Service Provier**](https://www.cncf.io/certification/kcsp/) français,
+      signe de reconnaissance par la [CNCF](https://cncf.io) de notre forte expertise sur Kubernetes. Nous
       sommes impliqués dans cette technologie avec laquelle nous travaillons
-      depuis toujours. Ces certifications sont la preuve de notre engagement
+      depuis toujours. Tous nos consultants sont certifiés sur Kubernetes, preuve de notre engagement
       à maintenir notre niveau technique à la hauteur de vos projets.
 
   - positionRight : true
@@ -48,9 +50,9 @@ item    :
       **Terraform** permettant de gérer le cycle de vie de votre cluster ainsi que celui
       de tous les principaux addons afin rendre votre cluster Kubernetes production-compliant.
 
-      - **[Terraform EKS](https://github.com/particuleio/teks)**
+      - **[+ Terraform EKS](https://github.com/particuleio/teks)**
 
-      - **[Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
+      - **[+ Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
 
-      - **[Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
+      - **[+ Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
 

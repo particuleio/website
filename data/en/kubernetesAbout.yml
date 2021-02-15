@@ -2,9 +2,9 @@ enable  : true
 item    :
   - positionRight : false
     image : images/about/kubernetes-certifications.png
-    title : We are Kubernetes certified experts
+    title : Kubernetes Certified Service Provider
     description : >
-      At Particule, everyone is a Kubernetes certified expert. We are deeply committed to this technology we have been working with since the beginning. These certifications are the proof of our up-to-date knowledge.
+      Particule is an official [**Kubernetes Certified Service Provider**](https://www.cncf.io/certification/kcsp/), a recognition by the [CNCF](https://cncf.io) of our deep Kubernetes expertise. We are deeply committed to this technology we have been working with since the beginning. We are all Kubernetes certified experts and these certifications are the proof of our up-to-date knowledge.
 
   - positionRight : true
     image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
@@ -38,9 +38,9 @@ item    :
       maintains a set of tools based on **Terraform** to deploy your managed
       Kubernetes cluster and all the main Kubernetes addons as well :
 
-      - **[Terraform EKS](https://github.com/particuleio/teks)**
+      - **[+ Terraform EKS](https://github.com/particuleio/teks)**
 
-      - **[Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
+      - **[+ Terraform Scaleway Kapsule](https://github.com/particuleio/tkap)**
 
-      - **[Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
+      - **[+ Terraform Kubernetes Addons](https://github.com/particuleio/terraform-kubernetes-addons)**
 
