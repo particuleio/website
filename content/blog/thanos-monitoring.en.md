@@ -45,7 +45,7 @@ which can be a pain to maintain.
 
 ##### Storing metrics is expensive
 
-Prometheus stores metrics on disk, you have to make a choices between storage
+Prometheus stores metrics on disk, you have to make a choice between storage
 space and metric retention time. If you want to store data for a long time and
 running on a Cloud Provider, block storage can be expensive if you store
 terabyte of data on it. Also in production environnement prometheus is often run
@@ -67,14 +67,15 @@ on different data sources.
 [Prometheus
 federation](https://prometheus.io/docs/prometheus/latest/federation/) allow
 scraping prometheuses from prometheus, this solution works well when you are not
-scraping a lot of metrics. At scale if scraping all your other prometheuses
-takes longer than the scrape interval this is going to cause issue.
+scraping a lot of metrics. At scale, if the scrape duration of all your
+prometheus targets takes longer than the scrape interval, you might encounter
+some severe issues.
 
 ##### Prometheus remote write
 
 While [remote writing](https://prometheus.io/docs/practices/remote_write/) is a
 solution (and is also implemented by Thanos receiver), we will not discuss the
-"pushing metrics" part in this article, you can read about the pros and cons of
+"pushing metrics" part in this article. You can read about the pros and cons of
 pushing metrics
 [here](https://docs.google.com/document/d/1H47v7WfyKkSLMrR8_iku6u9VB73WrVzBHb2SB6dL9_g/edit#heading=h.2v27snv0lsur).
 It is recommended to push metrics as a last resort or when not trusting multiple
@@ -86,7 +87,7 @@ on the scrapping here.
 
 ![](/images/logos/thanos.svg#logosize)
 
-[Thanos](https://thanos.io/) is a "*Open source, highly available Prometheus
+[Thanos](https://thanos.io/) is an "*Open source, highly available Prometheus
 setup with long term storage capabilities*". Thanos is used by a lot of well
 known companies. It is also a part of [the CNCF incubating
 projects](https://www.cncf.io/projects/).
@@ -133,8 +134,8 @@ object store for metrics. This component acts as a store for Thanos Query
 
 [Thanos compactor](https://thanos.io/tip/components/compact.md/) is a singleton
 (it is not scalable) that is responsible for compacting and downsampling the
-metrics stored inside an object store. Downsampling is the fact of loosing
-granularity on your metrics over time: for example you may want to keep your
+metrics stored inside an object store. Downsampling is the action of loosing
+granularity on your metrics over time. For example you may want to keep your
 metrics for 2 or 3 year but you do not need so many data points as your metrics
 from yesterday. This is what the compactor is for, saving you byte on your
 object storage and therefore saving you $.
@@ -290,7 +291,7 @@ Thanos component deployed:
   * Storegateway are deployed to query the observer bucket
   * Query will perform query to the storegateways and the other querier
 
-Additionnals Thanos components deployed:
+Additionnal Thanos components deployed:
 
   * Thanos querier configured with TLS are deployed to query each observee
       cluster
