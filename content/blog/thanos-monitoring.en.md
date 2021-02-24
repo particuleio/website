@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Monitor multiple Kubernetes Clusters with Prometheus and Thanos
 Author: Kevin Lefevre
 image: images/logos/thanos.svg
+imgSocialNetwork: images/og/thanos.png
 lang: en
 ---
 
