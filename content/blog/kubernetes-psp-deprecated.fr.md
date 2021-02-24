@@ -17,9 +17,10 @@ c'est au tour des PodSecurityPolicy (PSP) de subir le même sort.
 
 Suite à [la PullRequest
 \#97171](https://github.com/kubernetes/kubernetes/pull/97171), les
-PodSecurityPolicy seront dépréciées à partir de la version `1.21` puis
-supprimées lors de la version `1.26`. Ce qui situe leur suppression dans 6
-releases, soit approximativement 18 mois au rythme actuel des releases.
+PodSecurityPolicy seront [dépréciées à partir de la version `1.21` puis
+supprimées lors de la version
+`1.25`](https://github.com/kubernetes/website/pull/26581/files). Ce qui situe leur suppression dans 5
+releases, soit approximativement 15 mois au rythme actuel des releases.
 
 Nous vous avions déjà parlé des PSP dans [un précédent
 article](https://particule.io/blog/kubernetes-psp/). Ces ressources permettent
