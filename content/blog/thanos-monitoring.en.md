@@ -1,8 +1,8 @@
 ---
-Title: Multi Cluster Monitoring with Thanos
+Title: Multi-Cluster Monitoring with Thanos
 Date: 2021-02-23T11:00:00+00:00
 Category: Kubernetes
-Summary: Monitor multiple Kubernetes Cluster with Prometheus and Thanos
+Summary: Monitor multiple Kubernetes Clusters with Prometheus and Thanos
 Author: Kevin Lefevre
 image: images/logos/thanos.svg
 lang: en
@@ -48,7 +48,7 @@ which can be a pain to maintain.
 Prometheus stores metrics on disk, you have to make a choice between storage
 space and metric retention time. If you want to store data for a long time and
 running on a Cloud Provider, block storage can be expensive if you store
-terabyte of data on it. Also in production environnement prometheus is often run
+terabyte of data on it. Also in production environnement Prometheus is often run
 either with replication or sharding or both, this can double or even quadruple
 your storage needs.
 
@@ -56,9 +56,9 @@ your storage needs.
 
 ##### Multiple Grafana Datasource
 
-It is possible to expose prometheus endpoints on the external network and to add
+It is possible to expose Prometheus endpoints on the external network and to add
 them as Datasource in a single Grafana. You just need to implements security on
-the prometheus external endpoints with mutual TLS or TLS and basic auth for
+the Prometheus external endpoints with mutual TLS or TLS and basic auth for
 example. The drawback of this solution is that you cannot make calculation based
 on different data sources.
 
@@ -66,9 +66,9 @@ on different data sources.
 
 [Prometheus
 federation](https://prometheus.io/docs/prometheus/latest/federation/) allow
-scraping prometheuses from prometheus, this solution works well when you are not
+scraping Prometheuses from Prometheus, this solution works well when you are not
 scraping a lot of metrics. At scale, if the scrape duration of all your
-prometheus targets takes longer than the scrape interval, you might encounter
+Prometheus targets takes longer than the scrape interval, you might encounter
 some severe issues.
 
 ##### Prometheus remote write
@@ -79,7 +79,7 @@ solution (and is also implemented by Thanos receiver), we will not discuss the
 pushing metrics
 [here](https://docs.google.com/document/d/1H47v7WfyKkSLMrR8_iku6u9VB73WrVzBHb2SB6dL9_g/edit#heading=h.2v27snv0lsur).
 It is recommended to push metrics as a last resort or when not trusting multiple
-cluster or tenant (for example when building a prometheus as a service
+cluster or tenant (for example when building a Prometheus as a service
 offering). Anyway this might be a topic for a further article but we will focus
 on the scrapping here.
 
@@ -99,7 +99,7 @@ like [rook](https://rook.io/) or [minio](https://min.io/).
 
 #### How does it work ?
 
-Thanos is running alongside prometheus. It is common to start with a Prometheus
+Thanos is running alongside Prometheus. It is common to start with a Prometheus
 only setup and to upgrade to a Thanos one.
 
 Thanos is split into several components, each having one goal (as every service
@@ -109,11 +109,11 @@ should be :) ). The component communicate with each other through gRPC.
 
 ![](/images/prometheus-thanos/thanos-sidecar-no-background.png)
 
-Thanos is running alongside prometheus (with a sidecar) and export prometheus
-metrics every 2h to an object storage. This allow prometheus to be *almost*
+Thanos is running alongside Prometheus (with a sidecar) and export Prometheus
+metrics every 2h to an object storage. This allow Prometheus to be *almost*
 stateless. Prometheus is still keeping 2 hours worth of metrics in memory so you
 might still loose 2 hours worth of metrics in case of outage (this is problem
-which should be handle by your prometheus setup, with HA/Sharding, and not by
+which should be handle by your Prometheus setup, with HA/Sharding, and not by
 Thanos).
 
 [Thanos sidecar](https://thanos.io/tip/components/sidecar.md/) is available out
@@ -125,7 +125,7 @@ and can be deploy easily. This component act as a store for Thanos Query.
 
 ##### Thanos Store
 
-[Thanos store](https://thanos.io/tip/components/store.md/) acts a gateway to
+[Thanos store](https://thanos.io/tip/components/store.md/) acts as a gateway to
 translate query to remote object storage. It can also cache some information on
 local storage. Basically this is the component that allows you to query an
 object store for metrics. This component acts as a store for Thanos Query
@@ -144,7 +144,7 @@ object storage and therefore saving you $.
 
 [Thanos Query](https://thanos.io/tip/components/query.md/) is the main component
 of Thanos, it is the central point where you send promQL query to. Thanos query
-exposes a prometheus compatible endpoints. Then it dispatches query to all of it
+exposes a Prometheus compatible endpoints. Then it dispatches query to all of it
 "stores". Keep in mind the store may be any other Thanos component that serves
 metrics. Thanos query can dispatch a query to:
 
@@ -153,10 +153,10 @@ metrics. Thanos query can dispatch a query to:
 * Thanos sidecar
 
 Thanos query is also responsible for deduplicating the metrics if the same
-metrics come from different stores or prometheuses. For example if you have a
-metric which is in a prometheus and also inside an object store, Thanos query
-can deduplicate the metrics. Deduplication also works based on prometheus
-replicas and shard in the case of a prometheus HA setup.
+metrics come from different stores or Prometheuses. For example if you have a
+metric which is in a Prometheus and also inside an object store, Thanos query
+can deduplicate the metrics. Deduplication also works based on Prometheus
+replicas and shard in the case of a Prometheus HA setup.
 
 ##### Thanos Query Frontend
 
@@ -170,7 +170,7 @@ write but this is still not the topic of this article.
 
 ### Multi Cluster Architecture
 
-There are multiple way to deploy these component into multiples Kubernetes
+There are multiple way to deploy these components into multiple Kubernetes
 Cluster, some are better than the other depending on the use cases and we cannot
 be exhaustive here.
 
@@ -286,8 +286,8 @@ A CA is generated for the observer cluster:
 
 Thanos component deployed:
 
-  * All thanos component are deployed
-  * Query Frontend which serve as a datasource endpoints for Grafana
+  * All Thanos components are deployed
+  * Query Frontend which serve as a datasource endpoint for Grafana
   * Storegateway are deployed to query the observer bucket
   * Query will perform query to the storegateways and the other querier
 
@@ -320,7 +320,7 @@ Additionnal Thanos components deployed:
 
 #### Observee cluster
 
-Observee cluster are Kubernetes cluster with minimal prometheus/thanos
+Observee clusters are Kubernetes clusters with minimal Prometheus/Thanos
 installation that are going to be queried by the Observer cluster
 
 Prometheus operator is running with:
