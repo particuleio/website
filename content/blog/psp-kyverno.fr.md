@@ -5,12 +5,12 @@ Category: Kubernetes
 Summary: Les PSP sont en voie de disparition, regardons comment automatiser l'application des best practices Kubernetes grâce à Kyverno
 Author: Theo "Bob" Massard
 image: images/thumbnails/kyverno.png
-imgSocialNetwork: images/og/kubefed-eks.png
+imgSocialNetwork: images/og/kyverno.png
 lang: fr
 ---
 
 Déjà mentionné dans [notre article][article-psp-deprecated] qui annonçait la dépréciation des PodSecurityPolicies et leur
-suppression à partir de la version 1.25, [Kyverno][kyverno-home] s'annonce être un digne successeur à 
+suppression à partir de la version 1.25, [Kyverno][kyverno-home] s'annonce être un digne successeur à
 ces dernières.
 
 Pour rappel, les PSP permettaient aux administrateurs de cluster de forcer l'application de bonnes pratiques
@@ -141,7 +141,7 @@ présentes à cet instant au sein du Cluster et génèrent des ClusterPolicyRepo
 
 #### Création d'une ClusterPolicy
 
-Il est temps de mettre en place notre première `Policy` ! 
+Il est temps de mettre en place notre première `Policy` !
 Définissons une règle simple qui vérifie la présence d'un label identifiant
 le nom de l'application à laquelle un `Pod` correspond.
 
@@ -242,8 +242,8 @@ modifier le comportement de génération automatique de règles.
 
 Essayons de déployer une ressource qui enfreint la règle que nous venons de créer:
 ```
-$ kubectl run sample --image=busybox 
-Error from server: admission webhook "validate.kyverno.svc" denied the request: 
+$ kubectl run sample --image=busybox
+Error from server: admission webhook "validate.kyverno.svc" denied the request:
 
 resource Pod/default/sample was blocked due to the following policies
 
@@ -266,9 +266,9 @@ Lors du déploiement du Chart Helm, un profil par défaut a été configuré en 
 _We have installed the "default" profile of Pod Security Standards and set them in audit mode._
 
 Ce mode de validation de `Policy` est _non-intrusif_ et permet de mettre progressivement
-en application les règles. Il n'empêche pas la création des ressources qui ne sont pas conformes 
+en application les règles. Il n'empêche pas la création des ressources qui ne sont pas conformes
 à la `Policy` mais va historiser les infractions dans des `PolicyReport` (`polr`) si la
-ressource est _namespaced_ (comme un `Deployment` ou un `ConfigMap`) dans le namespace de la ressource, 
+ressource est _namespaced_ (comme un `Deployment` ou un `ConfigMap`) dans le namespace de la ressource,
 ou des `ClusterPolicyReports` (`cpolr`) s'il s'agit de ressource non _namespaced_ (un `Namespace`)
 
 Lors de la création d'un `Deployment`, le template du `Pod` enfreint une `ClusterPolicy`.
