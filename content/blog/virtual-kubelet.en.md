@@ -29,13 +29,13 @@ To do so, let's use [tEKS](https://github.com/clusterfrak-dynamics/teks) which s
 
 In the project directory we can create a virtual-kubelet cluster:
 
-```bash
+```console
 cp -ar terraform/live/sample terraform/live/virtual-kubelet
 ```
 
 We will need to change some variables in `terraform/live/terraform.tfvars` :
 
-```json
+```terraform
 terragrunt = {
   remote_state {
     backend = "s3"
@@ -52,7 +52,7 @@ terragrunt = {
 
 You can modify the bucket and dynamodb table to suit your needs. Then in `live/virtual-kubelet/eks/terraform.tfvars` change the following :
 
-```json
+```terraform
 
 cluster_name = virtual-kubelet
 
@@ -106,11 +106,11 @@ node-pools = [
 
 You should be able to deploy the cluster:
 
-```bash
-terragrunt apply
-export KUBECONFIG=$(pwd)/kubeconfig
+```console
+$ terragrunt apply
+$ export KUBECONFIG=$(pwd)/kubeconfig
 
-kubectl get nodes
+$ kubectl get nodes
 
 NAME                                        STATUS   ROLES        AGE    VERSION
 ip-10-0-14-197.eu-west-1.compute.internal   Ready    node         109s   v1.12.7
@@ -135,7 +135,7 @@ You can see the extra IAM policy on the controller. In addition, two roles are c
 
 Now we can focus on the Virtual kubelet. In the `eks-addons/terraform.tfvars`:
 
-```json
+```terraform
 //
 // [provider]
 //
@@ -185,7 +185,7 @@ Run `terragrunt apply` inside the `eks-addons` folder.
 
 You should see a new node labeled `agent`:
 
-```bash
+```console
 kubectl get nodes
 
 NAME                                        STATUS   ROLES        AGE     VERSION
@@ -198,7 +198,7 @@ virtual-kubelet                             Ready    agent        3m52s   v1.13.
 
 If you describe the node you can see the hardware specs defined above:
 
-```bash
+```console
 Name:               virtual-kubelet
 Roles:              agent
 Labels:             alpha.service-controller.kubernetes.io/exclude-balancer=true
@@ -410,7 +410,7 @@ spec:
 
 The pods and service work as usual:
 
-```bash
+```console
 k get pods -o wide
 NAME                     READY   STATUS    RESTARTS   AGE     IP           NODE              NOMINATED NODE   READINESS GATES
 nginx-85c8c56bc4-hjr6j   1/1     Running   0          6m21s   10.0.65.92   virtual-kubelet   <none>           <none>
@@ -427,7 +427,7 @@ Our task is accessible behind an ELB, and then thanks to `kube-proxy`, we are fo
 
 If we look at the task running in AWS Fargate:
 
-```bash
+```console
  aws ecs list-tasks --cluster sample
 {
     "taskArns": [
@@ -438,13 +438,13 @@ If we look at the task running in AWS Fargate:
 
 Now we can try to scale our nginx pods:
 
-```bash
+```console
 kubectl scale deployment nginx --replicas=10
 ```
 
 Let's look at our tasks again:
 
-```bash
+```console
 aws ecs list-tasks --cluster sample
 {
     "taskArns": [
