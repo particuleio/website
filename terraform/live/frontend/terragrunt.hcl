@@ -12,7 +12,7 @@ locals {
   project     = "frontend"
   prefix      = "particule"
   custom_tags = yamldecode(file("${find_in_parent_folders("common_tags.yaml")}"))
-  referer     = jsondecode(run_cmd("--terragrunt-quiet", "bash", "-c", " aws --profile particule ssm get-parameter --name /cloudfront/default/referer --with-decryption | jq .Parameter.Value"))
+  referer     = run_cmd("--terragrunt-quiet", "bash", "-c", " aws --profile particule ssm get-parameter --name /cloudfront/default/referer --with-decryption | jq -r .Parameter.Value")
 }
 
 dependency "acm" {
