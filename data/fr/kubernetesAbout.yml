@@ -12,7 +12,7 @@ item    :
       à maintenir notre niveau technique à la hauteur de vos projets.
 
   - positionRight : true
-    image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
+    image : https://toolkit.fluxcd.io/_files/gitops-toolkit.png
     title : Génération Gitops
     description : >
       Gitops est le nouveau standard pour déployer des applications sur

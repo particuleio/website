@@ -7,7 +7,7 @@ item    :
       Particule is an official [**Kubernetes Certified Service Provider**](https://www.cncf.io/certification/kcsp/), a recognition by the [CNCF](https://cncf.io) of our deep Kubernetes expertise. We are deeply committed to this technology we have been working with since the beginning. We are all Kubernetes certified experts and these certifications are the proof of our up-to-date knowledge.
 
   - positionRight : true
-    image : https://toolkit.fluxcd.io/diagrams/gitops-toolkit.png
+    image : https://toolkit.fluxcd.io/_files/gitops-toolkit.png
     title : Gitops all the way
     description : >
       Gitops is the new standard to deploy application on Kubernetes. Git
