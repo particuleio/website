@@ -1,11 +1,11 @@
 ---
 Title: "CI/CD using Github Actions, AWS ECR and ECS Fargate"
-Date: 2021-03-30
+Date: 2021-04-05
 Category: Amazon Web Services
 Summary: Using AWS Github Actions, push to a private ECR and deploy ECS tasks on Fargate
 Author: Theo "Bob" Massard
-image: images/thumbnails/aws-ecs.png
-imgSocialNetwork: images/og/kubefed-eks.png
+image: images/thumbnails/ecs-fargate.png
+imgSocialNetwork: images/og/cicd-ecr-ecs.png
 lang: en
 ---
 
@@ -41,7 +41,7 @@ containers:
 - An ECS Service to run our ECS Tasks
 - An Elastic Container Registry (ECR) to store our container images
 
-We will setup the AWS instractur using the [AWS Terraform Provider][tf-aws-provider].
+We will setup the AWS infrastructure using the [AWS Terraform Provider][tf-aws-provider].
 
 We won't cover the VPC configuration and will rely on an existing VPC, referenced
 by its id in `local.vpc["id"]`.
