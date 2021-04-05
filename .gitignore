@@ -3,3 +3,4 @@ public
 .terraform.d
 .terragrunt-cache
 .vscode
+.terraform.lock.hcl
