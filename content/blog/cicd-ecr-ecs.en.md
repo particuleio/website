@@ -339,6 +339,8 @@ jobs:
 As previously mentioned, the integration job's sole purpose is to create a dependency
 to experiment with the deployment, which we will define below.
 
+![workflow](/images/github-actions/cicd-workflow.png)
+
 We want the CD to be executed:
 
 - if the ingration tests (unit tests, linting) are passing
