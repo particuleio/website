@@ -440,7 +440,7 @@ ECR_REPOSITORY_NAME    Updated 2021-03-30
 ECS_SERVICE            Updated 2021-03-30
 ```
 
-So far we:
+So far we have:
 
 - [x] Setup our AWS infrastructure
 - [x] Created a Github Actions Workflow
