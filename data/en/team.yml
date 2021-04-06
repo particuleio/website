@@ -37,6 +37,15 @@ team:
           link : "https://twitter.com/archifleks"
         - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
           link : "https://www.linkedin.com/in/kevinlefevre/"
+    - image : images/team/theomassard.jpg
+      name : Théo Massard
+      designation : Cloud Native Engineer
+      content: |
+        [![cka](/images/badges/logo_cka.png#flex10 "Certified Kubernetes Administrator")](https://www.cncf.io/certification/cka/)
+        [![ckad](/images/badges/logo_ckad.png#flex10 "Certified Kubernetes Application Developer")](https://www.cncf.io/certification/ckad/)
+      social_Icon :
+        - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
+          link : "https://www.linkedin.com/in/tbobm"
     - image : images/team/logo-team.png
       name : Particule is hiring !
       designation : recrutement@particule.io
