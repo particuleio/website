@@ -60,7 +60,7 @@ précieuses 5 secondes de vie
 ### Les pods security policy sont dépréciées
 
 C'est arrivé, elles vont officiellement disparaitre en version 1.25. Rien n'est
-prévu dans Kubernetes pour les remplacer et il est recommandé de passer a une
+prévu dans Kubernetes pour les remplacer et il est recommandé de passer à une
 solution tierce.
 
 Pour plus d'information à ce sujet nous vous invitons à parcourir notre article
