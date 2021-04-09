@@ -5,6 +5,7 @@ Category: Kubernetes
 Summary: Kubernetes `1.21` est sortie, passons en revue les nouveautés
 Author: Kevin Lefevre
 image: images/thumbnails/kubernetes-1.21.png
+imgSocialNetwork: images/og/kubernetes-1.21.png
 lang: fr
 ---
 
