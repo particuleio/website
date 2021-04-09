@@ -28,7 +28,7 @@ exhaustive, ni impartiale ;)
 Plusieurs ressources sont maintenant stables, c'est le cas des cronjob qui
 permettent de lancer des
 [`Jobs`](https://kubernetes.io/docs/concepts/workloads/controllers/job/) à
-intervalle régulière.
+intervalle régulier.
 
 On notera également les
 [`PodDisruptionBudget`](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
@@ -43,8 +43,8 @@ détail](https://particule.io/blog/kubernetes-1.19/) lors de la sortie de la
 
 ### La killer feature attendue de tous
 
-Si vous avez déjà du vous `exec` dans un pods avec plusieurs containers vous
-êtes surement déjà tombés la dessus:
+Si vous avez déjà du vous `exec` dans un pod avec plusieurs conteneurs vous
+êtes surement déjà tombés là dessus:
 
 ```
 k -n namespace exec -it mypod -- /bin/sh
@@ -52,11 +52,10 @@ Defaulting container name to container0.
 Use 'kubectl describe pod/mypod -n mynamespace' to see all of the containers in this pod.
 ```
 
-Et ensuite devoir rajouter `-c container` pour spécifier le bon container. Ce
-temps est révolu puisqu'il est maintenant possible de rajouter une annotation
-sur vos pod afin de spécifier l'annotation
+Et ensuite devoir rajouter `-c container` pour spécifier le bon conteneur. Ce
+temps est révolu puisqu'il est maintenant possible de rajouter l'annotation
 `kubectl.kubernetes.io/default-container` sur vos pods et enfin regagner ces
-précieuse 5 secondes de vie
+précieuses 5 secondes de vie
 
 ### Les pods security policy sont dépréciées
 
@@ -73,14 +72,14 @@ qui est selon nous un très bon choix de remplacement.
 ### Ce qui peut casser
 
 Un des points importants qui peut facilement passer à la trappe : si vous faites
-du Kubernetes avec `kubeadm`, celui ci vas activer automatiquement le cgroup
+du Kubernetes avec `kubeadm`, celui ci va activer automatiquement le cgroup
 driver à `systemd` pour les nouveaux déploiements. Il est important d'avoir le
 même `cgroup` [configuré dans votre container
 runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cgroup-drivers),
 certaines runtime utilisent `cgroupfs` par défaut (c'est le cas de containerd
 par exemple). A partir de la version 1.22, `kubeadm` activera par défaut
-`systemd` pour tous les déploiements, c'est a ce moment la qu'il faudra faire
-attention à l'update de vos nodes, qui pourraient potentiellement casser a cause
+`systemd` pour tous les déploiements, c'est à ce moment là qu'il faudra faire
+attention à l'update de vos nodes, qui pourraient potentiellement casser à cause
 de ce changement.
 
 ### Conclusion
