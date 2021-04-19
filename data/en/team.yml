@@ -43,6 +43,7 @@ team:
       content: |
         [![cka](/images/badges/logo_cka.png#flex10 "Certified Kubernetes Administrator")](https://www.cncf.io/certification/cka/)
         [![ckad](/images/badges/logo_ckad.png#flex10 "Certified Kubernetes Application Developer")](https://www.cncf.io/certification/ckad/)
+        [![sa](/images/badges/sa.png#flex10 "AWS Solutions Architect Associate")](https://aws.amazon.com/fr/certification/certified-solutions-architect-associate/)
       social_Icon :
         - icon : ti-linkedin # themify icon pack : https://themify.me/themify-icons
           link : "https://www.linkedin.com/in/tbobm"
