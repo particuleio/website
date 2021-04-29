@@ -19,7 +19,7 @@ item  :
       - item: Opérer un cluster
       - item: Les principaux objets admin de l’API
       - item: Prépare au [CKA](https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.19.pdf) et [CKAD](https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_V1.19.pdf)
-      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-full.fr.html)/[PDF](https://particule.io/formations/kubernetes-full.fr.html?print-pdf)
+      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-ube.fr.html)/[PDF](https://particule.io/formations/kubernetes-ube.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : kubernetes
@@ -35,7 +35,6 @@ item  :
       - item: Sécurité du réseau
       - item: Sécurité des pods
       - item: Prépare au [CKS](https://github.com/cncf/curriculum/blob/master/CKS_Curriculum_%20v1.19.pdf)
-      - item: Support de cours [HTML](https://particule.io/formations/kubernetes-security.fr.html)/[PDF](https://particule.io/formations/kubernetes-security.fr.html?print-pdf)
     btnText     : Nous contacter
     btnURL      : "https://particule.io#contact"
     color       : kubernetes
