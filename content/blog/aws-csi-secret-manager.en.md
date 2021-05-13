@@ -4,8 +4,8 @@ Date: 2021-05-03
 Category: Amazon Web Services
 Summary: AWS recently published a new Provider for the Secrets Store CSI Provider, let's see how we can inject AWS Secrets Manager content inside our Kubernetes cluster!
 Author: Theo "Bob" Massard
-image: images/thumbnails/eks.png
-imgSocialNetwork: images/og/kubefed-eks.png
+image: images/thumbnails/aws-secret-csi-driver.png
+imgSocialNetwork: images/og/aws-secret-csi-driver.png
 lang: en
 ---
 
@@ -13,7 +13,7 @@ Kubernetes provides a way to extend the existing volumes classes by leveraging t
 [Container Storage Interface][k8s-csi]. The CSI specifies a way of handling volumes
 and data using a common API to ease the development of plugins.
 
-Based on the CSI spec, the [Secrets Store CSI driver][secrets-store-doc] allows to exeternalize
+Based on the CSI spec, the [Secrets Store CSI driver][secrets-store-doc] allows to externalize
 secret handling, for example to delegate the creation, securisation and rotation of secrets to
 a Cloud provider by using different `Providers` that act like backends to interact with the
 remote secret source.
@@ -184,7 +184,7 @@ use to configure the mapping between the **CSI volume** and our secret stored
 in AWS **Secrets Manager**.
 
 As we have all the necessary requirements configured, we can proceed with the installation of
-the AWS **Secrets Manager** `Provider` using the `aws-provider-installer.yaml` manifest 
+the AWS **Secrets Manager** `Provider` using the `aws-provider-installer.yaml` manifest
 from the Github Repository.
 
 ```console
