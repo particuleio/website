@@ -15,12 +15,12 @@ facile. Non pas parce que Kubernetes est devenu plus
 simple mais parce que des outils/produits sont venus combler ce problème de
 déploiement. On va retrouver des outils comme Kubeadm, l'outil officiel pour
 bootstraper un cluster Kubernetes, des solutions comme
-[Symplemga](https://particuleio.github.io/symplegma/), des outils pour [installer Kubernetes en
+[Symplegma](https://particuleio.github.io/symplegma/), des outils pour [installer Kubernetes en
 local](https://particule.io/blog/kubernetes-local/) mais encore et surtout des
 services managés chez les principaux Cloud Providers, ce qui permet désormais via
 quelques clics ou un script Terraform de déployer nos clusters Kubernetes.
 
-Scaleway fait partie de ces Providers et fourni depuis un peu plus d'un an [la
+Scaleway fait partie de ces Providers et fournit depuis un peu plus d'un an [la
 solution Kubernetes Kapsule](https://particule.io/blog/scaleway-kapsule/).
 
 Avoir un cluster Kubernetes sur AWS, GCP, Azure ou Scaleway n'est donc pas un
@@ -104,7 +104,7 @@ n'importe où dans le monde. On y revient dans 5 min, promis.
 Pour ce nouveau pool, j'ai choisi la zone WAW-1.
 
 Récupérons le kubeconfig de notre cluster pour nous y connecter et vérifier que
-tous nos pools sont bel et bien crées.
+tous nos pools sont bel et bien créés.
 
 ```console
 $ kubectl get node
