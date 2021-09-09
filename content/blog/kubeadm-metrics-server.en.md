@@ -1,5 +1,5 @@
 ---
-Title: Make metrics-server works out of the box with kubeadm
+Title: Make metrics-server work out of the box with kubeadm
 Date: 2021-09-08
 Category: Kubernetes
 Summary: metrics-server doesn't work out of the box with a fresh, up to date, kubeadm cluster. Why ? What can we do about it ?
@@ -28,7 +28,7 @@ node hostname, or its ExternalIP. The argument
 to decide which one it should use. But this won't solve our problem because if
 you use Hostname as first choice, you end up with a DNS resolution problem
 because your pod doesn't know who "scw-sharp-cray" (the name of my node) is.
-Actually, even if the DNS resolution work, you will still face our first issue,
+Actually, even if the DNS resolution works, you will still face our first issue,
 because even the hostname of our node is not a certificate SAN...
 
 Actually, InternalIP is a good choice. And the way to fix this is to signed
