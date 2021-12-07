@@ -59,7 +59,7 @@ sensitive informations.
 
 In addition to that, Secrets manager provides some powerful features:
 
-- Being en AWS service, secrets supports ACL through [AWS **IAM**][aws-iam]
+- Being an AWS service, secrets supports ACL through [AWS **IAM**][aws-iam]
   - Fine-grained resource access can be configured to the secret level
   - Secret access can be [monitored][aws-sm-monitoring] using **Cloudwatch** / **Cloudtrail**
 - [Automated Secret rotation][aws-sm-rotate] using **Lambdas**, minimizing the risk
